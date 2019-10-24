@@ -59,7 +59,7 @@ h6, .h6 {
 
 .nav-link-login {
   position: relative;
-  padding: 1rem;
+  padding: 1px 10px;
   font-weight: 500;
   color: #000;
 }
