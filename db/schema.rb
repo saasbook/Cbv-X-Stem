@@ -10,7 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_20_223701) do
+ActiveRecord::Schema.define(version: 2019_10_24_080739) do
+
+  create_table "documents", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_holder_id"], name: "index_documents_on_user_holder_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
+  end
+
+  create_table "treatments", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_holder_id"], name: "index_treatments_on_user_holder_id"
+  end
+
+  create_table "user_holders", force: :cascade do |t|
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_settings", force: :cascade do |t|
+    t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_holder_id"], name: "index_user_settings_on_user_holder_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
