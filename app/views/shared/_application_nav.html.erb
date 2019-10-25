@@ -1,8 +1,27 @@
 <div class="blog-masthead">
   <div class="container">
     <nav class="nav blog-nav">
-      <%= nav_helper 'nav-link', 'span' %>
-      <p class="login"><%= login_helper 'nav-link-login' %></p>
+
+        <div class="collapse nav-povtal-interface" id="navbarToggleExternalContent">
+            <div class="nav-povtal-interface">
+              <span class="left-pivotal">
+                Current User: <br>
+                - <%= current_user && (current_user.first_name + " " + current_user.last_name) %>
+              </span>
+              <span class="right-pivotal">
+                  <%= link_to "Logout", destroy_user_session_path, method: :delete, class: '' %>
+                  <%= link_to "Profile", patient_profile_path, class: '' %>
+              </span>
+            </div>
+            <br>
+            <br>
+        </div>
+        <br>
+        <p class="login">
+          <%= user_login_logout %>
+        </p>
+        <%= nav_helper 'nav-link', 'span' %>
+
     </nav>
   </div>
 </div>

@@ -1,11 +1,11 @@
 module ApplicationHelper
-  def login_helper style = ''
-    if current_user.nil?
-      (link_to "Register", new_user_registration_path, class: style) +
-      " ".html_safe +
-      (link_to "Login", new_user_session_path, class: style)
+
+  def user_login_logout
+    if current_user.nil? then
+      render 'shared/log_in_sign_up'
     else
-      link_to "Logout", destroy_user_session_path, method: :delete, class: style
+      render 'shared/user_pivotal_button'
+
     end
   end
 
@@ -22,10 +22,6 @@ module ApplicationHelper
       {
         url: contact_path,
         title: 'Contact'
-      },
-      {
-        url: patient_profile_path,
-        title: 'Profile'
       },
     ]
   end

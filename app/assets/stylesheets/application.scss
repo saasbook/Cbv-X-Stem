@@ -1,0 +1,128 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+/*
+*= require_tree
+*= require_self
+*/
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "font-awesome";
+
+/*
+ * Globals
+ */
+
+
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #000;
+}
+
+.container {
+  min-height: 1.7rem;
+}
+
+/*
+ * Masthead for nav
+ */
+
+.blog-masthead {
+  position: relative;
+  min-height: 1.7rem;
+  margin-bottom: 3rem;
+  background-color: #428bca;
+}
+
+.blog-nav {
+  position: relative;
+}
+
+.nav-povtal-interface {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.left-pivotal {
+  width: 80%;
+  height: 100%;
+  margin: 0.5rem;
+}
+
+.right-pivotal {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0.5rem;
+  padding: 0;
+  width: 10%;
+  height: 100%;
+  float: right;
+  background-color: #a3b7d6;
+}
+
+.right-pivotal a {
+  color: #000;
+
+}
+
+.nav-link {
+  margin-top: 2rem;
+  position: relative;
+  padding: 1rem;
+  font-weight: 500;
+  color: #cdddeb;
+}
+
+.nav-link-login {
+  position: relative;
+  padding: 2px 5px;
+  font-weight: 500;
+  color: #000;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.nav-button {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  align-items: center;
+}
+
+.user-pivotal-button {
+  background-image:url('/images/man_info.png');
+  border-radius: 10px;
+  padding: 0;
+  border: 10px;
+}
+
+img {
+max-width:100%;
+max-height:100%;
+object-fit: contain;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #fff;
+  background-color: transparent;
+}
+
+/* Active state gets a caret at the bottom */
+.nav-link.active {
+  color: #fff;
+}
+
+.nav-image {
+  object-fit: cover;
+}
+
+.login {
+  position: absolute;
+  right: 0.6rem;
+  bottom: 0.6rem;
+  width: 3rem;
+  height: 3rem;
+  margin-top: 2;
+  margin-bottom: 0;
+}
