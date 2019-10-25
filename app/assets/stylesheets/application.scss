@@ -32,6 +32,17 @@ body {
   background-color: #428bca;
 }
 
+.nav-general-link {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  align-items: center;
+}
+
+.nav-general-link  a {
+  margin-top: 0;
+  align-items: center;
+}
+
 .blog-nav {
   position: relative;
 }
@@ -40,33 +51,39 @@ body {
   position: relative;
   height: 100%;
   width: 100%;
-  min-height: 5.7rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 2px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  min-height: 10.7rem;
+  background-color: #383c3d;
 }
 
 .left-pivotal {
-  width: 80%;
   height: 100%;
   margin: 0.5rem;
 }
 
+.left-pivotal-font {
+  color: #d9d8ca
+}
+
 .right-pivotal {
   position: absolute;
-  right: 0;
-  top: 0;
+  top: 1rem;
+  padding: 0.4rem;
+  right: 1rem;
   margin: 0.5rem;
-  padding: 0;
-  width: 10%;
-  float: right;
   background-color: #a3b7d6;
 }
 
-.right-pivotal a {
+.right-pivotal-link {
   color: #000;
-
 }
 
 .nav-link {
-  margin-top: 2rem;
+  margin-top: 1rem;
   position: relative;
   padding: 1rem;
   font-weight: 500;

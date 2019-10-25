@@ -2,23 +2,23 @@
   <div class="container">
     <nav class="nav blog-nav">
 
-        <div class="collapse nav-povtal-interface" id="navbarToggleExternalContent">
-            <div class="nav-povtal-interface">
-              <span class="left-pivotal">
-                Current User: <br>
-                - <%= current_user && (current_user.first_name + " " + current_user.last_name) %>
-              </span>
-              <span class="right-pivotal">
-                  <%= link_to "Logout", destroy_user_session_path, method: :delete, class: '' %>
-                  <%= link_to "Profile", patient_profile_path, class: '' %>
-              </span>
-            </div>
+        <div class="collapse jumbotron jumbotron-fluid nav-povtal-interface" id="navbarToggleExternalContent">
+            <span class="left-pivotal">
+              <p class="left-pivotal-font"> Current User: </p>
+              <p class="left-pivotal-font"> <%= current_user && (current_user.first_name + " " + current_user.last_name) %> </p>
+            </span>
+            <span class="right-pivotal">
+                <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'right-pivotal-link' %></div>
+                <div><%= link_to "Profile", patient_profile_path, class: 'right-pivotal-link' %></div>
+                <div><%= link_to "Documents", patient_profile_path, class: 'right-pivotal-link' %></div>
+                <div><%= link_to "Treatments", patient_profile_path, class: 'right-pivotal-link' %></div>
+            </span>
         </div>
         <br>
         <p class="login">
           <%= user_login_logout %>
         </p>
-        <%= nav_helper 'nav-link', 'span' %>
+        <%= nav_helper 'nav-link', 'nav-general-link' %>
 
     </nav>
   </div>
