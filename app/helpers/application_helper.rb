@@ -1,11 +1,9 @@
 module ApplicationHelper
-
   def user_login_logout
     if current_user.nil? then
       render 'shared/log_in_sign_up'
     else
       render 'shared/user_pivotal_button'
-
     end
   end
 
@@ -24,6 +22,10 @@ module ApplicationHelper
         title: 'Contact'
       },
     ]
+  end
+
+  def gender_is_female?
+    current_user.nil? || Guess.gender(current_user.first_name)[:gender] != "male"
   end
 
   def active? path
