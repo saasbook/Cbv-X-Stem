@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_24_085244) do
+ActiveRecord::Schema.define(version: 2019_11_01_091230) do
 
   create_table "documents", force: :cascade do |t|
     t.string "name"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 2019_10_24_085244) do
     t.integer "user_holder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address_line1"
+    t.string "address_line2"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.string "postal_code"
+    t.string "phone"
+    t.string "reached_through"
     t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
   end
 
@@ -46,6 +54,8 @@ ActiveRecord::Schema.define(version: 2019_10_24_085244) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_user_holders_on_user_id"
   end
 
   create_table "user_settings", force: :cascade do |t|

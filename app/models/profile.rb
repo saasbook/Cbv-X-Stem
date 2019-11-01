@@ -20,6 +20,10 @@ class Profile < ApplicationRecord
     UserHolder.all
   end
 
+  def profile_params
+    params.permit(:first_name, :last_name, :email, :address_line1, :address_line2, :city, :state, :country, :postal_code, :phone, :reached_through)
+  end
+
   # TODO creates corresponding controller and link to the profile model function here.
   # - Input: user_holder = ActiveRecord of UserHolder instance
   # - Link that direct to profile controller for that UserHolder
