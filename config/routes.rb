@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   get 'about-me', to: 'pages#about'
   get 'contact', to: 'pages#contact'
   get 'patient/profile', to: 'patients#profile'
+  get 'searchPatients', to: 'search_patients#searchPatients', :as => 'searchPatients'
+  post 'searchPatients', to: 'search_patients#findResults', :as => 'findReults'
 end

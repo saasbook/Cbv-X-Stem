@@ -1,0 +1,8 @@
+<%= form_tag searchPatients_path, :method => 'post' do %>
+  <div class="form-group row">
+    <label for="searchPatients" class="col-md-2 col-form-label">Enter Patients'name:</label>
+    <input type="text" name="searchPatients" autocomplete="off"
+           class="form-control col-md-1"/>
+    <input type="submit" value="search patients" class="col-md-1 btn btn-success"/>
+  </div>
+<% end %>
