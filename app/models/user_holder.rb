@@ -2,6 +2,8 @@ class UserHolder < ApplicationRecord
   # Email, First Name, and Last Name is required when creating entry.
   validates_presence_of :email, :first_name, :last_name
 
+  belongs_to :user
+
   # One to One Relationship :: One UserHolder to One Profile.
   has_one :profile
 
