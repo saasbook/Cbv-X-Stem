@@ -1,4 +1,17 @@
 module ApplicationHelper
+
+  def getUserHolderWithDefaultCreation
+    user_holder = UserHolder.find_by_email(current_user.email)
+    # create a UserHolder object if user does not have one already
+    if user_holder.nil?
+      user_holder = UserHolder.create!(first_name: current_user.first_name,
+                                      last_name: current_user.last_name,
+                                      email: current_user.email,
+                                      user_id: current_user.id)
+    end
+    user_holder = UserHolder.find_by_email(current_user.email)
+  end
+
   def user_login_logout
     if current_user.nil? then
       render 'shared/log_in_sign_up'
@@ -6,6 +19,8 @@ module ApplicationHelper
       render 'shared/user_pivotal_button'
     end
   end
+
+
 
   def nav_items
     [
