@@ -1,6 +1,6 @@
 <p><b>Name:</b> <%= @current_profile.first_name + " " + @current_profile.last_name %> </p>
 <p><b>Full address:</b> (street, number, apartment, house, postal code, city, country)
-    <%= @current_profile.address_line1 + @current_profile.address_line2 + @current_profile.city + @current_profile.state + @current_profile.country + @current_profile.postal_code %>
+    <%= getFullAddress(@current_profile) %>
 </p>
 <p><b>Mobile phone:</b>
     <%=  @current_profile.phone %></p>

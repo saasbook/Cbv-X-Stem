@@ -1,3 +1,5 @@
 class ApplicationController < ActionController::Base
-include DevisePermittedAttributes
+  include DevisePermittedAttributes
+  include ApplicationHelper
+
 end
