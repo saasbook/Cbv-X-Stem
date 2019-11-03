@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   get 'about-me', to: 'pages#about'
   get 'contact', to: 'pages#contact'
   get 'patient/profile', to: 'patients#profile'
+
+  get 'patient/:id/edit', to: 'patients#edit', as: 'patient_edit_profile'
+  # post 'patient/:id', to: 'patients#update', as: 'patient_update_profile'
+  patch 'patient/:id', to: 'patients#update', as: 'patient_update_profile'
 end
