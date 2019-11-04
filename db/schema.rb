@@ -10,11 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2019_11_04_064811) do
-=======
-#ActiveRecord::Schema.define(version: 2019_11_04_164632) do
->>>>>>> message initialization
+
+ActiveRecord::Schema.define(version: 2019_11_01_074602) do
+
+  create_table "documentations", force: :cascade do |t|
+    t.string "patient"
+    t.string "doctype"
+    t.string "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 
   create_table "documents", force: :cascade do |t|
     t.string "name"
@@ -25,8 +31,6 @@ ActiveRecord::Schema.define(version: 2019_11_04_064811) do
     t.index ["user_holder_id"], name: "index_documents_on_user_holder_id"
   end
 
-<<<<<<< HEAD
-=======
   create_table "messages", force: :cascade do |t|
     t.string "sender_name"
     t.string "sender_email"
@@ -37,7 +41,6 @@ ActiveRecord::Schema.define(version: 2019_11_04_064811) do
     t.datetime "updated_at", null: false
   end
 
->>>>>>> message initialization
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
