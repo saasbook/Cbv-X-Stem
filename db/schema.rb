@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_164632) do
+
+ActiveRecord::Schema.define(version: 2019_11_01_074602) do
+
+  create_table "documentations", force: :cascade do |t|
+    t.string "patient"
+    t.string "doctype"
+    t.string "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 
   create_table "documents", force: :cascade do |t|
     t.string "name"
@@ -31,11 +41,14 @@ ActiveRecord::Schema.define(version: 2019_11_04_164632) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
   create_table "notifications", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+=======
+>>>>>>> 5daecec827fd932097564e7ff4b87ed243c4d288
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
