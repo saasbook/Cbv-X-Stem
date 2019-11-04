@@ -5,9 +5,12 @@ class MessageMailer < ApplicationMailer
   #
   #   en.message_mailer.new_message.subject
   #
-  def new_message
-    @greeting = "Hi"
+  default from: "kelly1129ding@gmail.com"
 
-    mail to: "to@example.org"
+  def new_message(message)
+    @message = message
+
+    mail to: @message.receiver_email, 
+         subject: "New Message from Cbv X Stem"
   end
 end
