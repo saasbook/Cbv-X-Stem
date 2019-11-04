@@ -135,7 +135,10 @@ body {
   position: relative;
   padding: 1rem;
   font-weight: 500;
-  color: #cdddeb;
+}
+
+.nav-right1 {
+  color: #fff;
 }
 
 img {
@@ -179,6 +182,7 @@ object-fit: contain;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: 000;
 }
 
 .nav-right2-icon {
