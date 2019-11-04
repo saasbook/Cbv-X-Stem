@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :documentations, only: [:index, :new, :create, :destroy]
+  root "documentations#index"
+  get 'documentations/index'
+  get 'documentations/new'
+  get 'documentations/create'
+  get 'documentations/destroy'
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'pages#home'

@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_24_085244) do
+ActiveRecord::Schema.define(version: 2019_11_01_074602) do
+
+  create_table "documentations", force: :cascade do |t|
+    t.string "patient"
+    t.string "doctype"
+    t.string "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "documents", force: :cascade do |t|
     t.string "name"
