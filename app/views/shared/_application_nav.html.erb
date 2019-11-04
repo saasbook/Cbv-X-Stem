@@ -1,25 +1,42 @@
 <div class="blog-masthead">
   <div class="container">
-    <nav class="nav blog-nav">
-
-        <div class="collapse jumbotron jumbotron-fluid nav-povtal-interface" id="navbarToggleExternalContent">
-            <span class="left-pivotal">
-              <p class="left-pivotal-font"> Current User: </p>
-              <p class="left-pivotal-font"> <%= current_user && (current_user.first_name + " " + current_user.last_name) %> </p>
-            </span>
-            <span class="right-pivotal">
-                <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'right-pivotal-link' %></div>
-                <div><%= link_to "Profile", patient_profile_path, class: 'right-pivotal-link' %></div>
-                <div><%= link_to "Documents", patient_profile_path, class: 'right-pivotal-link' %></div>
-                <div><%= link_to "Treatments", patient_profile_path, class: 'right-pivotal-link' %></div>
-            </span>
+        <div class="collapse jumbotron jumbotron-fluid" id="nav-pivotal-printboard">
+            <div class="nav-pivotal-interface">
+              <span class="left-pivotal">
+                <div class="left-pivotal-font"> Current User: </div>
+                <div class="left-pivotal-font"> <%= current_user && (current_user.first_name + " " + current_user.last_name) %> </div>
+              </span>
+              <span class="mid-pivotal1" id="mid-p1">
+                <div class="mid-pivotal-font"> Patient Info: </div>
+                <ul>
+                  <li class="mid-pivotal-font2"=><b>Health plan:</b> <%=  @current_profile.health_plan %></li>
+                  <li class="mid-pivotal-font2"=><b>Weight:</b> <%=  @current_profile.weight %></li>
+                  <li class="mid-pivotal-font2"=><b>Height:</b> <%=  @current_profile.height %></li>
+                  <li class="mid-pivotal-font2"=><b>You have <span id="notification-font"><%=  0 %> </span> pending message. </b> </li>
+                  <li class="mid-pivotal-font2"=><b>You have <span id="notification-font"><%=  0 %> </span> coming appointment. </b> </li>
+                </ul>
+              </span>
+              <span class="right-function-pivotal">
+                  <div><%= link_to "Profile", patient_profile_path, class: 'right-pivotal-link' %></div>
+                  <div><%= link_to "Documents", patient_profile_path, class: 'right-pivotal-link' %></div>
+                  <div class='need-work'> Treatments </div>
+                  <div><%= link_to "Patients Profile", searchPatients_path, class: 'doctor-pivotal-link' %></div>
+              </span>
+              <span class="right-setting-pivotal">
+                  <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'right-pivotal-link' %></div>
+                  <div class='need-work'> User Setting </div>
+                  <div class='need-work'> Notification </div>
+                  <div class='need-work'> Message Box </div>
+              </span>
+            </div>
         </div>
-        <br>
-        <p class="login">
-          <%= user_login_logout %>
-        </p>
-        <%= nav_helper 'nav-link', 'nav-general-link' %>
-
-    </nav>
+        <div class="nav-grid">
+          <div class="nav-left">
+            <%= nav_helper 'nav-link', 'nav-general-link' %>
+          </div>
+          <div class="nav-right">
+              <%= user_login_logout %>
+          </div>
+        </div>
   </div>
 </div>

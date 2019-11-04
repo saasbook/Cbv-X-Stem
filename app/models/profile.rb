@@ -20,6 +20,10 @@ class Profile < ApplicationRecord
     UserHolder.all
   end
 
+  def profile_params
+    params.permit(:first_name, :last_name, :email, :address_line1, :address_line2, :city, :state, :country, :postal_code, :phone, :reached_through)
+  end
+
   # TODO creates corresponding controller and link to the profile model function here.
   # - Input: user_holder = ActiveRecord of UserHolder instance
   # - Link that direct to profile controller for that UserHolder
@@ -34,4 +38,14 @@ class Profile < ApplicationRecord
     UserHolder.find_by_id(user_holder_id).profile
   end
 
+  # Calculate age automatically from a birthday given.
+  # The solution to this problem was found on StackOverflow, by Phil Nash.
+  # https://stackoverflow.com/questions/819263/get-persons-age-in-ruby
+  def calculate_age_from_birthday(dob)
+    if dob.nil?
+        return
+    end
+    now = Time.now.utc.to_date
+    now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
+  end
 end

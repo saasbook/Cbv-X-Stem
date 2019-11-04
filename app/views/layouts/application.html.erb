@@ -12,6 +12,7 @@
   </head>
 
   <body>
+    <span class="no-show"><%= @profile = getProfileWithDefautCreation(getUserHolderWithDefaultCreation()) %></span>
     <%= render 'shared/application_nav' %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>

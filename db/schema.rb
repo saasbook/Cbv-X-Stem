@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2019_11_01_074602) do
 
   create_table "documentations", force: :cascade do |t|
@@ -20,6 +21,7 @@ ActiveRecord::Schema.define(version: 2019_11_01_074602) do
     t.datetime "updated_at", null: false
   end
 
+
   create_table "documents", force: :cascade do |t|
     t.string "name"
     t.string "url"
@@ -29,6 +31,16 @@ ActiveRecord::Schema.define(version: 2019_11_01_074602) do
     t.index ["user_holder_id"], name: "index_documents_on_user_holder_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string "sender_name"
+    t.string "sender_email"
+    t.string "receiver_email"
+    t.string "subject"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -36,6 +48,27 @@ ActiveRecord::Schema.define(version: 2019_11_01_074602) do
     t.integer "user_holder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address_line1"
+    t.string "address_line2"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.string "postal_code"
+    t.string "phone"
+    t.string "reached_through"
+    t.date "birthday"
+    t.string "sex"
+    t.string "health_plan"
+    t.string "contacts"
+    t.string "weight"
+    t.string "height"
+    t.boolean "smoke"
+    t.integer "smoke_a_day"
+    t.boolean "alcohol"
+    t.string "alcohol_use"
+    t.string "current_job"
+    t.string "exercise"
+    t.string "doctor"
     t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
   end
 
@@ -54,6 +87,8 @@ ActiveRecord::Schema.define(version: 2019_11_01_074602) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_user_holders_on_user_id"
   end
 
   create_table "user_settings", force: :cascade do |t|
