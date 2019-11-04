@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   resources :documentations, only: [:index, :new, :create, :destroy]
-  root "documentations#index"
   get 'documentations/index'
   get 'documentations/new'
   get 'documentations/create'

@@ -1,6 +1,7 @@
 module ApplicationHelper
 
   def getUserHolderWithDefaultCreation
+    if !current_user then return "Haven't logged in" end
     user_holder = UserHolder.find_by_email(current_user.email)
     # create a UserHolder object if user does not have one already
     if user_holder.nil?
