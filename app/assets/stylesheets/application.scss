@@ -126,8 +126,8 @@ object-fit: contain;
   display: grid;
   height: 5rem;
   width: 100%;
-  grid-template-areas: "left left left mid right right";
-  grid-template-columns: 7% 7% 7% auto 10% 10%;
+  grid-template-areas: "left left left left mid right right";
+  grid-template-columns: 7% 7% 7% 7% auto 10% 10%;
 }
 
 .nav-left {
@@ -135,7 +135,7 @@ object-fit: contain;
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-columns: repeat(3, 33%);
+  grid-template-columns: repeat(4, 25%);
 }
 
 .nav-middle {
