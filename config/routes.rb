@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   get 'contact', to: 'pages#contact'
   get 'patient/profile', to: 'patients#profile'
 
+  get 'searchPatients', to: 'search_patients#searchPatients', :as => 'searchPatients'
+  post 'searchPatients', to: 'search_patients#findResults', :as => 'findReults'
+
   get 'patient/:id/edit', to: 'patients#edit', as: 'patient_edit_profile'
   # post 'patient/:id', to: 'patients#update', as: 'patient_update_profile'
   patch 'patient/:id', to: 'patients#update', as: 'patient_update_profile'

@@ -21,6 +21,11 @@ ActiveRecord::Schema.define(version: 2019_11_04_064811) do
     t.index ["user_holder_id"], name: "index_documents_on_user_holder_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"

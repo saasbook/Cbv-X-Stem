@@ -1,32 +1,22 @@
 class PatientsController < ApplicationController
+  include ProfileHelper
+  include ApplicationHelper
+
   def profile
-    holder = current_user.user_holder
 
-    # create a UserHolder object if user does not have one already
-    if holder.nil?
-        newuserholder = UserHolder.create(first_name: current_user.first_name, last_name: current_user.last_name, email: current_user.email)
-        newuserholder.user_id = current_user.id
-        newuserholder.save!
+    # TODO Have userholder created when the user sign up. (Waiting for doctor authentication: UID#169251963)
+    # - UserHolder should be created when the user creates its account.
 
-        current_user.user_holder = newuserholder
-        current_user.save!
-        holder = current_user.user_holder
-    end
-
-    # create a profile if userholder object doesn't have one already
+    # Moves default-create helper function to applicationHelper, so it can be shared with all patient and doctor function.
+    # HACK Mock the initial UserHolder until ^TODO finished.
+    holder = getUserHolderWithDefaultCreation
+    @current_profile = holder.profile
+    #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
+    # - The patient should be urged to fill up their profile when they visit the profile first time.
+    # - It doesn't make sure to have profile that has required field not filled.
     if not holder.profile
-        newprofile = Profile.create(first_name: current_user.first_name, last_name: current_user.last_name, email: current_user.email)
-        newprofile.user_holder_id = holder.id
-        newprofile.save!
-
-        holder.profile = newprofile
-        holder.save!
-        @current_profile = holder.profile
-        @current_profile.created_at = Time.now
-        @current_profile.updated_at = Time.now
-        @current_profile.save!
-    else
-        @current_profile = holder.profile
+      # HACK Mock the initial profile until ^TODO finished.
+      @current_profile = getProfileWithDefautCreation(holder)
     end
 
     # IMPORTANT: call profile class's calculate_age_from_birthday function
