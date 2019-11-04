@@ -16,7 +16,7 @@ class PatientsController < ApplicationController
     # - It doesn't make sure to have profile that has required field not filled.
     if not holder.profile
       # HACK Mock the initial profile until ^TODO finished.
-      @current_profile = getProfileWithDefautCreation(holder)
+      @current_profile = getProfileWithDefaultCreation(holder)
     end
 
     # IMPORTANT: call profile class's calculate_age_from_birthday function
@@ -24,8 +24,32 @@ class PatientsController < ApplicationController
     @age = @current_profile.calculate_age_from_birthday(@current_profile.birthday)
   end
 
+  def new
+    # must be logged in
+    if not current_user.nil?
+        # get userholder instance, else create one.
+        holder = getUserHolderWithDefaultCreation
+        # if no profile yet, create one.
+        @new_profile = getProfileWithDefaultCreation(holder)
+    else
+        flash[:error] = "You must be logged in to view your profile."
+        redirect_to root_path
+    end
+  end
+
   def edit
-    @profile_to_edit = current_user.user_holder.profile
+    # if the user is logged in
+    if not current_user.nil?
+        holder = current_user.user_holder
+        # if there is a user holder for the user
+        if not holder.profile.nil?
+            @profile_to_edit = current_user.user_holder.profile
+        else
+            redirect_to patient_new_profile_path(current_user)
+        end
+    else
+        redirect_to patient_new_profile_path(current_user)
+    end
   end
 
   def update
