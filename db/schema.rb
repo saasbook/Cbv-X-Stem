@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_01_091230) do
+ActiveRecord::Schema.define(version: 2019_11_04_064811) do
 
   create_table "documents", force: :cascade do |t|
     t.string "name"
@@ -36,6 +36,19 @@ ActiveRecord::Schema.define(version: 2019_11_01_091230) do
     t.string "postal_code"
     t.string "phone"
     t.string "reached_through"
+    t.date "birthday"
+    t.string "sex"
+    t.string "health_plan"
+    t.string "contacts"
+    t.string "weight"
+    t.string "height"
+    t.boolean "smoke"
+    t.integer "smoke_a_day"
+    t.boolean "alcohol"
+    t.string "alcohol_use"
+    t.string "current_job"
+    t.string "exercise"
+    t.string "doctor"
     t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
   end
 

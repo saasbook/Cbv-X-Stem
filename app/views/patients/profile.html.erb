@@ -5,21 +5,21 @@
 <p><b>Mobile phone:</b>
     <%=  @current_profile.phone %></p>
 <p><b>Email:</b> <%= @current_profile.email %></p>
-<p><b>Date of birth:</b> <!-- Not yet implemented --> </p>
-<p><b>Age:</b> <!-- Not yet implemented --> </p>
-<p><b>Sex:</b> <!-- Not yet implemented --> </p>
-<p><b>Health plan:</b> <!-- Not yet implemented --> </p>
-<p><b>Family doctor or specialized:</b> <!-- Not yet implemented --> </p>
+<p><b>Date of birth:</b> <%=  @current_profile.birthday %> </p>
+<p><b>Age:</b> <%= @age %></p>
+<p><b>Sex:</b> <%=  @current_profile.sex %></p>
+<p><b>Health plan:</b> <%=  @current_profile.health_plan %></p>
+<p><b>Family doctor or specialized:</b> <%=  @current_profile.doctor %> </p>
 <p><b>Identification ID, Passport:</b> <!-- Not yet implemented --> </p>
-<p><b>Contacts (in case of emergency):</b> <!-- Not yet implemented --> </p>
+<p><b>Contacts (in case of emergency):</b> <%=  @current_profile.contacts %> </p>
 <p><b>How did you reach us?:</b>
     <%=  @current_profile.reached_through %></p>
-<p><b>Weight:</b> <!-- Not yet implemented --> </p>
-<p><b>Height:</b> <!-- Not yet implemented --> </p>
-<p><b>Smoke:</b> <!-- Not yet implemented --> </p>
-<p><b>Alcohol:</b> <!-- Not yet implemented --> </p>
-<p><b>Current Job:</b> <!-- Not yet implemented --> </p>
-<p><b>Physical exercise:</b> <!-- Not yet implemented --> </p>
+<p><b>Weight:</b> <%=  @current_profile.weight %> </p>
+<p><b>Height:</b> <%=  @current_profile.height %> </p>
+<p><b>Smoke:</b> <%=  @current_profile.smoke ? @current_profile.smoke_a_day.to_s + " cigarettes/day" : "No" %> </p>
+<p><b>Alcohol:</b> <%=  @current_profile.alcohol ? "Yes:" + @current_profile.alcohol_use : "No" %> </p>
+<p><b>Current Job:</b> <%=  @current_profile.current_job %></p>
+<p><b>Physical exercise:</b> <%=  @current_profile.exercise %></p>
 
 <p></p>
 
