@@ -1,6 +1,7 @@
 module ProfileHelper
 
   def getProfileWithDefaultCreation(userholder)
+    if !current_user then return "Haven't logged in" end
     if not userholder.profile
       # create === new and save
       newprofile = Profile.create(first_name: current_user.first_name,

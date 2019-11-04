@@ -69,3 +69,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'
 gem 'jquery-rails'
+gem 'carrierwave', '~> 0.9'
