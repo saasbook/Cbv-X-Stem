@@ -1,16 +1,22 @@
-<h2>Edit Profile</h2>
+<div class='container'>
+  <h2>Edit Profile</h2>
 
-<%= form_for(@profile_to_edit, url: patient_update_profile_path(@profile_to_edit)) do |f| %>
-  First name: <%= f.text_field :first_name %><br />
-  Last name: <%= f.text_field :last_name %><br />
-  Email: <%= f.text_area :email %><br />
-  Address Line 1: <%= f.text_area :address_line1 %><br />
-  Address Line 2: <%= f.text_area :address_line2 %><br />
-  City: <%= f.text_area :city %><br />
-  State: <%= f.text_area :state %><br />
-  Country: <%= f.text_area :country %><br />
-  Postal Code: <%= f.text_area :postal_code %><br />
-  Phone: <%= f.text_area :phone %><br />
-  Reached Through: <%= f.text_area :reached_through %><br />
-  <%= f.submit %>
-<% end %>
+  <%= form_for(@profile_to_edit, url: patient_update_profile_path(@profile_to_edit)) do |f| %>
+    First name: <%= f.text_field :first_name, class: 'text_field' %><br />
+    Last name: <%= f.text_field :last_name, class: 'text_field' %><br />
+    Email: <%= f.text_field :email, class: 'text_field' %><br />
+    Address Line 1: <%= f.text_field :address_line1, class: 'text_field' %><br />
+    Address Line 2: <%= f.text_field :address_line2, class: 'text_field' %><br />
+    City: <%= f.text_field :city, class: 'text_field' %><br />
+    State: <%= f.text_field :state, class: 'text_field' %><br />
+    Country: <%= f.text_field :country, class: 'text_field' %><br />
+    Postal Code: <%= f.text_field :postal_code, class: 'text_field' %><br />
+    Phone: <%= f.text_field :phone, class: 'text_field' %><br />
+    Reached Through: <%= f.text_field :reached_through, class: 'text_field' %><br />
+
+
+    <%= f.submit 'Submit change', :class => 'col-md-1.5 btn btn-danger' %>
+
+
+  <% end %>
+</div>

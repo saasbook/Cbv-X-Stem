@@ -1,26 +1,32 @@
-<p><b>Name:</b> <%= @current_profile.first_name + " " + @current_profile.last_name %> </p>
-<p><b>Full address:</b> (street, number, apartment, house, postal code, city, country)
-    <%= getFullAddress(@current_profile) %>
-</p>
-<p><b>Mobile phone:</b>
-    <%=  @current_profile.phone %></p>
-<p><b>Email:</b> <%= @current_profile.email %></p>
-<p><b>Date of birth:</b> <!-- Not yet implemented --> </p>
-<p><b>Age:</b> <!-- Not yet implemented --> </p>
-<p><b>Sex:</b> <!-- Not yet implemented --> </p>
-<p><b>Health plan:</b> <!-- Not yet implemented --> </p>
-<p><b>Family doctor or specialized:</b> <!-- Not yet implemented --> </p>
-<p><b>Identification ID, Passport:</b> <!-- Not yet implemented --> </p>
-<p><b>Contacts (in case of emergency):</b> <!-- Not yet implemented --> </p>
-<p><b>How did you reach us?:</b>
-    <%=  @current_profile.reached_through %></p>
-<p><b>Weight:</b> <!-- Not yet implemented --> </p>
-<p><b>Height:</b> <!-- Not yet implemented --> </p>
-<p><b>Smoke:</b> <!-- Not yet implemented --> </p>
-<p><b>Alcohol:</b> <!-- Not yet implemented --> </p>
-<p><b>Current Job:</b> <!-- Not yet implemented --> </p>
-<p><b>Physical exercise:</b> <!-- Not yet implemented --> </p>
+<div class="container">
+  <h2> Profile </h2>
+  <p><b>Name:</b> <%= @current_profile.first_name + " " + @current_profile.last_name %> </p>
+  <p><b>Full address:</b> (street, number, apartment, house, postal code, city, country)
+      <%= getFullAddress(@current_profile) %>
+  </p>
+  <p><b>Mobile phone:</b>
+      <%=  @current_profile.phone %></p>
+  <p><b>Email:</b> <%= @current_profile.email %></p>
+  <p><b>Date of birth:</b> <!-- Not yet implemented --> </p>
+  <p><b>Age:</b> <!-- Not yet implemented --> </p>
+  <p><b>Sex:</b> <!-- Not yet implemented --> </p>
+  <p><b>Health plan:</b> <!-- Not yet implemented --> </p>
+  <p><b>Family doctor or specialized:</b> <!-- Not yet implemented --> </p>
+  <p><b>Identification ID, Passport:</b> <!-- Not yet implemented --> </p>
+  <p><b>Contacts (in case of emergency):</b> <!-- Not yet implemented --> </p>
+  <p><b>How did you reach us?:</b>
+      <%=  @current_profile.reached_through %></p>
+  <p><b>Weight:</b> <!-- Not yet implemented --> </p>
+  <p><b>Height:</b> <!-- Not yet implemented --> </p>
+  <p><b>Smoke:</b> <!-- Not yet implemented --> </p>
+  <p><b>Alcohol:</b> <!-- Not yet implemented --> </p>
+  <p><b>Current Job:</b> <!-- Not yet implemented --> </p>
+  <p><b>Physical exercise:</b> <!-- Not yet implemented --> </p>
 
-<p></p>
-
-<%= link_to "Edit Profile", patient_edit_profile_path(@current_profile) %>
+  <p></p>
+  <button class="col-md-1.5 btn btn-success">
+    <%= link_to "Edit Profile", patient_edit_profile_path(@current_profile) %>
+  </button>
+  <br>
+  <p></p>
+</div>
