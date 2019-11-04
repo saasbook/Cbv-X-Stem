@@ -1,1 +1,5 @@
-<h1>Hello, <%= current_user.first_name if current_user %></h1>
+<div class="container">
+  <h2>
+  <%= if current_user then "Welcome back, " + current_user.first_name else "Please log in as Patient or Doctor" end %>
+  </h2>
+</div>

@@ -16,7 +16,7 @@ module ApplicationHelper
     if current_user.nil? then
       render 'shared/log_in_sign_up'
     else
-      render 'shared/user_pivotal_button'
+      render 'shared/patient_doctor_button'
     end
   end
 

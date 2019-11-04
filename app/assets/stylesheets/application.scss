@@ -47,39 +47,64 @@ body {
   position: relative;
 }
 
-.nav-povtal-interface {
+
+#nav-pivotal-printboard {
   position: relative;
   height: 100%;
   width: 100%;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-left: 2px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   min-height: 10.7rem;
   background-color: #383c3d;
 }
 
-.left-pivotal {
+.nav-pivotal-interface {
+  display: grid;
   height: 100%;
-  margin: 0.5rem;
+  width: 100%;
+  grid-template-areas: "left left left left right1 right2"
+                       "left left left left right1 right2"
+                       "left left left left right1 right2"
+                       "left left left left right1 right2"
+                       "left left left left right1 right2";
+
+  grid-template-columns: repeat(6, 16%);
+  grid-template-rows: repeat(5,20%);
 }
+
+.left-pivotal{
+    grid-area: left;
+}
+
+// .left-pivotal {
+//   height: 100%;
+//   margin: 0.5rem;
+// }
 
 .left-pivotal-font {
-  color: #d9d8ca
+  color: #d9d8ca;
+  margin-top: 0.7rem;
+  font-size: 1.6rem;
 }
 
-.right-pivotal {
-  position: absolute;
-  top: 1rem;
-  padding: 0.4rem;
-  right: 1rem;
-  margin: 0.5rem;
+.right-function-pivotal {
+  padding: 0.1rem;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
   background-color: #a3b7d6;
+  grid-area: right1;
 }
 
-.right-pivotal-link {
-  color: #000;
+.right-setting-pivotal {
+  padding: 0.1rem;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  background-color: #a3b7d6;
+  grid-area: right2;
 }
 
 .nav-link {
@@ -90,54 +115,75 @@ body {
   color: #cdddeb;
 }
 
-.nav-link-login {
-  position: relative;
-  padding: 2px 5px;
-  font-weight: 500;
-  color: #000;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;
-}
-
-.nav-button {
-  margin-top: 0.5rem;
-  padding: 1rem;
-  align-items: center;
-}
-
-.user-pivotal-button {
-  background-image:url('/images/man_info.png');
-  padding: 0;
-}
-
 img {
 max-width:100%;
 max-height:100%;
 object-fit: contain;
 }
 
-.nav-link:hover,
-.nav-link:focus {
-  color: #fff;
-  background-color: transparent;
+// Original NavBar
+.nav-grid {
+  display: grid;
+  height: 5rem;
+  width: 100%;
+  grid-template-areas: "left left left mid right right";
+  grid-template-columns: 7% 7% 7% auto 10% 10%;
 }
 
-/* Active state gets a caret at the bottom */
-.nav-link.active {
-  color: #fff;
+.nav-left {
+  grid-area: left;
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: repeat(3, 33%);
 }
 
-.nav-image {
-  object-fit: cover;
+.nav-middle {
+  grid-area: mid;
 }
 
-.login {
-  position: absolute;
-  right: 0.6rem;
-  bottom: 0.8rem;
-  width: 4rem;
-  height: 4rem;
-  margin-top: 2;
-  margin-bottom: 0;
+.nav-right {
+  grid-area: right;
+  display: grid;
+  grid-template-areas: "right1 right2";
+  grid-template-columns: 50% 50%;
+}
+.nav-right1 {
+  margin: 0.5rem;
+  grid-area: right1;
+  text-align: center;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-right2-icon {
+  margin: 0.5rem 0rem;
+  grid-area: right2;
+  padding: 0;
+  display: flex;
+  align-items: right;
+  justify-content: left;
+}
+
+.nav-right2 {
+  margin: 0.5rem;
+  grid-area: right2;
+  text-align: center;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+// Special Fucntionality
+
+.need-work {
+  color: #FAEBD7;
+}
+
+.doctor-pivotal-link {
+  color: #dc3545;
 }
