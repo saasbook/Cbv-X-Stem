@@ -36,10 +36,6 @@ module ApplicationHelper
         url: contact_path,
         title: 'Contact'
       },
-      {
-        url: searchPatients_path,
-        title: 'SearchPatients'
-      }
     ]
   end
 
