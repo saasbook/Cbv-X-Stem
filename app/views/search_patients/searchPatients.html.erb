@@ -9,3 +9,25 @@
     
   <% end %>
 </div>
+
+<table class = "table table-striped col-md-12">
+  <thead>
+    <tr> 
+      <th> First Name </th>
+      <th> Last Name </th>
+      <th> email </th>
+      <th> holder_id </th>
+    </tr>
+  </thead>
+  <tbody>
+      <%@patients.each do |p| %>
+        <tr>
+          <td><%= p.first_name %></td>
+          <td><%= p.last_name %></td>
+          <td><%= p.email %></td>
+          <td><%= p.user_holder_id %></td>
+        </tr>
+      <%end%>  
+    </tbody>
+</table>      
+
