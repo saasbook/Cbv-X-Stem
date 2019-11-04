@@ -1,8 +1,7 @@
 <div class="container">
   <h2> Profile </h2>
   <p><b>Name:</b> <%= @current_profile.first_name + " " + @current_profile.last_name %> </p>
-  <p><b>Full address:</b> (street, number, apartment, house, postal code, city, country)
-      <%= getFullAddress(@current_profile) %>
+  <p><b>Full address:</b> <%= getFullAddress(@current_profile) %>
   </p>
   <p><b>Mobile phone:</b>
       <%=  @current_profile.phone %></p>
