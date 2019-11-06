@@ -12,6 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2019_11_04_164632) do
 
+  create_table "documentations", force: :cascade do |t|
+    t.string "patient"
+    t.string "doctype"
+    t.string "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "documents", force: :cascade do |t|
     t.string "name"
     t.string "url"

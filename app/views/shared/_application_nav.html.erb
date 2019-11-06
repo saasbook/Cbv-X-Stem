@@ -9,24 +9,24 @@
               <span class="mid-pivotal1" id="mid-p1">
                 <div class="mid-pivotal-font"> Patient Info: </div>
                 <ul>
-                  <li class="mid-pivotal-font2"=><b>Health plan:</b> <%=  @current_profile.health_plan %></li>
-                  <li class="mid-pivotal-font2"=><b>Weight:</b> <%=  @current_profile.weight %></li>
-                  <li class="mid-pivotal-font2"=><b>Height:</b> <%=  @current_profile.height %></li>
+                  <li class="mid-pivotal-font2"=><b>Health plan:</b> <%=  current_user.nil? ? "None" : @current_profile.health_plan %></li>
+                  <li class="mid-pivotal-font2"=><b>Weight:</b> <%=  current_user.nil? ? "None" : @current_profile.weight %></li>
+                  <li class="mid-pivotal-font2"=><b>Height:</b> <%=  current_user.nil? ? "None" : @current_profile.height %></li>
                   <li class="mid-pivotal-font2"=><b>You have <span id="notification-font"><%=  0 %> </span> pending message. </b> </li>
                   <li class="mid-pivotal-font2"=><b>You have <span id="notification-font"><%=  0 %> </span> coming appointment. </b> </li>
                 </ul>
               </span>
               <span class="right-function-pivotal">
                   <div><%= link_to "Profile", patient_profile_path, class: 'right-pivotal-link' %></div>
-                  <div><%= link_to "Documents", patient_profile_path, class: 'right-pivotal-link' %></div>
+                  <div><%= link_to "Documents", documentations_path, class: 'right-pivotal-link' %></div>
                   <div class='need-work'> Treatments </div>
-                  <div><%= link_to "Patients Profile", searchPatients_path, class: 'doctor-pivotal-link' %></div>
+                  <div><%= link_to "Patients Profile", searchPatients_path, class: 'doctor-pivotal-link', style: "color: red" %></div>
               </span>
               <span class="right-setting-pivotal">
                   <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'right-pivotal-link' %></div>
                   <div class='need-work'> User Setting </div>
                   <div class='need-work'> Notification </div>
-                  <div class='need-work'> Message Box </div>
+                  <div><%= link_to "Message Box", messages_path, class: 'right-pivotal-link' %></div>
               </span>
             </div>
         </div>

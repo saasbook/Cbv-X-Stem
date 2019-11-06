@@ -135,7 +135,10 @@ body {
   position: relative;
   padding: 1rem;
   font-weight: 500;
-  color: #cdddeb;
+}
+
+.nav-right1 {
+  color: #fff;
 }
 
 img {
@@ -179,6 +182,7 @@ object-fit: contain;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: 000;
 }
 
 .nav-right2-icon {
@@ -220,4 +224,21 @@ object-fit: contain;
 
 .no-show {
   display: none;
+}
+
+// contact-general-grid
+.contact-general-grid {
+  display: grid;
+  width: 80%;
+  height: 50%;
+  grid-template-areas: "left right pad";
+  grid-template-columns: 40% 40% auto;
+}
+
+.contact-general-item1 {
+    grid-area: left;
+}
+
+.contact-general-item2 {
+    grid-area: right;
 }
