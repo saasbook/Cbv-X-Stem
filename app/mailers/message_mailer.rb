@@ -5,12 +5,18 @@ class MessageMailer < ApplicationMailer
   #
   #   en.message_mailer.new_message.subject
   #
-  default from: "kelly1129ding@gmail.com"
 
-  def new_message(message)
+  def clinic_message(message)
     @message = message
 
     mail to: @message.receiver_email, 
          subject: "New Message from Cbv X Stem"
+  end
+
+  def clinic_confirmation(message)
+    @message = message
+
+    mail to: @message.sender_email, 
+         subject: "Thank you for contacting Cbv X Stem"
   end
 end
