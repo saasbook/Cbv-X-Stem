@@ -25,10 +25,13 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(message_params)
+    @message.receiver_email = 'cbvxstem@gmail.com'
 
     respond_to do |format|
       if @message.save
-        MessageMailer.new_message(@message).deliver
+        MessageMailer.clinic_message(@message).deliver
+        MessageMailer.clinic_confirmation(@message).deliver
+
         format.html { redirect_to @message, notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
@@ -60,6 +63,9 @@ class MessagesController < ApplicationController
       format.html { redirect_to messages_url, notice: 'Message was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def contact_clinic
   end
 
   private

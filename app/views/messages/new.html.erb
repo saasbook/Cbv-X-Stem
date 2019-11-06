@@ -1,7 +1,5 @@
-<div class="container">
-  <h2><%= if !current_user.nil? then 'New Message' end %></h2>
+<h1>New Message</h1>
 
-  <%=  if current_user.nil? then render 'contact' else render 'form', message: @message end %>
+<%= render 'form', message: @message %>
 
-  <%= if !current_user.nil? then link_to 'Back', messages_path end %>
-</div>
+<%= link_to 'Back', messages_path %>
