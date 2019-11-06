@@ -1,8 +1,7 @@
 class SearchPatientsController < ApplicationController
     def searchPatients
         @patients = Profile.all
-        if !params[:searchPatients].nil? && !params[:searchPatients].empty? 
-            puts("hh")
+        if params[:searchPatients]
             @patients = Profile.where(first_name: params[:searchPatients]) + Profile.where(last_name: params[:searchPatients])
         end
     end
