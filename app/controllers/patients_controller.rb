@@ -3,20 +3,25 @@ class PatientsController < ApplicationController
   include ApplicationHelper
 
   def profile
+    #redirect from search Patients and the current user is a doctor
+    #TO DO verify request from doctor
+    if (!params[:search_id].nil? && !params[:search_id].empty?) 
+      @current_profile = Profile.where(:user_holder_id => params[:search_id]).first
+    else
+      # TODO Have userholder created when the user sign up. (Waiting for doctor authentication: UID#169251963)
+      # - UserHolder should be created when the user creates its account.
 
-    # TODO Have userholder created when the user sign up. (Waiting for doctor authentication: UID#169251963)
-    # - UserHolder should be created when the user creates its account.
-
-    # Moves default-create helper function to applicationHelper, so it can be shared with all patient and doctor function.
-    # HACK Mock the initial UserHolder until ^TODO finished.
-    holder = getUserHolderWithDefaultCreation
-    @current_profile = holder.profile
-    #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
-    # - The patient should be urged to fill up their profile when they visit the profile first time.
-    # - It doesn't make sure to have profile that has required field not filled.
-    if not holder.profile
-      # HACK Mock the initial profile until ^TODO finished.
-      @current_profile = getProfileWithDefaultCreation(holder)
+      # Moves default-create helper function to applicationHelper, so it can be shared with all patient and doctor function.
+      # HACK Mock the initial UserHolder until ^TODO finished.
+      holder = getUserHolderWithDefaultCreation
+      @current_profile = holder.profile
+      #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
+      # - The patient should be urged to fill up their profile when they visit the profile first time.
+      # - It doesn't make sure to have profile that has required field not filled.
+      if not holder.profile
+        # HACK Mock the initial profile until ^TODO finished.
+        @current_profile = getProfileWithDefaultCreation(holder)
+      end
     end
 
     # IMPORTANT: call profile class's calculate_age_from_birthday function
