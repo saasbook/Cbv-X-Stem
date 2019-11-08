@@ -11,10 +11,4 @@ class SearchPatientsController < ApplicationController
             @patients = @patients.where(:user_holder_id => params[:search_id])
         end
     end
-
-    def getProfileById
-        @current_profile = Profile.where(:user_holder_id => params[:search_id])
-        puts("hhhh\n")
-        redirect_to patient_profile_path
-    end
 end
