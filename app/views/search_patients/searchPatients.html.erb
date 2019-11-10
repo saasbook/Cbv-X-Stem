@@ -9,18 +9,18 @@
       <input type="text" name="search_id" autocomplete="off" class="search_box form-control col-md-1"/>
       <input type="submit" value="search patients" class="btn btn-success"/>
     </div>
-    
+
   <% end %>
 </div>
 <div class = "search_table">
 <table class = "table table-striped col-md-12">
   <thead>
-    <tr> 
+    <tr>
       <th> First Name </th>
       <th> Last Name </th>
       <th> email </th>
       <th> patient_id </th>
-      <th> </th>
+      <th> Link to Profile</th>
     </tr>
   </thead>
   <tbody>
@@ -30,10 +30,9 @@
           <td><%= p.last_name %></td>
           <td><%= p.email %></td>
           <td><%= p.user_holder_id %></td>
-          <td> <%= link_to "Go to #{p.first_name}", patient_profile_path(:search_id => p.user_holder_id), class: 'btn btn-primary col-md-5', style: "color: white"%></td>
+          <td> <%= link_to  profile_name_format(p.first_name, p.last_name), patient_profile_path(:search_id => p.user_holder_id), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
         </tr>
-      <%end%>  
+      <%end%>
     </tbody>
-</table> 
-</div>     
-
+</table>
+</div>
