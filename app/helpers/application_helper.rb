@@ -59,4 +59,9 @@ module ApplicationHelper
     nav_links.html_safe
   end
 
+  def profile_name_format(first_name, last_name)
+    name_formatted = "Goes to " + "<span class='bond_name_font'>#{first_name + " " + last_name}</span>" + " profile"
+    name_formatted.html_safe
+  end
+
 end
