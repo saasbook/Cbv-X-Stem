@@ -17,6 +17,24 @@ class MessageMailer < ApplicationMailer
     @message = message
 
     mail to: @message.sender_email, 
-         subject: "Thank you for contacting Cbv X Stem"
+        subject: "Thank you for contacting Cbv X Stem"
   end
+
+  def document_notification(message)
+    @message = message
+
+    mail to: @message.receiver_email,
+        subject: "A document is uploaded by #{@message.sender_name}"
+  end
+
+  def document_confirmation(message)
+    @message = message
+
+    mail to: @message.sender_email,
+        subject: "Confirmation of a document uploaded"
+  end
+        
+
+
+
 end
