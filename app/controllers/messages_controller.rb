@@ -12,9 +12,16 @@ class MessagesController < ApplicationController
   def show
   end
 
+  def contact
+    if current_user.nil? then
+      redirect_to contact_general_path
+    else
+      redirect_to '/messages/new'
+    end
+  end
   # GET /messages/new
   def new
-    @message = Message.new
+      @message = Message.new
   end
 
   # GET /messages/1/edit
@@ -66,6 +73,10 @@ class MessagesController < ApplicationController
   end
 
   def contact_clinic
+  end
+
+  def contact_general
+
   end
 
   private
