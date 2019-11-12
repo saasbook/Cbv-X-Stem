@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2019_11_12_001246) do
     t.string "last_name"
     t.string "email"
     t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "address_line1"
     t.string "address_line2"
     t.string "city"
@@ -65,6 +67,7 @@ ActiveRecord::Schema.define(version: 2019_11_12_001246) do
     t.string "current_job"
     t.string "exercise"
     t.string "doctor"
+    t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
   end
 
   create_table "treatments", force: :cascade do |t|

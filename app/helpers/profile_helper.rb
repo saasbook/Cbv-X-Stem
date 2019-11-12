@@ -38,4 +38,7 @@ module ProfileHelper
     field.nil? || field == ''
   end
 
+  def is_doctor?
+    return false
+  end
 end

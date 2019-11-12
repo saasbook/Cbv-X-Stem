@@ -20,6 +20,9 @@
     <%= render 'shared/application_nav' %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <% if not flash[:error].nil? %>
+        <div class="alert alert-danger" role="alert"> <%= flash[:error] %></div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
