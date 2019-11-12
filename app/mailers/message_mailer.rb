@@ -31,7 +31,7 @@ class MessageMailer < ApplicationMailer
     @message = message
 
     mail to: @message.sender_email,
-        subject: "Confirmation of a document uploaded"
+        subject: "Confirmation: a document uploaded"
   end
         
 
