@@ -70,3 +70,17 @@ gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'
 gem 'jquery-rails'
 gem 'carrierwave', '~> 0.9'
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails-training-wheels'
+  gem 'simplecov', :require => false
+end
+
+# for Heroku deployment - as described in Ap. A of ELLS book
+group :development, :test do
+  gem 'database_cleaner', '1.4.1'
+  gem 'launchy'
+  gem 'rspec-rails', '3.7.2'
+  gem 'ZenTest', '4.11.2'
+end
