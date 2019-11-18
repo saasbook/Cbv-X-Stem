@@ -72,6 +72,7 @@ class PatientsController < ApplicationController
         current_profile.country= modified[:country]
         current_profile.postal_code = modified[:postal_code]
         current_profile.phone = modified[:phone]
+        current_profile.whatsapp = modified[:whatsapp]
         current_profile.reached_through = modified[:reached_through]
         current_profile.birthday = modified[:birthday]
         current_profile.sex = modified[:sex]

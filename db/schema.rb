@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_164632) do
+ActiveRecord::Schema.define(version: 2019_11_18_015918) do
 
   create_table "documentations", force: :cascade do |t|
     t.string "patient"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 2019_11_04_164632) do
     t.string "current_job"
     t.string "exercise"
     t.string "doctor"
+    t.string "whatsapp"
     t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
   end
 

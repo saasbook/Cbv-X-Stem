@@ -1,3 +1,6 @@
+<head>
+  <script src="https://kit.fontawesome.com/963e6d96ae.js" crossorigin="anonymous"></script>
+</head>
 <div class="container">
   <%= form_tag searchPatients_path, :method => 'post' do %>
     <div class="form-group row">
@@ -19,6 +22,7 @@
       <th> First Name </th>
       <th> Last Name </th>
       <th> email </th>
+      <th> Whatsapp </th>
       <th> patient_id </th>
       <th> Link to Profile</th>
     </tr>
@@ -29,6 +33,7 @@
           <td><%= p.first_name %></td>
           <td><%= p.last_name %></td>
           <td><%= p.email %></td>
+          <td><%= if p.whatsapp then link_to '<i class="fab fa-whatsapp"></i>'.html_safe, "https://wa.me/1"+p.whatsapp, target: :_blank else '<i class="fab fa-whatsapp"></i>'.html_safe end%></td>
           <td><%= p.user_holder_id %></td>
           <td> <%= link_to  profile_name_format(p.first_name, p.last_name), patient_profile_path(:search_id => p.user_holder_id), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
         </tr>

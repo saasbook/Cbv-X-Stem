@@ -13,11 +13,7 @@ class MessagesController < ApplicationController
   end
 
   def contact
-    if current_user.nil? then
-      redirect_to contact_general_path
-    else
-      redirect_to '/messages/new'
-    end
+    redirect_to contact_general_path
   end
   # GET /messages/new
   def new
