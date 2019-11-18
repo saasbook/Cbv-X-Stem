@@ -4,35 +4,44 @@
 #
 # You have been warned
 module NavigationHelpers
-    # Maps a name to a path. Used by the
+  # Maps a name to a path. Used by the
+  #
+  #   When /^I go to (.+)$/ do |page_name|
+  #
+  # step definition in web_steps.rb
+  #
+  def path_to(page_name)
+    case page_name
+
+    when /^the home\s?page$/ then '/'
+
+    # Add more mappings here.
+    # Here is an example that pulls values out of the Regexp:
     #
     #   When /^I go to (.+)$/ do |page_name|
     #
     # step definition in web_steps.rb
     #
-    def path_to(page_name)
-      case page_name
-
-      when /^the (searchPatients )?home\s?page$/ then '/searchPatients'
-      when /^the profile of "(.*)"/
-        patient_path(User.find_by_first_name($1))
-      when /^the editing page of "(.*)"/
-        patient_edit_profile_path(User.find_by_first_name($1))
-      when /^the login page/
-        new_user_session_path()
-      when /^the site home page/
-        root_path()
-      else
-        begin
-          page_name =~ /^the (.*) page$/
-          path_components = $1.split(/\s+/)
-          self.send(path_components.push('path').join('_').to_sym)
-        rescue NoMethodError, ArgumentError
-          raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+    when /^the (searchPatients )?home\s?page$/ then '/searchPatients'
+    when /^the profile of "(.*)"/
+      patient_path(User.find_by_first_name($1))
+    when /^the editing page of "(.*)"/
+      patient_edit_profile_path(User.find_by_first_name($1))
+    when /^the login page/
+      new_user_session_path()
+    when /^the site home page/
+      root_path()
+    else
+      begin
+        page_name =~ /^the (.*) page$/
+        path_components = $1.split(/\s+/)
+        self.send(path_components.push('path').join('_').to_sym)
+      rescue NoMethodError, ArgumentError
+        raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
             "Now, go and add a mapping in #{__FILE__}"
-        end
       end
     end
+  end
 end
 
 World(NavigationHelpers)
