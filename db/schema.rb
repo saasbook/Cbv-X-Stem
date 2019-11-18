@@ -39,18 +39,11 @@ ActiveRecord::Schema.define(version: 2019_11_18_112916) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "notifications", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"
     t.integer "user_holder_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "address_line1"
     t.string "address_line2"
     t.string "city"
@@ -73,7 +66,6 @@ ActiveRecord::Schema.define(version: 2019_11_18_112916) do
     t.string "exercise"
     t.string "doctor"
     t.string "whatsapp"
-    t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
   end
 
   create_table "treatments", force: :cascade do |t|
