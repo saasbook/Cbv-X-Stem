@@ -38,4 +38,14 @@ module ProfileHelper
     field.nil? || field == ''
   end
 
+  def is_doctor?
+    if current_user.nil?
+        return false
+    elsif current_user.is_doctor.nil?
+        return false
+    else
+        return current_user.is_doctor
+    end
+    # return true
+  end
 end
