@@ -1,6 +1,5 @@
 class PatientsController < ApplicationController
   include ProfileHelper
-  include ApplicationHelper
 
   def profile
     if current_user.nil?
@@ -18,14 +17,13 @@ class PatientsController < ApplicationController
 
       # Moves default-create helper function to applicationHelper, so it can be shared with all patient and doctor function.
       # HACK Mock the initial UserHolder until ^TODO finished.
-      holder = getUserHolderWithDefaultCreation
-      @current_profile = holder.profile
+      @current_profile = @user_holder.profile
       #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
       # - The patient should be urged to fill up their profile when they visit the profile first time.
       # - It doesn't make sure to have profile that has required field not filled.
-      if not holder.profile
+      if not @user_holder.profile
         # HACK Mock the initial profile until ^TODO finished.
-        @current_profile = getProfileWithDefaultCreation(holder)
+        @current_profile = getProfileWithDefaultCreation(@user_holder)
       end
     end
 
@@ -37,10 +35,10 @@ class PatientsController < ApplicationController
   def new
     # must be logged in
     if not current_user.nil?
-        # get userholder instance, else create one.
-        holder = getUserHolderWithDefaultCreation
+        # get user_holder instance, else create one.
+        @user_holder = getUserHolderWithDefaultCreation
         # if no profile yet, create one.
-        @new_profile = getProfileWithDefaultCreation(holder)
+        @new_profile = getProfileWithDefaultCreation(@user_holder)
     else
         flash[:error] = "You must be logged in to view your profile."
         redirect_to root_path
