@@ -98,41 +98,43 @@ class PatientsController < ApplicationController
 
   def update
     begin
-        modified = params[:profile]
-        current_profile = Profile.find params[:id] # Profile.where(:id => params[:id])
-        temp_profile = current_profile.as_json
-        # current_profile.update_attributes!(params[:profile])
-        current_profile.first_name = modified[:first_name]
-        current_profile.last_name = modified[:last_name]
-        current_profile.email = modified[:email]
-        current_profile.address_line1 = modified[:address_line1]
-        current_profile.address_line2= modified[:address_line2]
-        current_profile.city = modified[:city]
-        current_profile.state = modified[:state]
-        current_profile.country= modified[:country]
-        current_profile.postal_code = modified[:postal_code]
-        current_profile.phone = modified[:phone]
-        current_profile.reached_through = modified[:reached_through]
-        current_profile.birthday = modified[:birthday]
-        current_profile.sex = modified[:sex]
-        current_profile.health_plan = modified[:health_plan]
-        current_profile.contacts = modified[:contacts]
-        current_profile.weight = modified[:weight]
-        current_profile.height = modified[:height]
-        current_profile.smoke = modified[:smoke].to_s.downcase == "true"
-        current_profile.smoke_a_day = modified[:smoke_a_day]
-        current_profile.alcohol = modified[:alcohol].to_s.downcase == "true"
-        current_profile.alcohol_use = modified[:alcohol_use]
-        current_profile.current_job = modified[:current_job]
-        current_profile.exercise = modified[:exercise]
-        current_profile.doctor = modified[:doctor]
-        if current_profile.save! then
-          log_change_to_user_activities('profile', 'edit', current_user, temp_profile, current_profile.as_json)
-        end
+      modified = params[:profile]
+      current_profile = Profile.find params[:id] # Profile.where(:id => params[:id])
+      temp_profile = current_profile.as_json
+      # current_profile.update_attributes!(params[:profile])
+      current_profile.first_name = modified[:first_name]
+      current_profile.last_name = modified[:last_name]
+      current_profile.email = modified[:email]
+      current_profile.address_line1 = modified[:address_line1]
+      current_profile.address_line2= modified[:address_line2]
+      current_profile.city = modified[:city]
+      current_profile.state = modified[:state]
+      current_profile.country= modified[:country]
+      current_profile.postal_code = modified[:postal_code]
+      current_profile.phone = modified[:phone]
+      current_profile.reached_through = modified[:reached_through]
+      current_profile.birthday = modified[:birthday]
+      current_profile.sex = modified[:sex]
+      current_profile.health_plan = modified[:health_plan]
+      current_profile.contacts = modified[:contacts]
+      current_profile.weight = modified[:weight]
+      current_profile.height = modified[:height]
+      current_profile.smoke = modified[:smoke].to_s.downcase == "true"
+      current_profile.smoke_a_day = modified[:smoke_a_day]
+      current_profile.alcohol = modified[:alcohol].to_s.downcase == "true"
+      current_profile.alcohol_use = modified[:alcohol_use]
+      current_profile.current_job = modified[:current_job]
+      current_profile.exercise = modified[:exercise]
+      current_profile.doctor = modified[:doctor]
+      if current_profile.save! then
+        log_change_to_user_activities('profile', 'edit', current_user, temp_profile, current_profile.as_json)
+      end
 
-        flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
-        redirect_to patient_profile_path
-
+      flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
+      redirect_to patient_profile_path
+    rescue StandardError
+      flash[:error] = "One of the fields was not filled out correctly."
+      redirect_to patient_edit_profile_path(current_profile)
     end
   end
 
