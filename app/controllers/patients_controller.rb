@@ -98,6 +98,7 @@ class PatientsController < ApplicationController
 
   def update
     begin
+
       modified = params[:profile]
       current_profile = Profile.find params[:id] # Profile.where(:id => params[:id])
       temp_profile = current_profile.as_json

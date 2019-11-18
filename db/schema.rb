@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_11_18_112916) do
 
+
   create_table "documentations", force: :cascade do |t|
     t.string "patient"
     t.string "doctype"
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 2019_11_18_112916) do
     t.string "current_job"
     t.string "exercise"
     t.string "doctor"
+    t.string "whatsapp"
     t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
   end
 
