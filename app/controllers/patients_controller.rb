@@ -1,5 +1,6 @@
 class PatientsController < ApplicationController
   include ProfileHelper
+  include UserActivitiesHelper
 
   def profile
     if current_user.nil?
@@ -99,6 +100,7 @@ class PatientsController < ApplicationController
     begin
         modified = params[:profile]
         current_profile = Profile.find params[:id] # Profile.where(:id => params[:id])
+        temp_profile = current_profile.as_json
         # current_profile.update_attributes!(params[:profile])
         current_profile.first_name = modified[:first_name]
         current_profile.last_name = modified[:last_name]
@@ -124,12 +126,13 @@ class PatientsController < ApplicationController
         current_profile.current_job = modified[:current_job]
         current_profile.exercise = modified[:exercise]
         current_profile.doctor = modified[:doctor]
-        current_profile.save!
+        if current_profile.save! then
+          log_change_to_user_activities('profile', 'edit', current_user, temp_profile, current_profile.as_json)
+        end
+
         flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
         redirect_to patient_profile_path
-    rescue StandardError
-        flash[:error] = "One of the fields was not filled out correctly."
-        redirect_to patient_edit_profile_path(current_profile)
+
     end
   end
 
