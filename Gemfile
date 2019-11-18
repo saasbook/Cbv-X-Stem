@@ -91,11 +91,6 @@ gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'
 gem 'jquery-rails'
 gem 'carrierwave', '~> 0.9'
 
-group :test do
-  gem 'cucumber-rails', :require => false
-  gem 'cucumber-rails-training-wheels'
-  gem 'simplecov', :require => false
-end
 
 # for Heroku deployment - as described in Ap. A of ELLS book
 group :development, :test do
