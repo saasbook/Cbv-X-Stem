@@ -6,10 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-users = [{:first_name => "Peter", :last_name => "Pei", :email => "pp2@gmail.com",  :password => "password", :password_confirmation => "password"},
-         {:first_name => "Tom", :last_name => "Brady", :email => "tomb2@gmail.com",  :password => "password", :password_confirmation => "password"},
-         {:first_name => "Steven", :last_name => "Jobs", :email => "stevenj2@gmail.com",  :password => "password", :password_confirmation => "password"},
-         {:first_name => "Bill", :last_name => "Gates", :email => "bliig2@gmail.com",  :password => "password", :password_confirmation => "password"},
+users = [{:first_name => "Peter", :last_name => "Pei", :email => "pp2@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
+         {:first_name => "Tom", :last_name => "Brady", :email => "tomb2@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
+         {:first_name => "Steven", :last_name => "Jobs", :email => "stevenj2@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
+         {:first_name => "Bill", :last_name => "Gates", :email => "bliig2@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
 ]
 
 users.each do |current_user|
