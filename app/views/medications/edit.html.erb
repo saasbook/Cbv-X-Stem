@@ -1,0 +1,6 @@
+<h1>Editing Medication</h1>
+
+<%= render 'form', medication: @medication %>
+
+<%= link_to 'Show', [@user_holder, @medication] %> |
+<%= link_to 'Back', user_holder_medications_path(@user_holder) %>
