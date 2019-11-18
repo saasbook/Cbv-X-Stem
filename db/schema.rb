@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2019_11_18_112916) do
 
-
   create_table "documentations", force: :cascade do |t|
     t.string "patient"
     t.string "doctype"

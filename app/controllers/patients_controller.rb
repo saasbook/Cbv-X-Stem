@@ -105,6 +105,7 @@ class PatientsController < ApplicationController
       # current_profile.update_attributes!(params[:profile])
       current_profile.first_name = modified[:first_name]
       current_profile.last_name = modified[:last_name]
+      current_profile.whatsapp = modified[:whatsapp]
       current_profile.email = modified[:email]
       current_profile.address_line1 = modified[:address_line1]
       current_profile.address_line2= modified[:address_line2]
