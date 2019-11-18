@@ -23,7 +23,7 @@ class DocumentationsController < ApplicationController
     puts @documentation.inspect
     puts @documentation.attachment_url
     puts "DOWNLOADING METHOD"
-    send_data("#{Rails.root}/public/" + @documentation.attachment_url, type: "application/pdf", x_sendfile: true)
+    send_file("#{Rails.root}/public/" + @documentation.attachment_url, type: "application/pdf", x_sendfile: true)
     # redirect_to documentations_path, notice: "The document #{@documentation.patient} has been downloaded."
   end
 
