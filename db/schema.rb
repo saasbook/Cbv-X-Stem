@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_18_015918) do
+ActiveRecord::Schema.define(version: 2019_11_18_112916) do
+
 
   create_table "documentations", force: :cascade do |t|
     t.string "patient"
@@ -35,6 +36,11 @@ ActiveRecord::Schema.define(version: 2019_11_18_015918) do
     t.string "receiver_email"
     t.string "subject"
     t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -80,6 +86,20 @@ ActiveRecord::Schema.define(version: 2019_11_18_015918) do
     t.index ["user_holder_id"], name: "index_treatments_on_user_holder_id"
   end
 
+  create_table "user_activities", force: :cascade do |t|
+    t.string "actor"
+    t.string "action"
+    t.string "category"
+    t.string "original_val"
+    t.string "new_val"
+    t.string "description"
+    t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "field"
+    t.index ["user_holder_id"], name: "index_user_activities_on_user_holder_id"
+  end
+
   create_table "user_holders", force: :cascade do |t|
     t.string "email"
     t.datetime "created_at", null: false
@@ -107,6 +127,7 @@ ActiveRecord::Schema.define(version: 2019_11_18_015918) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_doctor"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
