@@ -1,11 +1,10 @@
 class PatientsController < ApplicationController
   include ProfileHelper
-  include ApplicationHelper
 
   def profile
     #redirect from search Patients and the current user is a doctor
     #TO DO verify request from doctor
-    if (!params[:search_id].nil? && !params[:search_id].empty?) 
+    if (!params[:search_id].nil? && !params[:search_id].empty?)
       @current_profile = Profile.where(:user_holder_id => params[:search_id]).first
     else
       # TODO Have userholder created when the user sign up. (Waiting for doctor authentication: UID#169251963)
@@ -13,14 +12,13 @@ class PatientsController < ApplicationController
 
       # Moves default-create helper function to applicationHelper, so it can be shared with all patient and doctor function.
       # HACK Mock the initial UserHolder until ^TODO finished.
-      holder = getUserHolderWithDefaultCreation
-      @current_profile = holder.profile
+      @current_profile = @user_holder.profile
       #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
       # - The patient should be urged to fill up their profile when they visit the profile first time.
       # - It doesn't make sure to have profile that has required field not filled.
-      if not holder.profile
+      if not @user_holder.profile
         # HACK Mock the initial profile until ^TODO finished.
-        @current_profile = getProfileWithDefaultCreation(holder)
+        @current_profile = getProfileWithDefaultCreation(@user_holder)
       end
     end
 
@@ -32,10 +30,10 @@ class PatientsController < ApplicationController
   def new
     # must be logged in
     if not current_user.nil?
-        # get userholder instance, else create one.
-        holder = getUserHolderWithDefaultCreation
+        # get user_holder instance, else create one.
+        @user_holder = getUserHolderWithDefaultCreation
         # if no profile yet, create one.
-        @new_profile = getProfileWithDefaultCreation(holder)
+        @new_profile = getProfileWithDefaultCreation(@user_holder)
     else
         flash[:error] = "You must be logged in to view your profile."
         redirect_to root_path
@@ -45,9 +43,9 @@ class PatientsController < ApplicationController
   def edit
     # if the user is logged in
     if not current_user.nil?
-        holder = current_user.user_holder
+        @user_holder = current_user.user_holder
         # if there is a user holder for the user
-        if not holder.profile.nil?
+        if not @user_holder.profile.nil?
             @profile_to_edit = current_user.user_holder.profile
         else
             redirect_to patient_new_profile_path(current_user)
