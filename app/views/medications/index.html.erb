@@ -1,8 +1,11 @@
+<div class = "search_table">
 <p id="notice"><%= notice %></p>
+<div>
+<h1 style="text-align: center">Medications</h1>
+<br>
+</div>
+<table class = "table table-striped col-md-12">
 
-<h1>Medications</h1>
-
-<table>
   <thead>
     <tr>
       <th>Provider</th>
@@ -18,19 +21,15 @@
     <% @medications.each do |medication| %>
       <tr>
         <td><%= medication.provider %></td>
-        <td><%= medication.directions %></td>
+        <td><%= medication.directions.length > 10 ? medication.directions[0..10] + "..." : medication.directions %></td>
         <td><%= medication.days %></td>
-        <td><%= medication.description %></td>
+        <td><%= medication.description.length > 15 ? medication.description[0..15] + "..." : medication.description %></td>
         <td><%= medication.user_holder.first_name %></td>
         <td><%= medication.user_holder.last_name %></td>
-        <td><%= link_to 'Show Medication', [@user_holder, medication] %></td>
+        <td><%= link_to 'Details', [@user_holder, medication] %></td>
         <td><%= link_to 'Edit', edit_user_holder_medication_path(@user_holder, medication) %></td>
         <td><%= link_to 'Destroy', [@user_holder, medication], method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Medication', new_user_holder_medication_path(@user_holder) %>
