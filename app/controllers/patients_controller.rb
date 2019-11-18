@@ -2,6 +2,11 @@ class PatientsController < ApplicationController
   include ProfileHelper
 
   def profile
+    if current_user.nil?
+        flash[:error] = "You must be logged in to view your profile."
+        redirect_to root_path
+        return
+    end
     #redirect from search Patients and the current user is a doctor
     #TO DO verify request from doctor
     if (!params[:search_id].nil? && !params[:search_id].empty?)
@@ -40,18 +45,53 @@ class PatientsController < ApplicationController
     end
   end
 
+  def show
+    # must be logged in
+    if not is_doctor?
+        flash[:error] = "You are not authorized to view this page."
+        redirect_to root_path
+    else
+        @current_profile = Profile.find(params[:id])
+        render 'profile'
+    end
+  end
+
   def edit
     # if the user is logged in
-    if not current_user.nil?
-        @user_holder = current_user.user_holder
-        # if there is a user holder for the user
-        if not @user_holder.profile.nil?
-            @profile_to_edit = current_user.user_holder.profile
+    # if not current_user.nil?
+    #     holder = current_user.user_holder
+    #     # if there is a user holder for the user
+    #     if not holder.profile.nil?
+    #         @profile_to_edit = current_user.user_holder.profile
+    #     else
+    #         redirect_to patient_new_profile_path(current_user)
+    #     end
+    # else
+    #     redirect_to patient_new_profile_path(current_user)
+    # end
+    if current_user.nil?
+        flash[:error] = "You must be logged in to edit a profile."
+        redirect_to root_path
+    elsif not is_doctor?
+        holder = current_user.user_holder
+        # Check that user_holder instance has been created.
+        if not holder.profile.nil?
+            current_user_profile = current_user.user_holder.profile
         else
             redirect_to patient_new_profile_path(current_user)
+            return
         end
-    else
-        redirect_to patient_new_profile_path(current_user)
+
+        # Patients can only edit their own profiles
+        @profile_to_edit = Profile.find(params[:id])
+        if @profile_to_edit == current_user_profile
+            render 'edit'
+        else
+            flash[:error] = "You are not authorized to edit this profile."
+            redirect_to root_path
+        end
+    else # Doctor is logged in
+        render 'edit'
     end
   end
 
@@ -85,6 +125,7 @@ class PatientsController < ApplicationController
         current_profile.exercise = modified[:exercise]
         current_profile.doctor = modified[:doctor]
         current_profile.save!
+        flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
         redirect_to patient_profile_path
     rescue StandardError
         flash[:error] = "One of the fields was not filled out correctly."

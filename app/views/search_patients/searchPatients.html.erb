@@ -1,13 +1,13 @@
 <div class="container">
   <%= form_tag searchPatients_path, :method => 'post' do %>
     <div class="form-group row">
-      <label for="search_first_name" class="col-form-label">Fisrt Name: </label>
+      <label for="search_first_name" class="col-form-label">First Name: </label>
       <input type="text" name="search_first_name" autocomplete="off" class="search_box form-control col-md-1"/>
       <label for="search_last_name" class="col-form-label"> Last Name: </label>
       <input type="text" name="search_last_name" autocomplete="off" class="search_box form-control col-md-1"/>
       <label for="search_id" class="col-form-label"> Patient ID: </label>
       <input type="text" name="search_id" autocomplete="off" class="search_box form-control col-md-1"/>
-      <input type="submit" id="search_submit" value="search_patients" class="btn btn-success"/>
+      <input type="submit" id="search_submit" value="Search Patients" class="btn btn-success"/>
     </div>
 
   <% end %>
@@ -30,7 +30,7 @@
           <td><%= p.last_name %></td>
           <td><%= p.email %></td>
           <td><%= p.user_holder_id %></td>
-          <td> <%= link_to profile_name_format(p.first_name, p.last_name), patient_profile_path(:search_id => p.user_holder_id), id: (p.user_holder_id.to_s + '_profile'), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
+          <td> <%= link_to profile_name_format(p.first_name, p.last_name), patient_path(p), id: (p.user_holder_id.to_s + '_profile'), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
         </tr>
       <%end%>
     </tbody>
