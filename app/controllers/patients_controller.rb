@@ -127,6 +127,7 @@ class PatientsController < ApplicationController
         current_profile.exercise = modified[:exercise]
         current_profile.doctor = modified[:doctor]
         current_profile.save!
+        flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
         redirect_to patient_profile_path
     rescue StandardError
         flash[:error] = "One of the fields was not filled out correctly."

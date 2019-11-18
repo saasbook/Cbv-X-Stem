@@ -19,6 +19,9 @@
     </span>
     <%= render 'shared/application_nav' %>
     <p class="notice"><%= notice %></p>
+    <% if not flash[:notice].nil? %>
+        <div class="alert alert-primary" role="alert"> <%= flash[:notice] %></div>
+    <% end %>
     <p class="alert"><%= alert %></p>
     <% if not flash[:error].nil? %>
         <div class="alert alert-danger" role="alert"> <%= flash[:error] %></div>

@@ -12,9 +12,16 @@ module NavigationHelpers
     #
     def path_to(page_name)
       case page_name
-  
+
       when /^the (searchPatients )?home\s?page$/ then '/searchPatients'
-          
+      when /^the profile of "(.*)"/
+        patient_path(User.find_by_first_name($1))
+      when /^the editing page of "(.*)"/
+        patient_edit_profile_path(User.find_by_first_name($1))
+      when /^the login page/
+        new_user_session_path()
+      when /^the site home page/
+        root_path()
       else
         begin
           page_name =~ /^the (.*) page$/
@@ -26,7 +33,6 @@ module NavigationHelpers
         end
       end
     end
-  end
-  
-  World(NavigationHelpers)
-  
+end
+
+World(NavigationHelpers)
