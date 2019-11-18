@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyString
+  provider: MyString
+  location: MyString
+  status: MyString
+  description: MyText
   user_holder: one
 
 two:
-  name: MyString
-  description: MyString
+  provider: MyString
+  location: MyString
+  status: MyString
+  description: MyText
   user_holder: two

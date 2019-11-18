@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   resources :user_holders do
    resources :user_activities, except: [:update, :new, :create, :edit, :destroy]
   end
+  resources :user_holders do
+   resources :treatments
+  end
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   resources :documentations, only: [:index, :new, :create, :destroy]
