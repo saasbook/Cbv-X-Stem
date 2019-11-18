@@ -4,7 +4,7 @@ class MedicationsController < ApplicationController
   # GET /medications
   # GET /medications.json
   def index
-    @medications = Medication.all
+    @medications = @user_holder.medications
   end
 
   # GET /medications/1
@@ -14,7 +14,7 @@ class MedicationsController < ApplicationController
 
   # GET /medications/new
   def new
-    @medication = Medication.new
+    @medication = @user_holder.medications.build
   end
 
   # GET /medications/1/edit
@@ -24,11 +24,11 @@ class MedicationsController < ApplicationController
   # POST /medications
   # POST /medications.json
   def create
-    @medication = Medication.new(medication_params)
+      @medication = @user_holder.medications.build(medication_params)
 
     respond_to do |format|
       if @medication.save
-        format.html { redirect_to @medication, notice: 'Medication was successfully created.' }
+        format.html { redirect_to user_holder_medications_path(@user_holder), notice: 'Medication was successfully created.' }
         format.json { render :show, status: :created, location: @medication }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MedicationsController < ApplicationController
   def update
     respond_to do |format|
       if @medication.update(medication_params)
-        format.html { redirect_to @medication, notice: 'Medication was successfully updated.' }
+        format.html { redirect_to user_holder_medications_path(@user_holder), notice: 'Medication was successfully updated.' }
         format.json { render :show, status: :ok, location: @medication }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class MedicationsController < ApplicationController
   def destroy
     @medication.destroy
     respond_to do |format|
-      format.html { redirect_to medications_url, notice: 'Medication was successfully destroyed.' }
+      format.html { redirect_to user_holder_medications_path(@user_holder), notice: 'Medication was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -64,7 +64,7 @@ class MedicationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_medication
-      @medication = Medication.find(params[:id])
+      @medication = @user_holder.medications.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

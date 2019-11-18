@@ -2,5 +2,5 @@
 
 <%= render 'form', medication: @medication %>
 
-<%= link_to 'Show', @medication %> |
-<%= link_to 'Back', medications_path %>
+<%= link_to 'Show', [@user_holder, @medication] %> |
+<%= link_to 'Back', user_holder_medications_path(@user_holder) %>

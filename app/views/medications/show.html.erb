@@ -25,5 +25,6 @@
   <%= @medication.user_holder %>
 </p>
 
-<%= link_to 'Edit', edit_medication_path(@medication) %> |
-<%= link_to 'Back', medications_path %>
+
+<%= link_to 'Edit', edit_user_holder_medication_path(@user_holder, @medication) %> |
+<%= link_to 'Back', user_holder_medications_path(@user_holder) %>
