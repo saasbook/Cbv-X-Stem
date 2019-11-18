@@ -10,6 +10,11 @@ class UserHolder < ApplicationRecord
   # One to One Relationship :: One UserHolder to One UserSetting.
   has_one :user_setting
 
+  # One to Many Relationship :: One UserHolder to Many UserActivity.
+  has_many :user_activities
+  accepts_nested_attributes_for :user_activities,
+                              reject_if: lambda { |attrs| attrs['actor'].blank? || attrs['action'].blank? || attrs['category'].blank? || attrs['original_val'].blank?}
+
   # One to Many Relationship :: One UserHolder to Many Documents.
   has_many :documents
   accepts_nested_attributes_for :documents,

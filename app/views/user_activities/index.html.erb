@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>User Activities</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Actor</th>
+      <th>Action</th>
+      <th>Category</th>
+      <th>Original val</th>
+      <th>New val</th>
+      <th>Description</th>
+      <th>User holder</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_activities.each do |user_activity| %>
+      <tr>
+        <td><%= user_activity.actor %></td>
+        <td><%= user_activity.action %></td>
+        <td><%= user_activity.category %></td>
+        <td><%= user_activity.original_val %></td>
+        <td><%= user_activity.new_val %></td>
+        <td><%= link_to 'Show', user_holder_user_activity_path(@user_holder.id, user_activity.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
