@@ -16,6 +16,8 @@
       <%= f.text_field :patient %>
       <%= f.label :doctype %>
       <%= f.text_field :doctype %>
+      <%= f.label :status %>
+      <%= f.select :status, ["Not Satisfied", "Satisfied"] %>
       <%= f.label :attachment %>
       <%= f.file_field :attachment %>
       <%= f.submit "Save", class: "btn btn-primary" %>
