@@ -1,13 +1,20 @@
 Rails.application.routes.draw do
 
   resources :user_holders do
+   resources :meetings
    resources :treatments
    resources :medications
+   resources :appointments
    resources :user_activities, except: [:update, :new, :create, :edit, :destroy]
   end
 
+  delete 'treatment/destroy', to: 'treatments#destroy'
+  post 'treatment/create', to: 'treatments#create'
+  patch 'treatment/update', to: 'treatments#update'
+
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   resources :documentations, only: [:index, :new, :create, :destroy]
+
   get 'documentations/index'
   get 'documentations/new'
   get 'documentations/create'
@@ -35,4 +42,8 @@ Rails.application.routes.draw do
   # Patient Setting routes
   get 'patient/:id/edit_setting', to: 'patients#edit_setting', as: 'patient_edit_setting'
   patch 'patient/:id/update_setting', to: 'patients#update_setting', as: 'patient_update_setting'
+
+  # Doctor Schedule routes
+  post '/user_holders/:user_holder_id/meetings_create', to: 'meetings#create', as: 'doctor_create_meeting'
+  patch '/user_holders/:user_holder_id/update_meeting/:id', to: 'meetings#update', as: 'doctor_update_meeting'
 end

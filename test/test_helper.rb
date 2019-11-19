@@ -3,8 +3,46 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 class ActiveSupport::TestCase
+  include Devise::Test::IntegrationHelpers
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+  # fixtures :all
+
+  def login
+    user = User.create!(
+      :first_name => 'Nathaniel',
+      :last_name => 'Ng',
+      :email => 'test01@test.com',
+      :password => 'password',
+      :password_confirmation => 'password'
+    )
+    sign_in user
+    user
+    # user.confirm!
+  end
+
+  def set_user_holder(user)
+    user_holder = UserHolder.create!(
+      :first_name => 'Nathaniel',
+      :last_name => 'Ng',
+      :email => 'test01@test.com',
+      :user_id => user.id
+    )
+    user_holder
+  end
+
+  def set_treatment(user_holder)
+    treatment = Treatment.create!(
+      :provider => 'aaaaa',
+      :location => 'aaaaa',
+      :status => 'aaaaa',
+      :name => 'aaaaa',
+      :description => 'aaaaa',
+      :user_holder_id => user_holder
+    )
+    treatment
+  end
+
+
   #
   # # Add more helper methods to be used by all tests here...
   # # Returns true if a test user is logged in.

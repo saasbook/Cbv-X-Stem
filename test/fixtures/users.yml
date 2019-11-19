@@ -20,3 +20,12 @@ doctor_:
   email: test2@test.com
   encrypted_password: "password"
   is_doctor: true
+
+
+guest_:
+  id: 9
+  first_name: Guest_First
+  last_name: Guest_Last
+  email: test9@test.com
+  encrypted_password: "password"
+  is_doctor: false
