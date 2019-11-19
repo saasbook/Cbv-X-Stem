@@ -1,4 +1,5 @@
 module ApplicationHelper
+  require 'digest/sha1'
 
   def getUserHolderWithDefaultCreation
     if !current_user then return "Haven't logged in" end
@@ -61,11 +62,19 @@ module ApplicationHelper
 
   def profile_name_format(first_name, last_name)
     if Guess.gender(first_name)[:gender] != "male" then
-      name_formatted = "Goes to " + "<span class='bond_name_female'>#{first_name + " " + last_name}</span>" + " profile"
+      name_formatted = "<span class='bond_name_female'>#{first_name + " " + last_name}</span>" + " profile"
     else
-      name_formatted = "Goes to " + "<span class='bond_name_male'>#{first_name + " " + last_name}</span>" + " profile" 
+      name_formatted = "<span class='bond_name_male'>#{first_name + " " + last_name}</span>" + " profile"
     end
     name_formatted.html_safe
+  end
+
+  def hashForUser(user)
+    if user.nil? then
+      "unavaliable"
+    else
+      Digest::SHA1.hexdigest(user.email)
+    end
   end
 
 end
