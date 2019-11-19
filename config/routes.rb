@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   resources :documentations, only: [:index, :new, :create, :destroy]
 <<<<<<< Updated upstream
-=======
   get 'documentations/index'
   get 'documentations/new'
   get 'documentations/create'
