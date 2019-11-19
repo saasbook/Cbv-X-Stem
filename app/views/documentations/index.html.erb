@@ -13,10 +13,12 @@
 <table class = "table table-bordered table-striped">
    <thead>.
       <tr>
-         <th>Name</th>
-         <th>Document Type</th>
-         <th>Download Link</th>
-         <th>Delete Option </th>
+         <th style="width: 16.66%">Name</th>
+         <th style="width: 16.66%">Document Type</th>
+         <th style="width: 16.66%">        </th>
+         <th style="width: 16.66%">Download Link</th>
+         <th style="width: 16.66%">Status</th>
+         <th style="width: 16.66%">Delete Option </th>
       </tr>
    </thead>
 
@@ -24,10 +26,13 @@
       <% @documentations.each do |documentation| %>
 
          <tr>
-            <td><%= documentation.patient %></td>
-            <td><%= documentation.doctype %></td>
-            <td><%= link_to "Download Document", documentation.attachment_url %></td>
-            <td><%= button_to "Delete",  documentation, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{documentation.patient}?" %></td>
+            <td style="width: 16.66%"><%= documentation.patient %></td>
+            <td style="width: 16.66%"><%= documentation.doctype %></td>
+            <td style="width: 16.66%"><button class="col-md-1.5 btn btn-success"><%= link_to "Update",  new_documentation_path %></button></td>
+            <td style="width: 16.66%"><button class="col-md-1.5 btn btn-success"><%= link_to "Download Document", documentations_download_pdf_path(id: documentation.id) %></button></td>
+            <td style="width: 16.66%"><%= documentation.status %></td>
+            <%# Might need to be able to add documentation object inside the link_to method call // :id => documentation.id %>
+            <td style="width: 16.66%"><%= button_to "Delete",  documentation, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{documentation.patient}?" %></td>
          </tr>
 
       <% end %>

@@ -1,19 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+ua1:
+  id: 1
   actor: MyString
   action: MyString
   category: MyString
   original_val: MyString
   new_val: MyString
   description: MyString
-  user_holder: one
+  user_holder_id: 1
 
-two:
+ua2:
+  id: 2
   actor: MyString
   action: MyString
   category: MyString
   original_val: MyString
   new_val: MyString
   description: MyString
-  user_holder: two
+  user_holder_id: 2
