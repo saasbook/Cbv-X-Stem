@@ -13,7 +13,7 @@ users = [{:first_name => "Peter", :last_name => "Pei", :email => "ppei@gmail.com
 ]
 
 users.each do |current_user|
-  new_user = User.new(first_name: current_user[:first_name], last_name: current_user[:last_name], email: current_user[:email], password: current_user[:password], password_confirmation: current_user[:password_confirmation])
+  new_user = User.new(first_name: current_user[:first_name], last_name: current_user[:last_name], email: current_user[:email], password: current_user[:password], password_confirmation: current_user[:password_confirmation], is_doctor: current_user[:is_doctor])
   # new_user.skip_confirmation!
   new_user.save!
   new_user_holder = UserHolder.create!(first_name: new_user.first_name,

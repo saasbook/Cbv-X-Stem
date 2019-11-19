@@ -1,4 +1,4 @@
-<div class="blog-masthead" style="background-color: #041e42">
+<div class="blog-masthead">
   <div class="container">
         <div class="collapse jumbotron jumbotron-fluid" id="nav-pivotal-printboard">
             <div class="nav-pivotal-interface">
@@ -6,23 +6,28 @@
                 <div class="left-pivotal-font"> Current User: </div>
                 <div class="left-pivotal-font"> <%= current_user && (current_user.first_name + " " + current_user.last_name) %> </div>
               </span>
-              <span class="mid-pivotal1" id="mid-p1" style="background-color: #4473C5;">
-                <div class="mid-pivotal-font"> Upcoming appointments: </div>
+              <span class="mid-pivotal1" id="mid-p1">
+                <div class="mid-pivotal-font"> Patient Info: </div>
                 <ul>
-                  <li class="mid-pivotal-font2"=><b>Bob:</b> 3:30 - 4:00 PM</li>
-                  <li class="mid-pivotal-font2"=><b>Andrew:</b> 4:30 - 4:45 PM</li>
-                  <li class="mid-pivotal-font2"=><b>Alex:</b> 5:00 - 6:00 PM</li>
+                  <li class="mid-pivotal-font2"=><b>Health plan:</b> <%=  current_user.nil? ? "None" : @current_profile.health_plan %></li>
+                  <li class="mid-pivotal-font2"=><b>Weight:</b> <%=  current_user.nil? ? "None" : @current_profile.weight %></li>
+                  <li class="mid-pivotal-font2"=><b>Height:</b> <%=  current_user.nil? ? "None" : @current_profile.height %></li>
+                  <li class="mid-pivotal-font2"=><b>You have <span id="notification-font"><%=  0 %> </span> pending message. </b> </li>
+                  <li class="mid-pivotal-font2"=><b>You have <span id="notification-font"><%=  0 %> </span> coming appointment. </b> </li>
                 </ul>
               </span>
-              <span class="right-function-pivotal" style="background-color: #4473C5;">                  
-                  <div><%= link_to "Search Patient", searchPatients_path, class: 'doctor-pivotal-link' %></div>
-                  <div class='need-work'> Activity Log </div> 
-                  <div class='need-work'> Schedule </div>
+              <span class="right-function-pivotal">
+                  <div><%= link_to "Profile", patient_profile_path, class: 'right-pivotal-link' %></div>
+                  <div><%= link_to "Documents", documentations_path, class: 'right-pivotal-link' %></div>
+                  <div class='need-work'> Treatments </div>
+                  <div><%= link_to "Patients Profile", searchPatients_path, class: 'doctor-pivotal-link', style: "color: red" %></div>
               </span>
-              <span class="right-setting-pivotal" style="background-color: #4473C5; ">
-                  <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'doctor-pivotal-link' %></div>
+              <span class="right-setting-pivotal">
+                  <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'right-pivotal-link' %></div>
                   <div class='need-work'> User Setting </div>
-                  <div><%= link_to "Message Box", messages_path, class: 'doctor-pivotal-link' %></div>
+                  <div class='need-work'> Notification </div>
+                  <div><%= if !@user_holder.nil? then link_to 'User Activities', user_holder_user_activities_path(@user_holder) end %></div>
+                  <div><%= link_to "Message Box", messages_path, class: 'right-pivotal-link' %></div>
               </span>
             </div>
         </div>

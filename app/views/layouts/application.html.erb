@@ -17,7 +17,7 @@
               @profile = getProfileWithDefaultCreation(getUserHolderWithDefaultCreation())
         end %>
     </span>
-    <%= render 'shared/application_nav' %>
+    <%= if current_user.nil? or not current_user.is_doctor then render 'shared/application_nav' else render 'shared/doctor_nav' end %>
     <p class="notice"><%= notice %></p>
     <% if not flash[:notice].nil? %>
         <div class="alert alert-primary" role="alert"> <%= flash[:notice] %></div>
