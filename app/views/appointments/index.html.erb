@@ -1,8 +1,10 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Appointments</h1>
-
-<table>
+<div class = "search_table">
+  <p id="notice"><%= notice %></p>
+  <div>
+    <h1 style="text-align: center">Appointments</h1>
+    <br>
+  </div>
+<table class="table table-striped col-md-12">
   <thead>
     <tr>
       <th>Patient</th>
@@ -32,5 +34,7 @@
 </table>
 
 <br>
-
-<%= link_to 'New Appointment', new_user_holder_appointment_path(@user_holder) %>
+<button class="col-md-1.5 btn btn-success">
+  <%= link_to 'New Appointment', new_user_holder_appointment_path(@user_holder) %>
+</button>
+</div>
