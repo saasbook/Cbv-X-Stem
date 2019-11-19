@@ -9,9 +9,9 @@
               <span class="mid-pivotal1" id="mid-p1">
                 <div class="mid-pivotal-font"> Patient Info: </div>
                 <ul>
-                  <li class="mid-pivotal-font2"=><b>Health plan:</b> <%=  current_user.nil? ? "None" : @current_profile.health_plan %></li>
-                  <li class="mid-pivotal-font2"=><b>Weight:</b> <%=  current_user.nil? ? "None" : @current_profile.weight %></li>
-                  <li class="mid-pivotal-font2"=><b>Height:</b> <%=  current_user.nil? ? "None" : @current_profile.height %></li>
+                  <li class="mid-pivotal-font2"=><b>Health plan:</b> <%=  @current_profile.nil? ? "None" : @current_profile.health_plan %></li>
+                  <li class="mid-pivotal-font2"=><b>Weight:</b> <%=  @current_profile.nil? ? "None" : @current_profile.weight %></li>
+                  <li class="mid-pivotal-font2"=><b>Height:</b> <%=  @current_profile.nil? ? "None" : @current_profile.height %></li>
                   <li class="mid-pivotal-font2"=><b>You have <span id="notification-font"><%=  0 %> </span> pending message. </b> </li>
                   <li class="mid-pivotal-font2"=><b>You have <span id="notification-font"><%=  0 %> </span> coming appointment. </b> </li>
                 </ul>
