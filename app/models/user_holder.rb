@@ -10,6 +10,11 @@ class UserHolder < ApplicationRecord
   # One to One Relationship :: One UserHolder to One UserSetting.
   has_one :user_setting
 
+  # One to Many Relationship :: One UserHolder to Many Treatments
+  has_many :medications
+  accepts_nested_attributes_for :medications,
+                              reject_if: lambda { |attrs| attrs['directions'].blank? || attrs['days'].blank? || attrs['description'].blank? || attrs['provider'].blank? }
+
   # One to Many Relationship :: One UserHolder to Many UserActivity.
   has_many :user_activities
   accepts_nested_attributes_for :user_activities,
@@ -23,5 +28,5 @@ class UserHolder < ApplicationRecord
   # One to Many Relationship :: One UserHolder to Many Treatments
   has_many :treatments
   accepts_nested_attributes_for :treatments,
-                              reject_if: lambda { |attrs| attrs['name'].blank? || attrs['description'].blank? }
+                              reject_if: lambda { |attrs| attrs['name'].blank? || attrs['description'].blank? || attrs['provider'].blank? || attrs['status'].blank? }
 end

@@ -29,6 +29,17 @@ ActiveRecord::Schema.define(version: 2019_11_18_224504) do
     t.index ["user_holder_id"], name: "index_documents_on_user_holder_id"
   end
 
+  create_table "medications", force: :cascade do |t|
+    t.string "provider"
+    t.string "directions"
+    t.string "days"
+    t.text "description"
+    t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_holder_id"], name: "index_medications_on_user_holder_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.string "sender_name"
     t.string "sender_email"
@@ -69,8 +80,11 @@ ActiveRecord::Schema.define(version: 2019_11_18_224504) do
   end
 
   create_table "treatments", force: :cascade do |t|
+    t.string "provider"
+    t.string "location"
+    t.string "status"
     t.string "name"
-    t.string "description"
+    t.text "description"
     t.integer "user_holder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

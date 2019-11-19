@@ -1,0 +1,34 @@
+<div class = "search_table">
+<p id="notice"><%= notice %></p>
+<div>
+<h1 style="text-align: center">Treatments</h1>
+<br>
+</div>
+<table class = "table table-striped col-md-12">
+    <thead>
+      <tr>
+        <th>Provider</th>
+        <th>Location</th>
+        <th>Status</th>
+        <th>Description</th>
+        <th colspan="2">Patient Name</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @treatments.each do |treatment| %>
+        <tr>
+          <td><%= treatment.provider %></td>
+          <td><%= treatment.location %></td>
+          <td><%= treatment.status %></td>
+          <td><%= treatment.description.length > 15 ? treatment.description[0..15] + "..." : treatment.description %></td>
+          <td><%= treatment.user_holder.first_name %></td>
+          <td><%= treatment.user_holder.last_name %></td>
+          <td><%= link_to 'Details', [@user_holder, treatment] %></td>
+          <td><%= link_to 'Edit', edit_user_holder_treatment_path(@user_holder, treatment) %></td>
+          <td><%= link_to 'Destroy', [@user_holder, treatment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
