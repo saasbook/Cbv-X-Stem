@@ -37,8 +37,8 @@
 #     assert_not @treatment.valid?
 #   end
 #
-#   test "field length max (10) - Status" do
-#   	@treatment.status = "a" * 11
+#   test "field length max (20) - Status" do
+#   	@treatment.status = "a" * 21
 #   	assert_not @treatment.valid?
 #   end
 #
