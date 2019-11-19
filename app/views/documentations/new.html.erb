@@ -1,12 +1,12 @@
 <% if !@documentation.errors.empty? %>
    <div class = "alert alert-error">
-      
+
       <ul>
          <% @documentation.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
          <% end %>
       </ul>
-      
+
    </div>
 <% end %>
 
@@ -14,8 +14,8 @@
    <%= form_for @documentation, html: { multipart: true } do |f| %>
       <%= f.label :patient %>
       <%= f.text_field :patient %>
-      <%= f.label :doctype %>
-      <%= f.text_field :doctype %>
+      <%= f.label "Document Name" %>
+      <%= f.text_field :documents_name %>
       <%= f.label :attachment %>
       <%= f.file_field :attachment %>
       <%= f.submit "Save", class: "btn btn-primary" %>
