@@ -26,14 +26,17 @@
         <td><%= medication.description.length > 15 ? medication.description[0..15] + "..." : medication.description %></td>
         <td><%= medication.user_holder.first_name %></td>
         <td><%= medication.user_holder.last_name %></td>
-        <td><%= link_to 'Details', [@user_holder, medication] %></td>
-        <td><%= link_to 'Edit', edit_user_holder_medication_path(@user_holder, medication) %></td>
-        <td><%= link_to 'Destroy', [@user_holder, medication], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can? :read, medication %><td><%= link_to 'Details', [@user_holder, medication] %></td> <% end %>
+        <% if can? :update, medication %><td><%= link_to 'Edit', edit_user_holder_medication_path(@user_holder, medication) %></td><% end %>
+        <% if can? :destroy, medication %><td><%= link_to 'Destroy', [@user_holder, medication], method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<button class="col-md-1.5 btn btn-success">
-  <%= link_to "Add Medication", new_user_holder_medication_path(@user_holder) %>
-</button>
+<% @medication = @medications.first %>
+<% if can? :create, @medication %>
+  <button class="col-md-1.5 btn btn-success">
+    <%= link_to "Add Medication", new_user_holder_medication_path(@user_holder) %>
+  </button>
+<% end %>
