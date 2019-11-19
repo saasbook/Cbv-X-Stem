@@ -52,7 +52,7 @@ class DocumentationsController < ApplicationController
 
   private
     def documentation_params
-      params.require(:documentation).permit(:patient, :attachment, :doctype)
+      params.require(:documentation).permit(:patient, :attachment, :doctype, :documents_name, :documents_info, :documents_status, :documents_explanation)
     end
 
 end
