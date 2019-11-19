@@ -39,8 +39,7 @@ class PatientsController < ApplicationController
 
     @current_holder = @current_user.user_holder
     @current_setting = @current_holder.user_setting
-    puts(@current_setting.email_notification)
-    puts(@current_setting.whatsapp_notification)
+    
 
     if @current_setting.nil?
      @current_setting = UserSetting.create(:user_holder_id => @current_holder.user_id)
