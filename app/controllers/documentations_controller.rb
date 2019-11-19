@@ -1,13 +1,29 @@
 class DocumentationsController < ApplicationController
   def index
     @documentations = Documentation.all
+
+
+    #Testing
+    @user = User.find_by_email(@user_holder.email)
+    if @user.is_doctor?
+      render "documentations/index"
+    else
+      render "documentations/patient_index"
+    end
     puts User.find_by(first_name: @documentations[0].patient)
     puts "TESTING"
+    puts @user_holder.inspect
     puts @documentations[0].inspect
   end
 
   def new
     @documentation = Documentation.new
+    @user = User.find_by_email(@user_holder.email)
+    if @user.is_doctor?
+      render "documentations/new"
+    else
+      render "documentations/patient_new"
+    end
   end
 
   def create
@@ -45,7 +61,7 @@ class DocumentationsController < ApplicationController
     @first_name, @last_name = documentation.patient.split
     @current_setting = @user_holder.user_setting
       if @current_setting.email_notification
-          @cur_user_email = @cur_user.email
+          @cur_user_email = @user_holder.email
           @message = Message.new(:sender_name => documentation.patient)
           @message.receiver_email = 'cbvxstem@gmail.com'
           MessageMailer.document_notification(@message).deliver
