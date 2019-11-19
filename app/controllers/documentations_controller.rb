@@ -1,6 +1,9 @@
 class DocumentationsController < ApplicationController
   def index
     @documentations = Documentation.all
+    puts User.find_by(first_name: @documentations[0].patient)
+    puts "TESTING"
+    puts @documentations[0].inspect
   end
 
   def new
@@ -9,6 +12,16 @@ class DocumentationsController < ApplicationController
 
   def create
       @documentation = Documentation.new(documentation_params)
+
+      # Ensure that only one row for the given patient
+      Documentation.all.each do |document|
+        puts "TESTING2"
+        puts @documentation.patient
+        puts document.patient
+        if document.patient == @documentation.patient
+          Documentation.find(document.id).destroy
+        end
+      end
 
       if @documentation.save
 

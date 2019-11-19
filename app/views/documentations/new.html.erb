@@ -14,6 +14,10 @@
    <%= form_for @documentation, html: { multipart: true } do |f| %>
       <%= f.label :patient %>
       <%= f.text_field :patient %>
+      <%= f.label :doctype %>
+      <%= f.text_field :doctype %>
+      <%= f.label :status %>
+      <%= f.select :status, ["Not Satisfied", "Satisfied"] %>
       <%= f.label "Document Name" %>
       <%= f.text_field :documents_name %>
       <%= f.label :attachment %>
