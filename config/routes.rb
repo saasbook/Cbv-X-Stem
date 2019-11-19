@@ -8,6 +8,14 @@ Rails.application.routes.draw do
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   resources :documentations, only: [:index, :new, :create, :destroy]
+<<<<<<< Updated upstream
+=======
+  get 'documentations/index'
+  get 'documentations/new'
+  get 'documentations/create'
+  get 'documentations/destroy'
+  get 'documentations/download_pdf'
+>>>>>>> Stashed changes
   resources :messages
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
