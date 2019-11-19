@@ -4,11 +4,11 @@
    </div>
 <% end %>
 
-<br />
+<h1 style="text-align: center">Documents</h1>
+<br>
 
 <%= link_to "New Document", new_documentation_path, class: "btn btn-primary" %>
-<br />
-<br />
+<br>
 
 <table class = "table table-bordered table-striped">
    <thead>.
@@ -19,10 +19,10 @@
          <th>Delete Option </th>
       </tr>
    </thead>
-   
+
    <tbody>
       <% @documentations.each do |documentation| %>
-         
+
          <tr>
             <td><%= documentation.patient %></td>
             <td><%= documentation.doctype %></td>
@@ -30,8 +30,8 @@
             <%# Might need to be able to add documentation object inside the link_to method call // :id => documentation.id %>
             <td><%= button_to "Delete",  documentation, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{documentation.patient}?" %></td>
          </tr>
-         
+
       <% end %>
    </tbody>
-   
+
 </table>

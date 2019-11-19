@@ -13,8 +13,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'sprockets-rails', '3.2.1'
 gem 'sprockets', '3.7.2'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use Uglifier as compressor for JavaScript assets
@@ -44,8 +43,17 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'sqlite3'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'jasmine-rails' # if you plan to use JavaScript/CoffeeScript
 end
+
+# make sure the following gems are in your production group:
+group :production do
+  gem 'pg'              # use PostgreSQL in production (Heroku)
+  gem 'rails_12factor'  # Heroku-specific production settings
+end
+
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -56,12 +64,24 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+
+
+
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+
+  gem 'rspec-rails'
+  gem 'guard-rspec'
+  gem 'simplecov', :require => false
+  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails-training-wheels' # basic imperative step defs
+  gem 'database_cleaner' # required by Cucumber
+  gem 'factory_girl_rails' # if using FactoryGirl
+  gem 'metric_fu'        # collect code metrics
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -70,3 +90,9 @@ gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.1'
 gem 'jquery-rails'
 gem 'carrierwave', '~> 0.9'
+
+# for Heroku deployment - as described in Ap. A of ELLS book
+group :development, :test do
+  gem 'launchy'
+  gem 'ZenTest', '4.11.2'
+end
