@@ -29,6 +29,9 @@ class UserHolder < ApplicationRecord
   has_many :treatments
   accepts_nested_attributes_for :treatments,
                               reject_if: lambda { |attrs| attrs['name'].blank? || attrs['description'].blank? || attrs['provider'].blank? || attrs['status'].blank? }
-
-  has_many :appointments, dependent: :destroy
+  
+  # One to Many Relationship :: One UserHolder to Many Appointmnets
+  has_many :appointments
+  accepts_nested_attributes_for :appointmnets,
+                              reject_if: lambda { |attrs| attrs['patient'].blank? || attrs['location'].blank? || attrs['start'].blank? || attrs['end'].blank? }
 end
