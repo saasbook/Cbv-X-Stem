@@ -69,12 +69,16 @@ module ApplicationHelper
     name_formatted.html_safe
   end
 
-  def hashForUser(user)
+  def hashForUserHolder(user)
     if user.nil? then
       "unavaliable"
     else
-      Digest::SHA1.hexdigest(user.email)
+      hashForEmailInFive(user.email)
     end
+  end
+
+  def hashForEmailInFive(email)
+    Digest::SHA1.hexdigest(email)[0..5]
   end
 
 end
