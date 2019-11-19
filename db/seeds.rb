@@ -9,7 +9,7 @@
 users = [{:first_name => "Peter", :last_name => "Pei", :email => "ppei@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
          {:first_name => "Tom", :last_name => "Brady", :email => "tombb@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
          {:first_name => "Steven", :last_name => "Jobs", :email => "stevenjb@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
-         {:first_name => "Bill", :last_name => "Gates", :email => "bliigb@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
+         {:first_name => "Bill", :last_name => "Gates", :email => "bliigb@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password", :is_doctor => true},
 ]
 
 users.each do |current_user|
