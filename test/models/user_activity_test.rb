@@ -5,9 +5,10 @@ class UserActivityTest < ActiveSupport::TestCase
   #   assert true
   # end
   def setup
-    # @user_holder = UserHolder.create!(email: "stoneplus20112@gmail.com", first_name: "Nathaniel2",last_name: "Ng2",  user_id: 1)
-    # @user_activity = UserActivities.new(actor: "Nathaniel", action: "create", category: "profile", original_val: "user profile", user_holder_id: @user_holder)
-    @user_activity = user_activities(:one)
+    # @user = User.create!(first_name: "Nathaniel3", last_name: "Ng", email: "stoneplus20113@gmail.com", password: "password", password_confirmation: "password", is_doctor: false)
+    # @user_holder = UserHolder.create!(email: "stoneplus20112@gmail.com", first_name: "Nathaniel2",last_name: "Ng2",  user_id: @user)
+    # @user_activity = UserActivity.new!(actor: "Nathaniel", action: "create", category: "profile", original_val: "user profile", user_holder_id: @user_holder)
+    @user_activity = user_activities(:ua1)
   end
 
   # Database Entry

@@ -1,12 +1,13 @@
 require 'test_helper'
 
 class UserActivitiesControllerTest < ActionDispatch::IntegrationTest
-  # setup do
-  #   @user_activity = user_activities(:one)
-  # end
-  #
+  def setup
+    @user_holder = user_holders(:patient_holder)
+    @user_activity = user_activities(:ua1)
+  end
+
   # test "should get index" do
-  #   get
+  #   get(user_holder_user_activities_path(@user_holder), {:user_holder => @user_holder})
   #   assert_response :success
   # end
   #
