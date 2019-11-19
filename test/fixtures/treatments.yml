@@ -2,11 +2,11 @@
 
 t1:
   id: 1
-  provider: MyString
-  location: MyString
-  status: MyString
-  name: MyString
-  description: MyString
+  provider: "aaaaa"
+  location: "aaaaa"
+  status: "aaaaa"
+  name: "aaaaa"
+  description: "aaaaa"
   user_holder_id: 1
 
 t2:
