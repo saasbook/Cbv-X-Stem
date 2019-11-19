@@ -4,16 +4,17 @@ class DocumentationsController < ApplicationController
 
 
     #Testing
+    puts @documentations[0].inspect
     @user = User.find_by_email(@user_holder.email)
     if @user.is_doctor?
       render "documentations/index"
     else
       render "documentations/patient_index"
     end
-    puts User.find_by(first_name: @documentations[0].patient)
-    puts "TESTING"
-    puts @user_holder.inspect
-    puts @documentations[0].inspect
+    # puts User.find_by(first_name: @documentations[0].patient)
+    # puts "TESTING"
+    # puts @user_holder.inspect
+    # puts @documentations[0].inspect
   end
 
   def new

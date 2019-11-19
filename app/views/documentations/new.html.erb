@@ -18,6 +18,8 @@
       <%= f.text_field :doctype %>
       <%= f.label :status %>
       <%= f.select :status, ["Not Satisfied", "Satisfied"] %>
+      <%= puts :status%>
+      <%= puts @documentation.status%>
       <%= f.label "Document Name" %>
       <%= f.text_field :documents_name %>
       <%= f.label :attachment %>
