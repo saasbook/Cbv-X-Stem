@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-<<<<<<< HEAD
-  # resources :meetings
-=======
-  
->>>>>>> 8afd3a88f86a56daeeae8629f9d17e6f352c2de7
   resources :user_holders do
    resources :meetings
    resources :treatments
