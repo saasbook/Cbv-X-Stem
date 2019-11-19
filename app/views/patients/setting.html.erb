@@ -1,0 +1,15 @@
+<div class="container">
+  <h1 style="text-align: center">User Setting</h1>
+  <br>
+  <p><b>Email notification:</b> <%= @current_setting.email_notification ? "Yes" : "No" %>
+  </p>
+  <p><b>WhatsApp notification:</b>
+      <%=  @current_setting.whatsapp_notification ? "Yes" : "No" %></p>
+        <p></p>
+  <button class="col-md-1.5 btn btn-success">
+    <%= link_to "Edit Setting", patient_edit_setting_path(@current_user) %>
+  </button>
+  <br>
+  <p></p>
+</div>
+

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  provider: MyString
+  directions: MyString
+  days: MyString
+  description: MyText
+  user_holder: one
+
+two:
+  provider: MyString
+  directions: MyString
+  days: MyString
+  description: MyText
+  user_holder: two

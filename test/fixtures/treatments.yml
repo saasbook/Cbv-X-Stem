@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyString
-  user_holder: one
+t1:
+  id: 1
+  provider: "aaaaa"
+  location: "aaaaa"
+  status: "aaaaa"
+  name: "aaaaa"
+  description: "aaaaa"
+  user_holder_id: 1
 
-two:
+t2:
+  id: 2
+  provider: MyString
+  location: MyString
+  status: MyString
   name: MyString
   description: MyString
-  user_holder: two
+  user_holder_id: 2

@@ -3,15 +3,15 @@ module ApplicationHelper
 
   def getUserHolderWithDefaultCreation
     if !current_user then return "Haven't logged in" end
-    user_holder = UserHolder.find_by_email(current_user.email)
+    @user_holder = UserHolder.find_by_email(current_user.email)
     # create a UserHolder object if user does not have one already
-    if user_holder.nil?
-      user_holder = UserHolder.create!(first_name: current_user.first_name,
+    if @user_holder.nil?
+      @user_holder = UserHolder.create!(first_name: current_user.first_name,
                                       last_name: current_user.last_name,
                                       email: current_user.email,
                                       user_id: current_user.id)
     end
-    user_holder = UserHolder.find_by_email(current_user.email)
+    @user_holder = UserHolder.find_by_email(current_user.email)
   end
 
   def user_login_logout
@@ -64,7 +64,11 @@ module ApplicationHelper
     if Guess.gender(first_name)[:gender] != "male" then
       name_formatted = "<span class='bond_name_female'>#{first_name + " " + last_name}</span>" + " profile"
     else
+<<<<<<< HEAD
       name_formatted = "<span class='bond_name_male'>#{first_name + " " + last_name}</span>" + " profile"
+=======
+      name_formatted = "Goes to " + "<span class='bond_name_male'>#{first_name + " " + last_name}</span>" + " profile"
+>>>>>>> debc4a529d22def3d2d3d4cbf7e6b9615b58c367
     end
     name_formatted.html_safe
   end

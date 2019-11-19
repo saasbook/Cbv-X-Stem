@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Actor:</strong>
+  <%= @user_activity.actor %>
+</p>
+
+<p>
+  <strong>Action:</strong>
+  <%= @user_activity.action %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @user_activity.category %>
+</p>
+<p>
+  <strong>Field:</strong>
+  <%= @user_activity.field %>
+</p>
+
+<p>
+  <strong>Original val:</strong>
+  <%= @user_activity.original_val %>
+</p>
+
+<p>
+  <strong>New val:</strong>
+  <%= @user_activity.new_val %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @user_activity.description %>
+</p>
+
+<p>
+  <strong>Time Changed:</strong>
+  <%= @user_activity.created_at %>
+</p>
+
+<p>
+  <strong>User holder:</strong>
+  <%= @user_activity.user_holder %>
+</p>
+
+<%= link_to 'Back', user_holder_user_activities_path(@user_holder) %>

@@ -1,11 +1,13 @@
 <div class="container">
-  <h2> Profile </h2>
+  <h1 style="text-align: center">Profile</h1>
+  <br>
   <p><b>Name:</b> <%= @current_profile.first_name + " " + @current_profile.last_name %> </p>
   <p><b>Full address:</b> <%= getFullAddress(@current_profile) %>
   </p>
   <p><b>Mobile phone:</b>
       <%=  @current_profile.phone %></p>
   <p><b>Email:</b> <%= @current_profile.email %></p>
+  <p><b>WhatsApp:</b> <%= @current_profile.whatsapp %></p>
   <p><b>Date of birth:</b> <%=  @current_profile.birthday %> </p>
   <p><b>Age:</b> <%= @age %></p>
   <p><b>Sex:</b> <%=  @current_profile.sex %></p>

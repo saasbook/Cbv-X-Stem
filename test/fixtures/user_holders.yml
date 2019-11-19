@@ -1,7 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  email: MyString
+patient_holder:
+  id: 1
+  email: test1@test.com
+  first_name: Nathaniel1
+  last_name: Ng1
+  user_id: 1
 
-two:
-  email: MyString
+
+doctor_holder:
+  id: 2
+  email: test2@test.com
+  first_name: Nathaniel2
+  last_name: Ng2
+  user_id: 2
