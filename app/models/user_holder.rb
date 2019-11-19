@@ -10,6 +10,8 @@ class UserHolder < ApplicationRecord
   # One to One Relationship :: One UserHolder to One UserSetting.
   has_one :user_setting
 
+  has_many :meetings
+
   # One to Many Relationship :: One UserHolder to Many Treatments
   has_many :medications
   accepts_nested_attributes_for :medications,
