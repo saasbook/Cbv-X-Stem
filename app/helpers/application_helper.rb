@@ -64,11 +64,7 @@ module ApplicationHelper
     if Guess.gender(first_name)[:gender] != "male" then
       name_formatted = "<span class='bond_name_female'>#{first_name + " " + last_name}</span>" + " profile"
     else
-<<<<<<< HEAD
       name_formatted = "<span class='bond_name_male'>#{first_name + " " + last_name}</span>" + " profile"
-=======
-      name_formatted = "Goes to " + "<span class='bond_name_male'>#{first_name + " " + last_name}</span>" + " profile"
->>>>>>> debc4a529d22def3d2d3d4cbf7e6b9615b58c367
     end
     name_formatted.html_safe
   end
