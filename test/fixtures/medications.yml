@@ -2,14 +2,14 @@
 
 one:
   provider: MyString
-  location: MyString
-  status: MyString
+  directions: MyString
+  days: MyString
   description: MyText
   user_holder: one
 
 two:
   provider: MyString
-  location: MyString
-  status: MyString
+  directions: MyString
+  days: MyString
   description: MyText
   user_holder: two

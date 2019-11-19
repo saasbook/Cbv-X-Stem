@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
   resources :user_holders do
+   resources :treatments
+   resources :medications
    resources :user_activities, except: [:update, :new, :create, :edit, :destroy]
   end
 
