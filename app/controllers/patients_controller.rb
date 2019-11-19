@@ -34,12 +34,12 @@ class PatientsController < ApplicationController
   end
 
   def setting
-    
+
 
 
     @current_holder = @current_user.user_holder
     @current_setting = @current_holder.user_setting
-    
+
 
     if @current_setting.nil?
      @current_setting = UserSetting.create(:user_holder_id => @current_holder.user_id)
@@ -63,12 +63,12 @@ class PatientsController < ApplicationController
     @current_holder = @current_user.user_holder
     @current_setting = @current_holder.user_setting
     @my_setting = params[:user_setting]
-    
-    
+
+
     @current_setting.email_notification = @my_setting[:email_notification].to_s.downcase == "true"
     @current_setting.whatsapp_notification = @my_setting[:whatsapp_notification].to_s.downcase == "true"
     @current_setting.save!
-    
+
     redirect_to patient_setting_path
 
   end
@@ -136,6 +136,7 @@ class PatientsController < ApplicationController
             redirect_to root_path
         end
     else # Doctor is logged in
+        @profile_to_edit = Profile.find(params[:id])
         render 'edit'
     end
   end
