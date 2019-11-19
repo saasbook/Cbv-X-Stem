@@ -14,3 +14,11 @@ doctor_holder:
   first_name: Nathaniel2
   last_name: Ng2
   user_id: 2
+
+
+guest_holder:
+  id: 9
+  email: test9@test.com
+  first_name: Guest_First
+  last_name: Guest_Last
+  user_id: 9
