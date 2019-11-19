@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2019_11_18_224504) do
+=======
+
+ActiveRecord::Schema.define(version: 2019_11_18_224504) do
+
+>>>>>>> df40413c105664ad1a15a4647d01566304c6a0cb
 
   create_table "documentations", force: :cascade do |t|
     t.string "patient"
