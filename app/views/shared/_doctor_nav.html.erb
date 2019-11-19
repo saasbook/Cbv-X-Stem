@@ -1,0 +1,38 @@
+<div class="blog-masthead" style="background-color: #041e42">
+  <div class="container">
+        <div class="collapse jumbotron jumbotron-fluid" id="nav-pivotal-printboard">
+            <div class="nav-pivotal-interface">
+              <span class="left-pivotal">
+                <div class="left-pivotal-font"> Current User: </div>
+                <div class="left-pivotal-font"> <%= current_user && (current_user.first_name + " " + current_user.last_name) %> </div>
+              </span>
+              <span class="mid-pivotal1" id="mid-p1" style="background-color: #4473C5;">
+                <div class="mid-pivotal-font"> Upcoming appointments: </div>
+                <ul>
+                  <li class="mid-pivotal-font2"=><b>Bob:</b> 3:30 - 4:00 PM</li>
+                  <li class="mid-pivotal-font2"=><b>Andrew:</b> 4:30 - 4:45 PM</li>
+                  <li class="mid-pivotal-font2"=><b>Alex:</b> 5:00 - 6:00 PM</li>
+                </ul>
+              </span>
+              <span class="right-function-pivotal" style="background-color: #4473C5;">                  
+                  <div><%= link_to "Search Patient", searchPatients_path, class: 'doctor-pivotal-link' %></div>
+                  <div class='need-work'> Activity Log </div> 
+                  <div class='need-work'> Schedule </div>
+              </span>
+              <span class="right-setting-pivotal" style="background-color: #4473C5; ">
+                  <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'doctor-pivotal-link' %></div>
+                  <div class='need-work'> User Setting </div>
+                  <div><%= link_to "Message Box", messages_path, class: 'doctor-pivotal-link' %></div>
+              </span>
+            </div>
+        </div>
+        <div class="nav-grid">
+          <div class="nav-left">
+            <%= nav_helper 'nav-link', 'nav-general-link' %>
+          </div>
+          <div class="nav-right">
+              <%= user_login_logout %>
+          </div>
+        </div>
+  </div>
+</div>
