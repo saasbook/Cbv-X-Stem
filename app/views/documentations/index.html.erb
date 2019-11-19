@@ -14,7 +14,7 @@
    <thead>.
       <tr>
          <th>Name</th>
-         <th>Document Type</th>
+         <th>Document Name</th>
          <th>Download Link</th>
          <th>Delete Option </th>
       </tr>
@@ -25,7 +25,7 @@
 
          <tr>
             <td><%= documentation.patient %></td>
-            <td><%= documentation.doctype %></td>
+            <td><%= documentation.documents_name %></td>
             <td><%= link_to "Download Document", documentations_download_pdf_path(id: documentation.id) %></td>
             <%# Might need to be able to add documentation object inside the link_to method call // :id => documentation.id %>
             <td><%= button_to "Delete",  documentation, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{documentation.patient}?" %></td>
