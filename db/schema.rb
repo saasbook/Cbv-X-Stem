@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2019_11_19_071044) do
+=======
+ActiveRecord::Schema.define(version: 2019_11_19_102809) do
+
+  create_table "appointments", force: :cascade do |t|
+    t.string "patient"
+    t.string "location"
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_holder_id"], name: "index_appointments_on_user_holder_id"
+  end
+>>>>>>> 8afd3a88f86a56daeeae8629f9d17e6f352c2de7
 
   create_table "documentations", force: :cascade do |t|
     t.string "patient"
@@ -18,6 +33,11 @@ ActiveRecord::Schema.define(version: 2019_11_19_071044) do
     t.string "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
+    t.text "documents_info"
+    t.string "documents_status"
+    t.string "documents_name"
+    t.text "documents_explanation"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -26,6 +46,10 @@ ActiveRecord::Schema.define(version: 2019_11_19_071044) do
     t.integer "user_holder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "documents_info"
+    t.string "documents_status"
+    t.string "documents_name"
+    t.text "documents_explanation"
     t.index ["user_holder_id"], name: "index_documents_on_user_holder_id"
   end
 
@@ -64,6 +88,8 @@ ActiveRecord::Schema.define(version: 2019_11_19_071044) do
     t.string "last_name"
     t.string "email"
     t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "address_line1"
     t.string "address_line2"
     t.string "city"
@@ -86,6 +112,7 @@ ActiveRecord::Schema.define(version: 2019_11_19_071044) do
     t.string "exercise"
     t.string "doctor"
     t.string "whatsapp"
+    t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
   end
 
   create_table "treatments", force: :cascade do |t|
