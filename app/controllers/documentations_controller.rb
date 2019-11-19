@@ -13,23 +13,28 @@ class DocumentationsController < ApplicationController
       if @documentation.save
          
          redirect_to documentations_path, notice: "The document #{@documentation.patient} has been uploaded."
-         @first_name, @last_name = @documentation.patient.split
-         @cur_user = User.where(first_name: @first_name, last_name: @last_name).first
-         @current_holder = @cur_user.user_holder
-         @current_setting = @current_holder.user_setting
-          if @current_setting.email_notification
-            @cur_user_email = @cur_user.email
-            @message = Message.new(:sender_name => @documentation.patient)
-            @message.receiver_email = 'cbvxstem@gmail.com'
-            MessageMailer.document_notification(@message).deliver
-            if @cur_user_email != ""   
-              @message.sender_email =  @cur_user_email
-              MessageMailer.document_confirmation(@message).deliver
-            end
-          end           
+         send_notification(@documentation)
       else
          render "new"
       end
+  end
+
+
+  def send_notification(documentation) 
+    @first_name, @last_name = documentation.patient.split
+    @cur_user = User.where(first_name: @first_name, last_name: @last_name).first
+    @current_holder = @cur_user.user_holder
+    @current_setting = @current_holder.user_setting
+      if @current_setting.email_notification
+          @cur_user_email = @cur_user.email
+          @message = Message.new(:sender_name => documentation.patient)
+          @message.receiver_email = 'cbvxstem@gmail.com'
+          MessageMailer.document_notification(@message).deliver
+          if @cur_user_email != ""   
+              @message.sender_email =  @cur_user_email
+              MessageMailer.document_confirmation(@message).deliver
+          end
+      end           
   end
 
   def destroy
