@@ -21,6 +21,7 @@
                   <div><%= link_to "Documents", documentations_path, class: 'right-pivotal-link' %></div>
                   <div><%= if !@user_holder.nil? then link_to 'Treatments', user_holder_treatments_path(@user_holder), class: 'right-pivotal-link' end %></div>
                   <div><%= if !@user_holder.nil? then link_to 'Medications', user_holder_medications_path(@user_holder), class: 'right-pivotal-link' end %></div>
+                  <div><%= if !@user_holder.nil? then link_to 'Make Appointment', user_holder_appointments_path(@user_holder), class: 'right-pivotal-link' end %></div>
               </span>
               <span class="right-setting-pivotal">
                   <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'right-pivotal-link' %></div>
