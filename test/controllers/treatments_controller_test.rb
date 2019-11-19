@@ -1,22 +1,21 @@
 require 'test_helper'
 
 class TreatmentsControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
   def setup
-    @user = users(:patient_)
-    @user_holder = user_holders(:patient_holder)
-    @treatment = treatments(:t1)
-    sign_in @user
+    @user = login
+    @user_holder = set_user_holder(@user)
+    @treatment1 = set_treatment(@user_holder)
   end
 
   test "should get index" do
-    get(user_holder_treatments_path(@user_holder))
+    byebug
+    get(user_holder_treatments_path(@user.user_holder))
     assert_response :success
   end
 
 
   test "should show treatment" do
-    get(user_holder_treatment_path(@user_holder, @treatment))
+    get(user_holder_treatment_path(@user.user_holder, @user.user_holder.treatments.first))
     assert_response :success
   end
 
@@ -24,7 +23,7 @@ class TreatmentsControllerTest < ActionDispatch::IntegrationTest
 # For doctor Feature - New, Create, Edit, Update, Destroy
 
   test "should get new" do
-    get(new_user_holder_treatment_path(@user_holder))
+    get(new_user_holder_treatment_path(@user.user_holder))
     assert_response :success
   end
 
@@ -37,7 +36,7 @@ class TreatmentsControllerTest < ActionDispatch::IntegrationTest
   # end
 
   test "should get edit" do
-    get edit_user_holder_treatment_path(@user_holder, @treatment)
+    get edit_user_holder_treatment_path(@user.user_holder, @user.user_holder.treatments.first)
     assert_response :success
   end
 
