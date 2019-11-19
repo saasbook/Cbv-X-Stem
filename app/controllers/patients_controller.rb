@@ -33,6 +33,50 @@ class PatientsController < ApplicationController
     @age = @current_profile.calculate_age_from_birthday(@current_profile.birthday)
   end
 
+  def setting
+    
+
+
+    @current_holder = @current_user.user_holder
+    @current_setting = @current_holder.user_setting
+    
+
+    if @current_setting.nil?
+     @current_setting = UserSetting.create(:user_holder_id => @current_holder.user_id)
+    end
+
+
+  end
+
+  def edit_setting
+    @current_holder = @current_user.user_holder
+    @current_setting = @current_holder.user_setting
+    if @current_setting.nil?
+     @current_setting = UserSetting.create(:user_holder_id => @current_holder.user_id)
+    end
+
+    render 'edit_setting'
+  end
+
+  def update_setting
+    @current_user = User.find(params[:id])
+    @current_holder = @current_user.user_holder
+    @current_setting = @current_holder.user_setting
+    @my_setting = params[:user_setting]
+    
+    
+    @current_setting.email_notification = @my_setting[:email_notification].to_s.downcase == "true"
+    @current_setting.whatsapp_notification = @my_setting[:whatsapp_notification].to_s.downcase == "true"
+    @current_setting.save!
+    
+    redirect_to patient_setting_path
+
+  end
+
+
+
+
+
   def new
     # must be logged in
     if not current_user.nil?

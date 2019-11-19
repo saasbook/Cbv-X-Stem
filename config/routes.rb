@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get 'contact', to: 'messages#contact'
   get 'contact_general', to: 'messages#contact_general'
   get 'patient/profile', to: 'patients#profile'
+  get 'patient/setting', to: 'patients#setting'
 
   get 'searchPatients', to: 'search_patients#searchPatients', :as => 'searchPatients'
   post 'searchPatients', to: 'search_patients#searchPatients', :as => 'findReults'
@@ -26,5 +27,7 @@ Rails.application.routes.draw do
   get 'patient/:id', to: 'patients#show', as: 'patient'
   # post 'patient/:id', to: 'patients#update', as: 'patient_update_profile'
   patch 'patient/:id', to: 'patients#update', as: 'patient_update_profile'
-
+  # Patient Setting routes
+  get 'patient/:id/edit_setting', to: 'patients#edit_setting', as: 'patient_edit_setting'
+  patch 'patient/:id/update_setting', to: 'patients#update_setting', as: 'patient_update_setting'
 end

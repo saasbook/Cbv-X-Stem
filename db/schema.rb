@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2019_11_18_224504) do
+=======
+
+ActiveRecord::Schema.define(version: 2019_11_18_224504) do
+
+>>>>>>> df40413c105664ad1a15a4647d01566304c6a0cb
 
   create_table "documentations", force: :cascade do |t|
     t.string "patient"
@@ -119,6 +125,9 @@ ActiveRecord::Schema.define(version: 2019_11_18_224504) do
     t.integer "user_holder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.boolean "email_notification"
+    t.boolean "whatsapp_notification"
     t.index ["user_holder_id"], name: "index_user_settings_on_user_holder_id"
   end
 
