@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>My Schedule</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meetings.each do |meeting| %>
+      <tr>
+        <td><%= meeting.name %></td>
+        <td><%= meeting.start_time %></td>
+        <td><%= meeting.end_time %></td>
+        <td><%= link_to 'Show', user_holder_meeting_path(meeting.user_holder_id, meeting.id) %></td>
+        <td><%= link_to 'Edit', edit_user_holder_meeting_path(meeting.user_holder_id, meeting.id) %></td>
+        <td><%= link_to 'Destroy', user_holder_meeting_path(meeting.user_holder_id, meeting.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= month_calendar events: @meetings do |date, meetings| %>
+  <%= date %>
+
+  <% meetings.each do |meeting| %>
+    <div>
+      <%= meeting.name %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= link_to 'New Meeting', new_user_holder_meeting_path(current_user) %>

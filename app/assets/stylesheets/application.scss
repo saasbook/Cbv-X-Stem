@@ -2,6 +2,7 @@
 /*
 *= require_tree
 *= require_self
+*= require simple_calendar
 */
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -252,3 +253,5 @@ object-fit: contain;
   font-weight: bold;
   color: #ff7faa;
 }
+
+
