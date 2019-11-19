@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2019_11_19_085319) do
 
   create_table "documentations", force: :cascade do |t|
@@ -19,6 +20,10 @@ ActiveRecord::Schema.define(version: 2019_11_19_085319) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
+    t.text "documents_info"
+    t.string "documents_status"
+    t.string "documents_name"
+    t.text "documents_explanation"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -27,6 +32,10 @@ ActiveRecord::Schema.define(version: 2019_11_19_085319) do
     t.integer "user_holder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "documents_info"
+    t.string "documents_status"
+    t.string "documents_name"
+    t.text "documents_explanation"
     t.index ["user_holder_id"], name: "index_documents_on_user_holder_id"
   end
 

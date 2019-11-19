@@ -6,8 +6,13 @@ Rails.application.routes.draw do
    resources :user_activities, except: [:update, :new, :create, :edit, :destroy]
   end
 
+  delete 'treatment/destroy', to: 'treatments#destroy'
+  post 'treatment/create', to: 'treatments#create'
+  patch 'treatment/update', to: 'treatments#update'
+
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   resources :documentations, only: [:index, :new, :create, :destroy]
+
   get 'documentations/index'
   get 'documentations/new'
   get 'documentations/create'

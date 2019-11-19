@@ -7,9 +7,19 @@ class SearchPatientsController < ApplicationController
         if (!params[:search_last_name].nil? && !params[:search_last_name].empty?)
             @patients = @patients.where('lower(last_name) = ? ', params[:search_last_name].downcase)
         end
+
+        temp_patient = []
         if (!params[:search_id].nil? && !params[:search_id].empty?)
-            @patients = @patients.where(:user_holder_id => params[:search_id])
+            # @patients = @patients.where(:user_holder_id => params[:search_id])
+
+            matched_email_list = UserHolder.pluck(:email).select {|email| hashForEmailInFive(email) == params[:search_id]}
+            matched_email_list.each do |e|
+              user_holder_id = UserHolder.find_by_email(e).id
+              temp_patient = temp_patient + @patients.where('user_holder_id = ? ', user_holder_id)
+            end
+            @patients = temp_patient
         end
+        
         if (!params[:sort].nil? && !params[:sort].empty?)
             case params[:sort]
             when 'first_name'
