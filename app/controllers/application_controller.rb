@@ -1,7 +1,12 @@
 class ApplicationController < ActionController::Base
+  #Concern
   include DevisePermittedAttributes
+  include CentralizedUserHolderAndUserConcern
+  include UserFallBackConcern
+  #Helper
   include ApplicationHelper
   include ProfileHelper
+
   # check_authorization
   authorize_resource
   before_action :getUserHolderWithDefaultCreation, :getCurrentController

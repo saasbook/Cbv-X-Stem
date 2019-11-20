@@ -1,6 +1,6 @@
 module ApplicationHelper
   require 'digest/sha1'
-
+  
   def getCurrentController
     self.class.to_s
   end

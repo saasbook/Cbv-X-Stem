@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+guest_user = User.create!(first_name: 'Guest', last_name: 'User', email: 'guest@guest.com', password: 'password', password_confirmation: 'password', is_doctor: false)
+guest_user_holder = UserHolder.create!(first_name: guest_user.first_name, last_name: guest_user.last_name, email: guest_user.email, user_id: guest_user.id)
+guest_profile = Profile.create!(first_name: guest_user.first_name, last_name: guest_user.last_name, email: guest_user.email, whatsapp: '6198089569', user_holder_id: guest_user_holder.id)
+
 users = [{:first_name => "Peter", :last_name => "Pei", :email => "ppei@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
          {:first_name => "Tom", :last_name => "Brady", :email => "tombb@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
          {:first_name => "Steven", :last_name => "Jobs", :email => "stevenjb@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password"},
