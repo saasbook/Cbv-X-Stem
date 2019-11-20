@@ -1,10 +1,6 @@
 module ApplicationHelper
   require 'digest/sha1'
 
-  def getCurrentController
-    self.class.to_s
-  end
-
   def getUserHolderWithDefaultCreation
     if !current_user then return "Haven't logged in" end
     @user_holder = UserHolder.find_by_email(current_user.email)
@@ -25,8 +21,6 @@ module ApplicationHelper
       render 'shared/patient_doctor_button'
     end
   end
-
-
 
   def nav_items
     [
@@ -52,7 +46,6 @@ module ApplicationHelper
   def active? path
     "active" if current_page? path
   end
-
 
   def nav_helper style, tag_type
     nav_links = ''
