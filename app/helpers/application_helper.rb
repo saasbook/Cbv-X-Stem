@@ -1,6 +1,10 @@
 module ApplicationHelper
   require 'digest/sha1'
 
+  def getCurrentController
+    self.class.to_s
+  end
+
   def getUserHolderWithDefaultCreation
     if !current_user then return "Haven't logged in" end
     @user_holder = UserHolder.find_by_email(current_user.email)

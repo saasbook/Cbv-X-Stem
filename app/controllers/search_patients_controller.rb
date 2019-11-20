@@ -1,4 +1,5 @@
 class SearchPatientsController < ApplicationController
+  skip_authorize_resource
     def searchPatients
         @patients = Profile.all
         if (!params[:search_first_name].nil? && !params[:search_first_name].empty?)
@@ -19,7 +20,7 @@ class SearchPatientsController < ApplicationController
             end
             @patients = temp_patient
         end
-        
+
         if (!params[:sort].nil? && !params[:sort].empty?)
             case params[:sort]
             when 'first_name'

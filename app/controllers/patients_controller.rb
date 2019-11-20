@@ -1,6 +1,7 @@
 class PatientsController < ApplicationController
   include ProfileHelper
   include UserActivitiesHelper
+  skip_authorize_resource
 
   def profile
     if current_user.nil?
