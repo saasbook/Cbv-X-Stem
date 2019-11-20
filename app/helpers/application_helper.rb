@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def user_login_logout
-    if current_user.nil? then
+    if current_user.role == 'guest' then
       render 'shared/log_in_sign_up'
     else
       render 'shared/patient_doctor_button'
