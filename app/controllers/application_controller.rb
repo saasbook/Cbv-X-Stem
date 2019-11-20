@@ -9,7 +9,9 @@ class ApplicationController < ActionController::Base
 
   # check_authorization
   authorize_resource
-  before_action :getUserHolderWithDefaultCreation, :getCurrentController
+  before_action do
+    initialize_user_and_user_holder(current_user)
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
