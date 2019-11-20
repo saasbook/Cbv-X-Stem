@@ -74,8 +74,8 @@ module CentralizedUserHolderAndUserConcern
     # if SSU, overrides the UserHolder by params[:user_holder]
     when 'SSU'
       # if params specifies its own user holder, use it
-      if !params[:user_holder].nil? then
-        @user_holder = params[:user_holder]
+      if !params[:user_holder_id].nil? then
+        @user_holder = UserHolder.find_by_id(params[:user_holder_id])
       else
         # if user_holder null, fall back to root user.
         if @user_holder.nil? then

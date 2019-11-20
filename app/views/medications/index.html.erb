@@ -33,8 +33,8 @@
     <% end %>
   </tbody>
 </table>
-
-<% @medication = @medications.first %>
+<% #HACK:: as long as database has one record, it will be able to check the ActiveRecord %>
+<% @medication = Medication.all.first %>
 <% if can? :create, @medication %>
   <button class="col-md-1.5 btn btn-success">
     <%= link_to "Add Medication", new_user_holder_medication_path(@user_holder) %>
