@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  skip_authorize_resource
   # before_action :configure_sign_up_params, only: [:create]
+  # after_action :set_user_role_to_patient
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -10,9 +12,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    # byebug
+    super
+  end
 
   # GET /resource/edit
   # def edit
@@ -42,7 +45,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:role])
+  # end
+  #
+  # def set_user_role_to_patient
+  #
   # end
 
   # If you have extra params to permit, append them to the sanitizer.
