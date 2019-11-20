@@ -1,4 +1,5 @@
 class SearchPatientsController < ApplicationController
+  skip_authorize_resource
     def searchPatients
         if current_user.nil?
             flash[:error] = "You must login as doctor to access this page"
@@ -26,7 +27,7 @@ class SearchPatientsController < ApplicationController
             end
             @patients = temp_patient
         end
-        
+
         if (!params[:sort].nil? && !params[:sort].empty?)
             case params[:sort]
             when 'first_name'

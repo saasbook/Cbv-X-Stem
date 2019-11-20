@@ -1,9 +1,9 @@
 class DocumentationsController < ApplicationController
   def index
     @documentations = Documentation.all
-    puts User.find_by(first_name: @documentations[0].patient)
+    # puts User.find_by(first_name: @documentations[0].patient)
     puts "TESTING"
-    puts @documentations[0].inspect
+    # puts @documentations[0].inspect
   end
 
   def new
