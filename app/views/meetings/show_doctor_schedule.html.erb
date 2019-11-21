@@ -1,0 +1,20 @@
+<div class = "search_table">
+<p id="notice"><%= notice %></p>
+<div>
+<h1 style="text-align: center">Doctor #{@my_doctor}'s Schedule</h1>
+<br>
+</div>
+
+<br>
+
+<%= month_calendar events: @meetings do |date, meetings| %>
+  <%= date %>
+
+  <% meetings.each do |meeting| %>
+    <div>
+      <%= link_to "#{meeting.name}", user_holder_meeting_path(meeting.user_holder_id, meeting.id)  %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= link_to 'New Meeting', new_user_holder_meeting_path(current_user) %>
