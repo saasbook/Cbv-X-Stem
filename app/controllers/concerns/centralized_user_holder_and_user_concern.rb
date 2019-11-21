@@ -28,8 +28,16 @@ module CentralizedUserHolderAndUserConcern
     case user_holder_policy
     # if NAC, redirect_to root_path
     when 'NAC'
-      flash[:notice] = 'Denial Access in Resource Level'
-      redirect_to root_path
+      # flash[:notice] = 'Denial Access in Resource Level'
+      # redirect_to root_path
+            if !params[:user_holder_id].nil? then
+        @user_holder = UserHolder.find_by_id(params[:user_holder_id])
+      else
+        # if user_holder null, fall back to root user.
+        if @user_holder.nil? then
+          @user_holder = current_user.user_holder
+        end
+      end
     # if SSU, overrides the UserHolder by params[:user_holder]
     when 'SSU'
       # if params specifies its own user holder, use it

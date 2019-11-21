@@ -92,14 +92,15 @@ class MeetingsController < ApplicationController
   def show_doctor_schedule
     # @cur_profile = Profile.find_by(current_user.)
     # @cur_user_holder = current_user.user_holder
-    @cur_user_holder = @user_holder
-    @cur_profile = @cur_user_holder.profile
-    @my_doctor = @cur_profile.doctor
-    if (!@my_doctor.nil?)
-      @first_name, @last_name = @my_doctor.split
-      @doctor_user_holder = UserHolder.find_by(first_name: @first_name, last_name: @last_name)
-      @meetings = @doctor_user_holder.meetings
-    end
+    # @cur_user_holder = @user_holder
+    # @cur_profile = @cur_user_holder.profile
+    # @my_doctor = @cur_profile.doctor
+    # if (!@my_doctor.nil?)
+    #   @first_name, @last_name = @my_doctor.split
+    #   @doctor_user_holder = UserHolder.find_by(first_name: @first_name, last_name: @last_name)
+    #   @meetings = @doctor_user_holder.meetings
+    # end
+    @meetings = Meeting.all
   end
 
   private
