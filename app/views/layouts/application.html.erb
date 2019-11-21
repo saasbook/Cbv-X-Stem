@@ -12,12 +12,7 @@
   </head>
 
   <body>
-    <span class="no-show">
-        <%= if not current_user.nil?
-              @profile = getProfileWithDefaultCreation(getUserHolderWithDefaultCreation())
-        end %>
-    </span>
-    <%= if current_user.nil? or not current_user.is_doctor then render 'shared/application_nav' else render 'shared/doctor_nav' end %>
+    <%= if !current_user.is_doctor then render 'shared/application_nav' else render 'shared/doctor_nav' end %>
     <p class="notice"><%= notice %></p>
     <% if not flash[:notice].nil? %>
         <div class="alert alert-primary" role="alert"> <%= flash[:notice] %></div>

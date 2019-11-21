@@ -1,14 +1,8 @@
 module ProfileHelper
 
+  # LEGACY:: For backward compatency - remove if no function using it
+  # - One-to-One initializer moved to one_to_one_relationship_initializer_concern
   def getProfileWithDefaultCreation(userholder)
-    if !current_user then return "Haven't logged in" end
-    if not userholder.profile
-      # create === new and save
-      newprofile = Profile.create(first_name: current_user.first_name,
-                                  last_name: current_user.last_name,
-                                  email: current_user.email,
-                                  user_holder_id: userholder.id)
-    end
     @current_profile = userholder.profile
   end
 
@@ -39,13 +33,6 @@ module ProfileHelper
   end
 
   def is_doctor?
-    if current_user.nil?
-        return false
-    elsif current_user.is_doctor.nil?
-        return false
-    else
-        return current_user.is_doctor
-    end
-    # return true
+    return current_user.role == 'doctor'
   end
 end

@@ -1,11 +1,11 @@
 class PagesController < ApplicationController
   skip_authorize_resource
   def home
-    if not current_user.nil?
+    if current_user.role != 'guest'
         # get userholder instance, else create one.
-        holder = getUserHolderWithDefaultCreation
+        # holder = getUserHolderWithDefaultCreation
         # if no profile yet, create one.
-        @current_profile = getProfileWithDefaultCreation(holder)
+        @current_profile = getProfileWithDefaultCreation(@user_holder)
     end
   end
 

@@ -6,7 +6,7 @@ class PatientsController < ApplicationController
 
   before_action :getUserHolderWithDefaultCreation
   def profile
-    if current_user.nil?
+    if current_user.role == 'guest'
         flash[:error] = "You must be logged in to view your profile."
         redirect_to root_path
         return
@@ -16,19 +16,10 @@ class PatientsController < ApplicationController
     if (!params[:search_id].nil? && !params[:search_id].empty?)
       @current_profile = Profile.where(:user_holder_id => params[:search_id]).first
     else
-      # TODO Have userholder created when the user sign up. (Waiting for doctor authentication: UID#169251963)
-      # - UserHolder should be created when the user creates its account.
-
-      # Moves default-create helper function to applicationHelper, so it can be shared with all patient and doctor function.
-      # HACK Mock the initial UserHolder until ^TODO finished.
-      @current_profile = @user_holder.profile
       #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
       # - The patient should be urged to fill up their profile when they visit the profile first time.
       # - It doesn't make sure to have profile that has required field not filled.
-      if not @user_holder.profile
-        # HACK Mock the initial profile until ^TODO finished.
-        @current_profile = getProfileWithDefaultCreation(@user_holder)
-      end
+      @current_profile = getProfileWithDefaultCreation(@user_holder)
     end
 
     # IMPORTANT: call profile class's calculate_age_from_birthday function
@@ -37,18 +28,11 @@ class PatientsController < ApplicationController
   end
 
   def setting
-
-
-
     @current_holder = @current_user.user_holder
     @current_setting = @current_holder.user_setting
-
-
     if @current_setting.nil?
      @current_setting = UserSetting.create(:user_holder_id => @current_holder.user_id)
     end
-
-
   end
 
   def edit_setting
@@ -57,7 +41,6 @@ class PatientsController < ApplicationController
     if @current_setting.nil?
      @current_setting = UserSetting.create(:user_holder_id => @current_holder.user_id)
     end
-
     render 'edit_setting'
   end
 
@@ -66,7 +49,6 @@ class PatientsController < ApplicationController
     @current_holder = @current_user.user_holder
     @current_setting = @current_holder.user_setting
     @my_setting = params[:user_setting]
-
 
     @current_setting.email_notification = @my_setting[:email_notification].to_s.downcase == "true"
     @current_setting.whatsapp_notification = @my_setting[:whatsapp_notification].to_s.downcase == "true"
@@ -77,19 +59,16 @@ class PatientsController < ApplicationController
   end
 
 
-
-
-
   def new
     # must be logged in
-    if not current_user.nil?
-        # get user_holder instance, else create one.
-        @user_holder = getUserHolderWithDefaultCreation
-        # if no profile yet, create one.
-        @new_profile = getProfileWithDefaultCreation(@user_holder)
+    if current_user.role == 'guest'
+      flash[:error] = "You must be logged in to view your profile."
+      redirect_to root_path
     else
-        flash[:error] = "You must be logged in to view your profile."
-        redirect_to root_path
+      # get user_holder instance, else create one.
+      @user_holder = getUserHolderWithDefaultCreation
+      # if no profile yet, create one.
+      @new_profile = getProfileWithDefaultCreation(@user_holder)
     end
   end
 
@@ -105,19 +84,7 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    # if the user is logged in
-    # if not current_user.nil?
-    #     holder = current_user.user_holder
-    #     # if there is a user holder for the user
-    #     if not holder.profile.nil?
-    #         @profile_to_edit = current_user.user_holder.profile
-    #     else
-    #         redirect_to patient_new_profile_path(current_user)
-    #     end
-    # else
-    #     redirect_to patient_new_profile_path(current_user)
-    # end
-    if current_user.nil?
+    if current_user.role == 'guest'
         flash[:error] = "You must be logged in to edit a profile."
         redirect_to root_path
     elsif not is_doctor?
