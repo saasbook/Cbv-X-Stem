@@ -1,5 +1,5 @@
 <div class="container">
   <h2>
-  <%= if current_user then "Welcome back, " + current_user.first_name else "Please log in as Patient or Doctor" end %>
+  <%= if current_user.role == 'guest' then "Please log in as Patient or Doctor" else  "Welcome back, " + current_user.first_name end %>
   </h2>
 </div>

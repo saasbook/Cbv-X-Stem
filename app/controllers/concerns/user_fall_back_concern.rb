@@ -3,7 +3,7 @@ module UserFallBackConcern
 
   # Overrides the current_user
   def current_user
-   super || guest_user
+    super || guest_user
   end
 
   # Default User as Guest
