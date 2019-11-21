@@ -17,4 +17,5 @@
 
 
 <%= link_to 'Edit', edit_user_holder_meeting_path(@meeting) %> |
+<%= link_to 'Cancle', user_holder_meeting_path(@meeting.user_holder_id, @meeting.id), method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', user_holder_meetings_path %>
