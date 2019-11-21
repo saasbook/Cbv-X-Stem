@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  skip_authorize_resource
   def home
     if not current_user.nil?
         # get userholder instance, else create one.

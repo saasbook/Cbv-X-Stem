@@ -102,4 +102,4 @@ end
 
 
 # Add-On Helper
-gem "cancan"
+gem "cancancan"

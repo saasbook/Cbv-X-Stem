@@ -1,7 +1,10 @@
 class PatientsController < ApplicationController
   include ProfileHelper
   include UserActivitiesHelper
+  include ApplicationHelper
+  skip_authorize_resource
 
+  before_action :getUserHolderWithDefaultCreation
   def profile
     if current_user.nil?
         flash[:error] = "You must be logged in to view your profile."
