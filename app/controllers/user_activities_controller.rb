@@ -4,7 +4,7 @@ class UserActivitiesController < ApplicationController
   # GET /user_activities
   # GET /user_activities.json
   def index
-    @user_activities = UserActivity.all
+    @user_activities = @user_holder.user_activities.all
   end
 
   # GET /user_activities/1

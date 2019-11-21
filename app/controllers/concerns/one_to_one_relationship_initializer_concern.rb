@@ -27,7 +27,6 @@ module OneToOneRelationshipInitializerConcern
                               email: user_holder.email,
                               user_holder_id: user_holder.id)
     end
-    # byebug
   end
 
 end

@@ -4,7 +4,7 @@
             <div class="nav-pivotal-interface">
               <span class="left-pivotal">
                 <div class="left-pivotal-font"> Current User: </div>
-                <div class="left-pivotal-font"> <%= current_user && (current_user.first_name + " " + current_user.last_name) %> </div>
+                <div class="left-pivotal-font"> <%= current_user.role != 'guest' && (current_user.first_name + " " + current_user.last_name) %> </div>
               </span>
               <span class="mid-pivotal1" id="mid-p1">
                 <div class="mid-pivotal-font"> Patient Info: </div>

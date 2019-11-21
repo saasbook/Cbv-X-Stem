@@ -2,8 +2,8 @@ module ProfileHelper
 
   # LEGACY:: For backward compatency - remove if no function using it
   # - One-to-One initializer moved to one_to_one_relationship_initializer_concern
-  def getProfileWithDefaultCreation(userholder)
-    @current_profile = userholder.profile
+  def getProfileWithDefaultCreation(user_holder)
+    @current_profile = user_holder.profile
   end
 
 

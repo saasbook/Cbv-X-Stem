@@ -7,7 +7,6 @@ module CentralizedUserHolderAndUserConcern
   # Resource Orientation Policy for User Holder
   # - Value for Current User Holder is based on the Policy specified for the current Controller
   def centralized_user_related_initializer(current_user)
-
     initialize_one_to_one_relationship_for_root_user
 
     # (3) TestUserHolder for Doctor
