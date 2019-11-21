@@ -15,8 +15,8 @@ doctor_:
   last_name: Ng2
   email: test2@test.com
   encrypted_password: "password"
-  is_doctor: "doctor"
-
+  is_doctor: true
+  role: "doctor"
 
 guest_:
   id: 9
@@ -24,4 +24,5 @@ guest_:
   last_name: Guest_Last
   email: test9@test.com
   encrypted_password: "password"
-  is_doctor: "guest"
+  is_doctor: false
+  role: "guest"
