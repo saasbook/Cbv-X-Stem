@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2019_11_19_102809) do
     t.string "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "status"
+    t.boolean "status"
     t.text "documents_info"
     t.string "documents_status"
     t.string "documents_name"

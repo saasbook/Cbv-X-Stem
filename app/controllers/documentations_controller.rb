@@ -4,7 +4,7 @@ class DocumentationsController < ApplicationController
 
 
     #Testing
-    puts @documentations[0].inspect
+    # puts @documentations[0].inspect
     @user = User.find_by_email(@user_holder.email)
     if @user.is_doctor?
       render "documentations/index"
@@ -58,9 +58,16 @@ class DocumentationsController < ApplicationController
     # redirect_to documentations_path, notice: "The document #{@documentation.patient} has been downloaded."
   end
 
+  #TESTING
+  def update
+    @documentation = Documentation.find(params[:id])
+
+  end
+
   def send_notification(documentation)
     @first_name, @last_name = documentation.patient.split
     @current_setting = @user_holder.user_setting
+    unless @current_setting.nil?
       if @current_setting.email_notification
           @cur_user_email = @user_holder.email
           @message = Message.new(:sender_name => documentation.patient)
@@ -71,6 +78,7 @@ class DocumentationsController < ApplicationController
               MessageMailer.document_confirmation(@message).deliver
           end
       end
+    end
   end
 
   def destroy
