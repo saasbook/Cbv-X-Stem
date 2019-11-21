@@ -252,3 +252,22 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+Given /I am logged in as "(.*)"/ do |user|
+    step %{I am on the login page}
+    step %{I should see "Log in"}
+    step %{I log in as "#{user}"}
+end
+
+When /I log in as "(.*)"/ do |user|
+    u = User.find_by_first_name(user)
+    step %{I fill in "user_email" with "#{u.email}"}
+    step %{I fill in "user_password" with "password"}
+    step %{I press "Log in"}
+    step %{I should see "Welcome back"}
+end
+
+Given /I log out/ do 
+    step %{I press "menu"}
+    step %{I follow "user_logout"}
+end
