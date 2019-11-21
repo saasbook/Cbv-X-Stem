@@ -1,10 +1,7 @@
 class SearchPatientsController < ApplicationController
   skip_authorize_resource
     def searchPatients
-        if current_user.nil?
-            flash[:error] = "You must login as doctor to access this page"
-            redirect_to root_path
-        elsif not is_doctor?
+        if not is_doctor?
             flash[:error] = "Only Doctor can access this page"
             redirect_to root_path
         end
