@@ -10,4 +10,4 @@ Link to Archor Post for Information
 
 <a href="https://codeclimate.com/github/nathanielng2017/cbvxstem/test_coverage"><img src="https://api.codeclimate.com/v1/badges/06c38654042d71e88d11/test_coverage" /></a>
 
-(https://travis-ci.org/nathanielng2017/cbvxstem.svg?branch=master)](https://travis-ci.org/nathanielng2017/cbvxstem)
+<a href="https://travis-ci.org/nathanielng2017/cbvxstem"><img src="https://travis-ci.org/nathanielng2017/cbvxstem.svg?branch=master" alt="Build Status" />
