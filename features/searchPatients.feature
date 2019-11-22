@@ -21,10 +21,10 @@ Background: patients have been added to database
 
 Scenario: search Patients by first name:
   
-  When I fill in "search_first_name" with "Peter"
+  When I fill in "search_first_name" with "Tom"
   And I press "search_submit"
-  Then I should see "Peter"
-  Then I should not see "Brady"
+  Then I should see "Tom"
+  Then I should not see "Tim"
 
 Scenario: search Patients by first name and last name:
   When I fill in "search_first_name" with "Tom"
@@ -35,9 +35,9 @@ Scenario: search Patients by first name and last name:
 
 Scenario: We can go to patients' profiles
   When I am on the searchPatients home page
-  Then I should see "Peter Pei profile"
-  And I follow "1_profile"
-  Then I should see "Peter Pei"
+  Then I should see "Tom Brady profile"
+  And I follow "2_profile"
+  Then I should see "Tom Brady"
   And I should see "Edit Profile"
 
 Scenario: We want to search parients by first name
@@ -54,5 +54,3 @@ Scenario: Only Doctor can access the searchPatient Page
   Given I am logged in as "Tom"
   When I am on the searchPatients home page
   Then I should see "Only Doctor can access this page"
-
-  

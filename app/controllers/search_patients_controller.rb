@@ -5,7 +5,8 @@ class SearchPatientsController < ApplicationController
             flash[:error] = "Only Doctor can access this page"
             redirect_to root_path
         end
-        @patients = Profile.all
+        @patients = Profile.where(role: "patient")
+        @patients = @patients.where.not(email: "tp1@gmail.com")
         if (!params[:search_first_name].nil? && !params[:search_first_name].empty?)
             @patients = @patients.where('lower(first_name) = ? ', params[:search_first_name].downcase)
         end

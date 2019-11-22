@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_184321) do
+ActiveRecord::Schema.define(version: 2019_11_22_073137) do
 
   create_table "appointments", force: :cascade do |t|
     t.string "patient"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 2019_11_21_184321) do
     t.string "exercise"
     t.string "doctor"
     t.string "whatsapp"
+    t.string "role"
   end
 
   create_table "treatments", force: :cascade do |t|
