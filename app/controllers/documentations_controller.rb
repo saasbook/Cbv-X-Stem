@@ -1,5 +1,4 @@
 class DocumentationsController < ApplicationController
-  skip_authorize_resource
   def index
     @documentations = Documentation.all
     # puts User.find_by(first_name: @documentations[0].patient)
@@ -45,7 +44,7 @@ class DocumentationsController < ApplicationController
   def send_notification(documentation)
     @first_name, @last_name = documentation.patient.split
     @current_setting = @user_holder.user_setting
-      if @current_setting.email_notification
+      if @current_setting && @current_setting.email_notification
           @cur_user_email = @cur_user.email
           @message = Message.new(:sender_name => documentation.patient)
           @message.receiver_email = 'cbvxstem@gmail.com'

@@ -68,7 +68,7 @@ module ApplicationHelper
   end
 
   def hashForEmailInFive(email)
-    Digest::SHA1.hexdigest(email)[0..5]
+    Digest::SHA1.hexdigest(email)[0..6]
   end
 
 end

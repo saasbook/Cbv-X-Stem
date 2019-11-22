@@ -1,7 +1,6 @@
 class SearchPatientsController < ApplicationController
-  skip_authorize_resource
     def searchPatients
-        if not is_doctor?
+        if !current_user.is_doctor?
             flash[:error] = "Only Doctor can access this page"
             redirect_to root_path
         end

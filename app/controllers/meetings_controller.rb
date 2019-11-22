@@ -1,5 +1,4 @@
 class MeetingsController < ApplicationController
-  skip_authorize_resource
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
   # GET /meetings
@@ -90,17 +89,17 @@ class MeetingsController < ApplicationController
   def show_doctor_schedule
     @something = current_user.id
     @booked = Meeting.where(patient_id: current_user.id)
-    @meetings = Meeting.where(patient_id: [nil, ""]).order :start_time  
+    @meetings = Meeting.where(patient_id: [nil, ""]).order :start_time
   end
 
   def book
-    respond_to do |format| 
+    respond_to do |format|
     @meeting = Meeting.where(:id =>params[:meeting_id]).first
     puts @meeting.id
     @meeting.patient_id = params[:id]
     puts @meeting.patient_id
     @meeting.save
-       
+
       format.html { redirect_to show_doctor_schedule_path, notice: 'Meeting was successfully booked.' }
       format.json { render :show, status: :ok, location: @meeting }
     end
