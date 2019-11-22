@@ -10,11 +10,13 @@ module UserActivitiesHelper
       end
     end
   end
+
   def log_create_delete_to_user_activities(category, mode, actor_holder, receiver_holder)
     actor = actor_holder.first_name + " " + actor_holder.last_name + (actor_holder.user.is_doctor ? " (Doctor)": "")
     prefix = mode == "create" ? "New " : "One "
     receiver_holder.user_activities.create(category: category, actor: actor, action: mode, field: "All", original_val: prefix + category + " " + mode + "d")
   end
+
 
 
 

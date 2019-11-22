@@ -18,12 +18,12 @@
 
   <div class="field">
     <%= form.label :start_time %>
-    <%= form.datetime_select :start_time %>
+    <%= form.datetime_select :start_time, :discard_minute => true %>
   </div>
 
   <div class="field">
     <%= form.label :end_time %>
-    <%= form.datetime_select :end_time %>
+    <%= form.datetime_select :end_time, :discard_minute => true %>
   </div>
 
   <div class="actions">

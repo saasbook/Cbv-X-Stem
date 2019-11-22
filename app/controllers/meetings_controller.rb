@@ -1,6 +1,6 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
-
+  include MeetingsHelper
   # GET /meetings
   # GET /meetings.json
   def index
@@ -45,12 +45,7 @@ class MeetingsController < ApplicationController
   def create
     @cur_user_holder = current_user.user_holder
     @meeting = @cur_user_holder.meetings.create(meeting_params)
-    @meeting.user_holder_id = @cur_user_holder.user_id
-    puts(@meeting.id)
-    puts(@meeting.user_holder_id)
-    puts(@cur_user_holder.id)
-    puts( current_user.id)
-
+    # @meeting.user_holder_id = @cur_user_holder.user_id
 
     respond_to do |format|
       if @meeting.save
@@ -90,19 +85,17 @@ class MeetingsController < ApplicationController
   end
 
   def show_doctor_schedule
+    regenerate_all_available_time_to_database
     @something = current_user.id
     @booked = Meeting.where(patient_id: current_user.id)
-    @meetings = Meeting.where(patient_id: [nil, ""]).order :start_time
+    @meetings = Meeting.where(patient_id: [nil, ""]).where('start_time >= ?',  Time.now.utc).order :start_time
   end
 
   def book
     respond_to do |format|
     @meeting = Meeting.where(:id =>params[:meeting_id]).first
-    puts @meeting.id
     @meeting.patient_id = params[:id]
-    puts @meeting.patient_id
     @meeting.save
-
       format.html { redirect_to show_doctor_schedule_path, notice: 'Meeting was successfully booked.' }
       format.json { render :show, status: :ok, location: @meeting }
     end

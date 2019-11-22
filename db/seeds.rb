@@ -27,7 +27,8 @@ users = [{:role => 'patient', :first_name => "Peter", :last_name => "Pei", :emai
          {:role => 'doctor', :first_name => "Bill", :last_name => "Gates", :email => "bliigb@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password", :is_doctor => true},
          {:role => 'doctor', :first_name => "Tom", :last_name => "Cool", :email => "tomcool2011@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password", :is_doctor => true},
          {:role => 'patient', :first_name => "Test", :last_name => "Pat", :email => "tp1@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password", :is_doctor => false},
-
+         {:role => 'patient', :first_name => "Nathaniel", :last_name => "Ng", :email => "stoneplus@berkeley.edu",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password", :is_doctor => false},
+         {:role => 'patient', :first_name => "Tina", :last_name => "Nguyen", :email => "test02@gmail.com",  :whatsapp=> "6198089569", :password => "password", :password_confirmation => "password", :is_doctor => false},
 ]
 
 users.each do |current_user|
