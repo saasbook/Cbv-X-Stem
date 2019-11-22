@@ -144,7 +144,7 @@ class PatientsController < ApplicationController
       current_profile.exercise = modified[:exercise]
       current_profile.doctor = modified[:doctor]
       if current_profile.save! then
-        log_change_to_user_activities('profile', 'edit', current_user, temp_profile, current_profile.as_json)
+        log_change_to_user_activities('profile', 'edit', current_user.user_holder, @user_holder, temp_profile, current_profile.as_json)
       end
 
       flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
