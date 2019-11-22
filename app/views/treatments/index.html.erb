@@ -25,14 +25,18 @@
           <td><%= treatment.description.length > 15 ? treatment.description[0..15] + "..." : treatment.description %></td>
           <td><%= treatment.user_holder.first_name %></td>
           <td><%= treatment.user_holder.last_name %></td>
-          <td><%= link_to 'Details', [@user_holder, treatment] %></td>
-          <td><%= link_to 'Edit', edit_user_holder_treatment_path(@user_holder, treatment) %></td>
-          <td><%= link_to 'Destroy', [@user_holder, treatment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% if can? :read, treatment %> <td><%= link_to 'Details', [@user_holder, treatment] %></td> <% end %>
+          <% if can? :update, treatment %> <td><%= link_to 'Edit', edit_user_holder_treatment_path(@user_holder, treatment) %></td><% end %>
+          <% if can? :destroy, treatment %> <td><%= link_to 'Destroy', [@user_holder, treatment], method: :delete, data: { confirm: 'Are you sure?' } %></td><% end %>
         </tr>
       <% end %>
     </tbody>
   </table>
 
-  <button class="col-md-1.5 btn btn-success">
-    <%= link_to "Add Treatment", new_user_holder_treatment_path(@user_holder) %>
-  </button>
+  <% #HACK:: as long as database has one record, it will be able to check the ActiveRecord %>
+  <% @treatment = Treatment.all.first %>
+  <% if can? :create, @treatment %>
+    <button class="col-md-1.5 btn btn-success">
+      <%= link_to "Add Treatment", new_user_holder_treatment_path(@user_holder) %>
+    </button>
+  <% end %>

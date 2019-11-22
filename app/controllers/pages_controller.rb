@@ -1,10 +1,8 @@
 class PagesController < ApplicationController
+
   def home
-    if not current_user.nil?
-        # get userholder instance, else create one.
-        holder = getUserHolderWithDefaultCreation
-        # if no profile yet, create one.
-        @current_profile = getProfileWithDefaultCreation(holder)
+    if current_user.user_holder.nil?
+      redirect_to root_path
     end
   end
 

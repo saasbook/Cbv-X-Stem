@@ -66,6 +66,7 @@ GEM
       sassc (>= 2.0.0)
     builder (3.2.3)
     byebug (11.0.1)
+    cancancan (3.0.1)
     cane (2.6.2)
       parallel
     capybara (3.29.0)
@@ -385,6 +386,8 @@ GEM
       rubyzip (>= 1.2.2)
     sexp_processor (4.13.0)
     shellany (0.0.1)
+    simple_calendar (2.3.0)
+      rails (>= 3.0)
     simplecov (0.17.1)
       docile (~> 1.1)
       json (>= 1.8, < 3)
@@ -444,6 +447,7 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   bootstrap-sass (~> 3.4.1)
   byebug
+  cancancan
   capybara (>= 2.15)
   carrierwave (~> 0.9)
   chromedriver-helper
@@ -469,6 +473,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   selenium-webdriver
+  simple_calendar (~> 2.0)
   simplecov
   spring
   spring-watcher-listen (~> 2.0.0)

@@ -13,7 +13,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'sprockets-rails', '3.2.1'
 gem 'sprockets', '3.7.2'
 
-
+# Use simple calendar for schedule
+gem "simple_calendar", "~> 2.0"
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use Uglifier as compressor for JavaScript assets
@@ -96,3 +97,9 @@ group :development, :test do
   gem 'launchy'
   gem 'ZenTest', '4.11.2'
 end
+
+
+
+
+# Add-On Helper
+gem "cancancan"
