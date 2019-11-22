@@ -97,3 +97,9 @@ group :development, :test do
   gem 'launchy'
   gem 'ZenTest', '4.11.2'
 end
+
+
+
+
+# Add-On Helper
+gem "cancancan"

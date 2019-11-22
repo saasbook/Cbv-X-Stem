@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
 
+   devise_for :users, controllers: {
+     confirmations: 'users/confirmations',
+     # omniauth_callbacks: 'users/omniauth_callbacks',
+     passwords: 'users/passwords',
+     registrations: 'users/registrations',
+     sessions: 'users/sessions',
+     unlocks: 'users/unlocks',
+   }
+
   resources :user_holders do
    resources :meetings
    resources :treatments
@@ -14,17 +23,18 @@ Rails.application.routes.draw do
   patch 'treatment/update', to: 'treatments#update'
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  resources :documentations, only: [:index, :new, :create, :destroy]
+  # resources :documentations, only: [:index, :new, :create, :destroy]
 
   # get 'documentations/index'
-  get 'documentations/new'
-  post 'documentations/create'
-  get 'documentations/update_landing'
+  # get 'documentations/new'
+  post 'documentations/create', to: 'documentations#create'
+  patch 'documentations/update_landing'
   patch 'documentations/update', to: 'documentations#update'
-  get 'documentations/destroy'
-  delete 'documentations/download_pdf'
+  delete 'documentations/destroy', to: 'documentations#destroy'
+  get 'documentations/download_pdf'
+
+
   resources :messages
-  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'pages#home'
   get 'about-me', to: 'pages#about'

@@ -1,11 +1,14 @@
 class DocumentationsController < ApplicationController
-  before_action :authenticate_user!
+  
+  # before_action :set_documentation
 
   def index
-    @cur_user_holder =  current_user.user_holder
-    @documentations = @cur_user_holder.documentations
+    # @cur_user_holder =  current_user.user_holder
+    @documentations = @user_holder.documentations
     puts "USER HOLDER"
-    puts @documentations
+    puts @user_holder.inspect
+    puts @user_holder.treatments
+    puts @documentations.inspect
     @user = User.find_by_email(@user_holder.email)
     if @user.is_doctor?
       render "documentations/index"
@@ -15,12 +18,11 @@ class DocumentationsController < ApplicationController
     # puts User.find_by(first_name: @documentations[0].patient)
     # puts "TESTING"
     # puts @user_holder.inspect
-    # puts @documentations[0].inspect
   end
 
   def new
-    @cur_user_holder =  current_user.user_holder
-    @documentation = @cur_user_holder.documentations.new
+    # @cur_user_holder =  current_user.user_holder
+    @documentation = @user_holder.documentations.new
     @user = User.find_by_email(@user_holder.email)
     if @user.is_doctor?
       render "documentations/new"
@@ -36,8 +38,10 @@ class DocumentationsController < ApplicationController
       puts documentation_params
 
       # NEED TO GET A WAY TO GET THE APPROPRIATE USER HOLDER based on name input
-      @cur_user_holder = current_user.user_holder
-      @documentation = @cur_user_holder.documentations.create(documentation_params)
+      # @cur_user_holder = current_user.user_holder
+      puts "USER HOLDER"
+      puts @user_holder
+      @documentation = @user_holder.documentations.create(documentation_params)
       # @documentation.patient = name
       puts @documentation.inspect
 
@@ -54,11 +58,16 @@ class DocumentationsController < ApplicationController
 
       if @documentation.save
 
-         redirect_to documentations_path, notice: "The document #{@documentation.patient} has been uploaded."
+         redirect_to user_holder_documentations_path(@user_holder), notice: "The document #{@documentation.patient} has been uploaded."
          send_notification(@documentation)
       else
          render "new"
       end
+  end
+
+  def edit
+    @documentation = Documentation.find(params[:id])
+    
   end
 
   def update_landing
@@ -71,24 +80,19 @@ class DocumentationsController < ApplicationController
   def update
     @documentation = Documentation.find(params[:id])
     @documentation.update(documentation_params)
-    redirect_to documentations_path, notice: "The document #{@documentation.patient} has been updated."
+    redirect_to user_holder_documentations_path(@user_holder), notice: 'Document was successfully Updated.'
     send_notification(@documentation)
   end
 
 
   def download_pdf
+    #@documentation = @user_holder.documentations.find(params[:id])
     @documentation = Documentation.find(params[:id])
     puts @documentation.inspect
     puts @documentation.attachment_url
     puts "DOWNLOADING METHOD"
     send_file("#{Rails.root}/public/" + @documentation.attachment_url, type: "application/pdf", x_sendfile: true)
     # redirect_to documentations_path, notice: "The document #{@documentation.patient} has been downloaded."
-  end
-
-  #TESTING
-  def update
-    @documentation = Documentation.find(params[:id])
-
   end
 
   def send_notification(documentation)
@@ -109,15 +113,20 @@ class DocumentationsController < ApplicationController
   end
 
   def destroy
-    @documentation = Documentation.find(params[:id])
+    @documentation = @user_holder.documentations.find(params[:id])
+    # @documentation = Documentation.find(params[:id])
     @documentation.destroy
     puts "TEST"
-    redirect_to documentations_path, notice: "The document #{@documentation.patient} has been deleted."
+    redirect_to user_holder_documentations_path(@user_holder), notice: 'Document was successfully destroyed.'
   end
 
   private
+    # def set_documentation
+    #   @documentation = @user_holder.documentations.find(params[:id])
+    # end
+
     def documentation_params
-      params.require(:documentation).permit(:patient, :attachment, :doctype, :documents_name, :documents_info, :documents_status, :documents_explanation)
+      params.require(:documentation).permit(:patient, :attachment, :doctype, :documents_name, :documents_info, :documents_status, :documents_explanation, :user_holder_id)
     end
 
 end

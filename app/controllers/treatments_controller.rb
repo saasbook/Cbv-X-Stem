@@ -1,6 +1,14 @@
 class TreatmentsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_treatment, only: [:show, :edit, :update, :destroy]
+
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.json { head :forbidden, content_type: 'text/html' }
+      format.html { redirect_to user_holder_treatments_path(current_user.user_holder), notice: exception.message }
+      format.js   { head :forbidden, content_type: 'text/html' }
+    end
+  end
 
   # GET /treatments
   # GET /treatments.json
@@ -65,6 +73,8 @@ class TreatmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_treatment
+      puts "TESTING TREATMENT"
+      puts @user_holder.treatments.find(params[:id])
       @treatment = @user_holder.treatments.find(params[:id])
     end
 

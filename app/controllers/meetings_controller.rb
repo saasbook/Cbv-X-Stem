@@ -1,4 +1,5 @@
 class MeetingsController < ApplicationController
+  skip_authorize_resource
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
   # GET /meetings
@@ -53,7 +54,7 @@ class MeetingsController < ApplicationController
       if @meeting.save
          format.html { redirect_to user_holder_meetings_path, notice: 'Meeting was successfully created.' }
          format.json { render :show, status: :created, location: @meeting }
-        # redirect_to 
+        # redirect_to
       else
         format.html { render :new }
         format.json { render json: @meeting.errors, status: :unprocessable_entity }

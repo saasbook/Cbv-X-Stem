@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(version: 2019_11_22_032038) do
     t.datetime "updated_at", null: false
     t.integer "user_holder_id"
     t.datetime "end_time"
+    t.boolean "is_booked"
+    t.string "patient"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -167,6 +169,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_032038) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_doctor"
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
