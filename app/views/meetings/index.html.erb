@@ -13,10 +13,10 @@
 
   <% meetings.each do |meeting| %>
     <div>
-      <%= if meeting.patient_id.nil? 
-        then link_to "Available", user_holder_meeting_path(meeting.user_holder_id, meeting.id) 
-        else link_to "#{UserHolder.find(meeting.patient_id).first_name + ' ' + UserHolder.find(meeting.patient_id).last_name }", user_holder_meeting_path(meeting.user_holder_id, meeting.id) end %>
-
+      <%= if meeting.patient_id.nil?
+        then link_to "Available", user_holder_meeting_path(meeting.user_holder_id, meeting.id)
+      else link_to '(' + meeting.start_time.hour.to_s + ') '+"#{UserHolder.find(meeting.patient_id).first_name}", user_holder_meeting_path(meeting.user_holder_id, meeting.id) end %>
+      <% # else link_to '(' + meeting.start_time.hour.to_s + ') to ('+meeting.end_time.hour.to_s+') with '+"#{UserHolder.find(meeting.patient_id).first_name + ' with ' + UserHolder.find(meeting.patient_id).last_name }", user_holder_meeting_path(meeting.user_holder_id, meeting.id) end %>
     </div>
   <% end %>
 <% end %>
