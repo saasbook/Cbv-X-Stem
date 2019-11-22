@@ -19,6 +19,7 @@ class Ability
       can :manage, Treatment
       can :read, UserActivity #It is a log from the system - Only systemAdmin can change it.
       can :manage, UserSetting
+      can :mange, Patient
       can :read, UserHolder # UserHolder is controlled by the system - Only systemAdmin can change it.
     end
 
