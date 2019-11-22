@@ -97,9 +97,9 @@ class DocumentationsController < ApplicationController
     @first_name, @last_name = documentation.patient.split
     @current_setting = @user_holder.user_setting
 
-    # unless @current_setting.nil?
-    #   if @current_setting.email_notification
-    #       @cur_user_email = @user_holder.email
+    unless @current_setting.nil?
+      if @current_setting.email_notification
+          @cur_user_email = @user_holder.email
 
       if @current_setting && @current_setting.email_notification
           @cur_user_email = @cur_user.email
@@ -111,7 +111,7 @@ class DocumentationsController < ApplicationController
               @message.sender_email =  @cur_user_email
               MessageMailer.document_confirmation(@message).deliver
           end
-      # end
+      end
     end
   end
 
