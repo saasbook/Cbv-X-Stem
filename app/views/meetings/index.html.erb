@@ -14,8 +14,8 @@
   <% meetings.each do |meeting| %>
     <div>
       <%= if meeting.patient_id.nil? 
-        then link_to "Available #{meeting.start_time.strftime("%l:%M%P")}-#{meeting.end_time.strftime("%l:%M%P")}", user_holder_meeting_path(meeting.user_holder_id, meeting.id) 
-        else link_to "#{UserHolder.find(meeting.patient_id).first_name + ' ' + UserHolder.find(meeting.patient_id).last_name } #{meeting.start_time.strftime("%l:%M%P")}-#{meeting.end_time.strftime("%l:%M%P")}", user_holder_meeting_path(meeting.user_holder_id, meeting.id) end %>
+        then link_to "Available", user_holder_meeting_path(meeting.user_holder_id, meeting.id) 
+        else link_to "#{UserHolder.find(meeting.patient_id).first_name + ' ' + UserHolder.find(meeting.patient_id).last_name }", user_holder_meeting_path(meeting.user_holder_id, meeting.id) end %>
 
     </div>
   <% end %>

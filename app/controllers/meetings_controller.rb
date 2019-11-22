@@ -95,8 +95,10 @@ class MeetingsController < ApplicationController
 
   def book
     respond_to do |format| 
-    @meeting = Meeting.find_by(params[:meeting_id])
+    @meeting = Meeting.where(:id =>params[:meeting_id]).first
+    puts @meeting.id
     @meeting.patient_id = params[:id]
+    puts @meeting.patient_id
     @meeting.save
        
       format.html { redirect_to show_doctor_schedule_path, notice: 'Meeting was successfully booked.' }
