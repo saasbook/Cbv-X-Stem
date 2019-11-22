@@ -25,7 +25,7 @@ module CentralizedUserHolderPolicyConcern
       # Patient have their own Resource | Doctor can access patient Resource in Session.
       :MedicationsController => ['NAC', 'RTU','SSU'],
       # Specific Resource for Doctor - not accessible by Patient.
-      :MeetingsController => ['NAC', 'NAC','RTU'],
+      :MeetingsController => ['OPT', 'OPT','OPT'],
       # Both doctor and patient have their own resouces, not Accessible by other.
       :MessagesController => ['RTU', 'RTU','RTU'],
       # Both doctor and patient have their own resouces, not Accessible by other.
