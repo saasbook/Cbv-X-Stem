@@ -30,10 +30,11 @@
       <th> Whatsapp </th>
       <th class=<%=@parent_id_class%>> <%= link_to "Parent Id", searchPatients_path(:sort => "user_holder_id"), id: "parent_id_sort" %></th>
 
-      <th> Link to Profile</th>
+      <%# <th> Link to Profile</th>
       <th> Link to Documents</th>
       <th> Link to Medications</th>
-      <th> Link to Treatments</th>
+      <th> Link to Treatments</th> %>
+      <th> Link to Info </th>
     </tr>
   </thead>
   <tbody>
@@ -44,12 +45,11 @@
           <td><%= p.email %></td>
           <td><%= if p.whatsapp then link_to '<i class="fab fa-whatsapp"></i>'.html_safe, "https://wa.me/1"+p.whatsapp, target: :_blank else '<i class="fab fa-whatsapp"></i>'.html_safe end%></td>
           <td><%= hashForUserHolder(p) %></td>
-          <%# <td> <%= link_to profile_name_format(p.first_name, p.last_name), patient_path(p), id: (p.user_holder_id.to_s + '_profile'), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
-
-          <td> <%= link_to "Profile", patient_path(p), id: (p.user_holder_id.to_s + '_profile'), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
-          <td> <%= link_to "Documents", user_holder_documentations_path(p.user_holder), id: (p.user_holder_id.to_s + '_documentation'), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
-          <td> <%= link_to "Medications", user_holder_medications_path(p.user_holder), id: (p.user_holder_id.to_s + '_medication'), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
-          <td> <%= link_to "Treatments", user_holder_treatments_path(p.user_holder), id: (p.user_holder_id.to_s + '_treamtent'), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
+          <%# <td> <%= link_to profile_name_format(p.first_name, p.last_name), patient_path(p), id: (p.user_holder_id.to_s + '_profile'), class: 'btn btn-primary col-md-12', style: "color: white"</td>%>
+          <%# <td> <%= link_to "Documents", documentations_index_path(p), id: (p.user_holder_id.to_s + '_document'), class: 'btn btn-primary col-md-12', style: "color: white"</td>%>
+          <%# <td> <%= link_to "Medications", user_holder_medications_path(p.user_holder), id: (p.user_holder_id.to_s + '_medication'), class: 'btn btn-primary col-md-12', style: "color: white"</td> %>
+          <%# <td> <%= link_to "Treatments", user_holder_treatments_path(p.user_holder), id: (p.user_holder_id.to_s + '_treamtent'), class: 'btn btn-primary col-md-12', style: "color: white"</td> %>
+          <td> <%= link_to profile_name_format(p.first_name, p.last_name), patient_info_path(p), id: (p.user_holder_id.to_s + '_profile'), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
         </tr>
       <%end%>
     </tbody>

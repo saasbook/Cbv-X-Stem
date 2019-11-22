@@ -42,9 +42,12 @@ Rails.application.routes.draw do
   get 'contact_general', to: 'messages#contact_general'
   get 'patient/profile', to: 'patients#profile'
   get 'patient/setting', to: 'patients#setting'
-
+  # searchPatients routes
   get 'searchPatients', to: 'search_patients#searchPatients', :as => 'searchPatients'
   post 'searchPatients', to: 'search_patients#searchPatients', :as => 'findReults'
+
+  # patient info page routes
+  get 'patient/:id/info', to: 'patient_info#show', :as=>'patient_info' 
 
   # Patient Profile routes.
   get 'patient/:id/new', to: 'patients#new', as: 'patient_new_profile'
