@@ -14,7 +14,7 @@ class MeetingsController < ApplicationController
     #   # No point to show all meeting.
     #   @meetings = Meeting.all
     # end
-    @meetings = current_user.user_holder.meetings
+    @meetings = current_user.user_holder.meetings.where('patient_id != ""')
   end
 
   # GET /meetings/1
