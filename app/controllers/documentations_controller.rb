@@ -33,7 +33,7 @@ class DocumentationsController < ApplicationController
       # @user = User.find_by_email(@user_holder.email)
       # name = [@user.first_name, @user.last_name].join(" ")
       puts "Documentation Params"
-      puts documentation_params
+      # puts documentation_params
 
       # NEED TO GET A WAY TO GET THE APPROPRIATE USER HOLDER based on name input
       # @cur_user_holder = current_user.user_holder
@@ -100,7 +100,7 @@ class DocumentationsController < ApplicationController
     unless @current_setting.nil?
       if @current_setting.email_notification
           @cur_user_email = @user_holder.email
-
+      end
       if @current_setting && @current_setting.email_notification
           @cur_user_email = @cur_user.email
 
@@ -131,5 +131,5 @@ class DocumentationsController < ApplicationController
     def documentation_params
       params.require(:documentation).permit(:patient, :attachment, :doctype, :documents_name, :documents_info, :documents_status, :documents_explanation, :user_holder_id)
     end
-  end
+  
 end
