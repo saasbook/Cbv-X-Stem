@@ -24,16 +24,16 @@ class Ability
 
     # Patient Access Control Policy
     if !user.nil? && !user.is_doctor?
-      can :manage, Appointment, user_holder_id: user.user_holder.id
-      can [:read, :update], Documentation, user_holder_id: user.user_holder.id # Opt Off
+      can :manage, Appointment # Opt Off
+      can [:read, :update], Documentation # Opt Off
       can [:read, :update], Document, user_holder_id: user.user_holder.id # Only the doctor can create and delete a document.
       can [:read], Medication, user_holder_id: user.user_holder.id # Only the doctor can create, update and delete a medication.
-      can :manage, Meeting, user_holder_id: user.user_holder.id
-      can :manage, Message, user_holder_id: user.user_holder.id
-      can :manage, Profile, user_holder_id: user.user_holder.id
+      can :manage, Meeting # Opt Off
+      can :manage, Message # Opt Off
+      can :manage, Profile # Opt Off
       can [:read], Treatment, user_holder_id: user.user_holder.id # Only the doctor can create, update and delete a treatment.
       can :read, UserActivity, user_holder_id: user.user_holder.id #It is a log from the system - Only systemAdmin can change it.
-      can :manage, UserSetting, user_holder_id: user.user_holder.id
+      can :manage, UserSetting # Opt Off
       can :read, UserHolder, user_holder_id: user.user_holder.id # UserHolder is controlled by the system - Only systemAdmin can change it.
     end
 

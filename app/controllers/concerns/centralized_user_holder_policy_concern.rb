@@ -19,21 +19,21 @@ module CentralizedUserHolderPolicyConcern
       # - OPT:: Opt Off - Have user holder as is, still support fall back for Guest User Holder
 
       # Non-inherited access is always root user holder.
-      :ApplicationController => ['RTU', 'RTU', 'RTU'],
+      :ApplicationController => ['OPT', 'OPT', 'OPT'],
       # Both doctor and patient have their own resouces, not Accessible by other.
-      :AppointmentsController => ['NAC', 'RTU','RTU'],
+      :AppointmentsController => ['OPT', 'OPT','OPT'],
       # Patient have their own Resource | Doctor can access patient Resource in Session.
       :MedicationsController => ['NAC', 'RTU','SSU'],
       # Specific Resource for Doctor - not accessible by Patient.
-      :MeetingsController => ['NAC', 'NAC','RTU'],
+      :MeetingsController => ['OPT', 'OPT','OPT'],
       # Both doctor and patient have their own resouces, not Accessible by other.
-      :MessagesController => ['RTU', 'RTU','RTU'],
+      :MessagesController => ['OPT', 'OPT','OPT'],
       # Both doctor and patient have their own resouces, not Accessible by other.
-      :PagesController => ['RTU', 'RTU','RTU'],
+      :PagesController => ['OPT', 'OPT','OPT'],
       # Not following Convention - Have their own User Holder Handler.
       :PatientsController => ['OPT', 'OPT','OPT'],
       # Specific Resource for Doctor - not accessible by Patient.
-      :SearchPatientsController => ['NAC', 'NAC','RTU'],
+      :SearchPatientsController => ['OPT', 'OPT','OPT'],
       # Patient have their own Resource | Doctor can access patient Resource in Session.
       :TreatmentsController => ['NAC', 'RTU','SSU'],
       # Not following Convention - Have their own User Holder Handler.
