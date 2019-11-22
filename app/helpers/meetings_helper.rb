@@ -27,11 +27,11 @@ module MeetingsHelper
 
   def regenerate_all_available_time_list
     res = []
-    User.where('role="doctor"').each do |doctor|
+    User.where("role='doctor' and email != 'testuser01@testuser.com'").each do |doctor|
       meetings_doctor = doctor.user_holder.meetings.nil? ? [] : doctor.user_holder.meetings.pluck(:start_time)
       # final version should only filter out occupied time slot.
       # meetings_doctor = doctor.user_holder.meetings.nil? ? [] : doctor.user_holder.meetings.where('patient_id != ""').pluck(:start_time)
-      available_slot_num = doctor.user_holder.meetings.nil? ? [] : doctor.user_holder.meetings.where(patient_id: [nil, ""]).pluck(:start_time).length
+      available_slot_num = doctor.user_holder.meetings.nil? ? [] : doctor.user_holder.meetings.where(patient_id: [nil, '']).pluck(:start_time).length
       res +=ten_slot_generator_capped_within_week(res, meetings_doctor, doctor.id, available_slot_num)
     end
     res
