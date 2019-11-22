@@ -1,10 +1,11 @@
 class DocumentationsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    @documentations = Documentation.all
-
-
-    #Testing
-    # puts @documentations[0].inspect
+    @cur_user_holder =  current_user.user_holder
+    @documentations = @cur_user_holder.documentations
+    puts "USER HOLDER"
+    puts @documentations
     @user = User.find_by_email(@user_holder.email)
     if @user.is_doctor?
       render "documentations/index"
@@ -18,7 +19,8 @@ class DocumentationsController < ApplicationController
   end
 
   def new
-    @documentation = Documentation.new
+    @cur_user_holder =  current_user.user_holder
+    @documentation = @cur_user_holder.documentations.new
     @user = User.find_by_email(@user_holder.email)
     if @user.is_doctor?
       render "documentations/new"
@@ -28,17 +30,27 @@ class DocumentationsController < ApplicationController
   end
 
   def create
-      @documentation = Documentation.new(documentation_params)
+      # @user = User.find_by_email(@user_holder.email)
+      # name = [@user.first_name, @user.last_name].join(" ")
+      puts "Documentation Params"
+      puts documentation_params
 
-      # Ensure that only one row for the given patient
-      Documentation.all.each do |document|
-        puts "TESTING2"
-        puts @documentation.patient
-        puts document.patient
-        if document.patient == @documentation.patient
-          Documentation.find(document.id).destroy
-        end
-      end
+      # NEED TO GET A WAY TO GET THE APPROPRIATE USER HOLDER based on name input
+      @cur_user_holder = current_user.user_holder
+      @documentation = @cur_user_holder.documentations.create(documentation_params)
+      # @documentation.patient = name
+      puts @documentation.inspect
+
+
+      # # Ensure that only one row for the given patient
+      # Documentation.all.each do |document|
+      #   puts "TESTING2"
+      #   puts @documentation.patient
+      #   puts document.patient
+      #   if document.patient == @documentation.patient
+      #     Documentation.find(document.id).destroy
+      #   end
+      # end
 
       if @documentation.save
 
@@ -48,6 +60,21 @@ class DocumentationsController < ApplicationController
          render "new"
       end
   end
+
+  def update_landing
+    @documentation = Documentation.find(params[:id])
+    puts "UPDATE DOCUMENT LANDING"
+    puts @documentation.inspect
+    render "documentations/patient_update"
+  end
+
+  def update
+    @documentation = Documentation.find(params[:id])
+    @documentation.update(documentation_params)
+    redirect_to documentations_path, notice: "The document #{@documentation.patient} has been updated."
+    send_notification(@documentation)
+  end
+
 
   def download_pdf
     @documentation = Documentation.find(params[:id])

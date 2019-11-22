@@ -5,6 +5,7 @@ Rails.application.routes.draw do
    resources :treatments
    resources :medications
    resources :appointments
+   resources :documentations
    resources :user_activities, except: [:update, :new, :create, :edit, :destroy]
   end
 
@@ -15,11 +16,13 @@ Rails.application.routes.draw do
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
   resources :documentations, only: [:index, :new, :create, :destroy]
 
-  get 'documentations/index'
+  # get 'documentations/index'
   get 'documentations/new'
-  get 'documentations/create'
+  post 'documentations/create'
+  get 'documentations/update_landing'
+  patch 'documentations/update', to: 'documentations#update'
   get 'documentations/destroy'
-  get 'documentations/download_pdf'
+  delete 'documentations/download_pdf'
   resources :messages
   devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout', sign_up: 'register' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

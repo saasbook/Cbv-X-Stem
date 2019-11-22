@@ -7,18 +7,18 @@
 <h1 style="text-align: center">Documents</h1>
 <br>
 
-<%= link_to "New Document", new_documentation_path, class: "btn btn-primary" %>
+<%= link_to "New Document", new_user_holder_documentation_path(@user_holder), class: "btn btn-primary" %>
 <br>
 
 <table class = "table table-bordered table-striped">
    <thead>
       <tr>
-         <th style="width: 16.66%">Name</th>
-         <th style="width: 16.66%">Document Type</th>
-         <th style="width: 16.66%">        </th>
-         <th style="width: 16.66%">Download Link</th>
-         <th style="width: 16.66%">Status</th>
-         <th style="width: 16.66%">Delete Option </th>
+         <!--<th style="width: 16.66%">Name</th> -->
+         <th style="width: 20%">Document Type</th>
+         <th style="width: 20%">        </th>
+         <th style="width: 20%">Download Link</th>
+         <th style="width: 20%">Status</th>
+         <th style="width: 20%">Delete Option </th>
       </tr>
    </thead>
 
@@ -26,14 +26,14 @@
       <% @documentations.each do |documentation| %>
 
          <tr>
-            <td style="width: 16.66%"><%= documentation.patient %></td>
-            <td style="width: 16.66%"><%= documentation.doctype %></td>
-            <td style="width: 16.66%"><button class="col-md-1.5 btn btn-success"><%= link_to "Update",  new_documentation_path %></button></td>
-            <td style="width: 16.66%"><button class="col-md-1.5 btn btn-success"><%= link_to "Download Document", documentations_download_pdf_path(id: documentation.id) %></button></td>
+            <!--<td style="width: 16.66%"><%= documentation.patient %></td> -->
+            <td style="width: 20%"><%= documentation.doctype %></td>
+            <td style="width: 20%"><button class="col-md-1.5 btn btn-success"><%= link_to "Update",  documentations_update_landing_path(documentation) %></button></td>
+            <td style="width: 20%"><button class="col-md-1.5 btn btn-success"><%= link_to "Download Document", documentations_download_pdf_path(id: documentation.id) %></button></td>
             
-            <td style="width: 16.66%"><%= documentation.status ? "Satisfied" : "Not Satisfied" %></td>
+            <td style="width: 20%"><%= documentation.status ? "Satisfied" : "Not Satisfied" %></td>
             <%# Might need to be able to add documentation object inside the link_to method call // :id => documentation.id %>
-            <td style="width: 16.66%"><%= button_to "Delete",  documentation, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{documentation.patient}?" %></td>
+            <td style="width: 20%"><%= button_to "Delete",  documentation, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{documentation.patient}?" %></td>
          </tr>
 
       <% end %>

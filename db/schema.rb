@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_102809) do
+ActiveRecord::Schema.define(version: 2019_11_22_032038) do
 
   create_table "appointments", force: :cascade do |t|
     t.string "patient"
@@ -29,11 +29,13 @@ ActiveRecord::Schema.define(version: 2019_11_19_102809) do
     t.string "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "status"
     t.text "documents_info"
     t.string "documents_status"
     t.string "documents_name"
     t.text "documents_explanation"
+    t.string "status"
+    t.integer "user_holder_id"
+    t.index ["user_holder_id"], name: "index_documentations_on_user_holder_id"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -84,8 +86,6 @@ ActiveRecord::Schema.define(version: 2019_11_19_102809) do
     t.string "last_name"
     t.string "email"
     t.integer "user_holder_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "address_line1"
     t.string "address_line2"
     t.string "city"
@@ -108,7 +108,6 @@ ActiveRecord::Schema.define(version: 2019_11_19_102809) do
     t.string "exercise"
     t.string "doctor"
     t.string "whatsapp"
-    t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
   end
 
   create_table "treatments", force: :cascade do |t|
