@@ -33,7 +33,6 @@
             
             <td style="width: 20%"><%= documentation.status ? "Satisfied" : "Not Satisfied" %></td>
             <%# Might need to be able to add documentation object inside the link_to method call // :id => documentation.id %>
-            <%# <!--<td style="width: 20%"><%= button_to "Delete",  documentation, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{documentation.patient}?" %>
             <td style="width: 20%"><button class="col-md-1.5 btn btn-success"><%= link_to "Destroy", [@user_holder, documentation], method: :delete%></button></td>
          </tr>
 

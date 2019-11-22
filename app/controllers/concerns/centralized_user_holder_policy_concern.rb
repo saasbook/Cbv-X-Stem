@@ -37,7 +37,7 @@ module CentralizedUserHolderPolicyConcern
       # Patient have their own Resource | Doctor can access patient Resource in Session.
       :TreatmentsController => ['NAC', 'RTU','SSU'],
       # Not following Convention - Have their own User Holder Handler.
-      :DocumentationsController => ['OPT', 'OPT', 'OPT'],
+      :DocumentationsController => ['NAC', 'SSU', 'SSU'],
       # Both doctor and patient have their own resouces, not Accessible by other.
       :UserActivitiesController => ['NAC', 'RTU','RTU'],
     }

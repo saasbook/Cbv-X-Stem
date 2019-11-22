@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 2019_11_22_073137) do
     t.string "documents_name"
     t.text "documents_explanation"
     t.string "status"
+    t.integer "user_holder_id"
+    t.index ["user_holder_id"], name: "index_documentations_on_user_holder_id"
   end
 
   create_table "documents", force: :cascade do |t|

@@ -25,7 +25,7 @@ class Ability
     # Patient Access Control Policy
     if !user.nil? && !user.is_doctor?
       can :manage, Appointment # Opt Off
-      can [:read, :update], Documentation # Opt Off
+      can :manage, Documentation # Opt Off
       can [:read, :update], Document, user_holder_id: user.user_holder.id # Only the doctor can create and delete a document.
       can [:read], Medication, user_holder_id: user.user_holder.id # Only the doctor can create, update and delete a medication.
       can :manage, Meeting # Opt Off
