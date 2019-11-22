@@ -1,6 +1,4 @@
 class DocumentationsController < ApplicationController
-  
-  # before_action :set_documentation
 
   def index
     # @cur_user_holder =  current_user.user_holder
@@ -98,9 +96,14 @@ class DocumentationsController < ApplicationController
   def send_notification(documentation)
     @first_name, @last_name = documentation.patient.split
     @current_setting = @user_holder.user_setting
+<<<<<<< HEAD
     unless @current_setting.nil?
       if @current_setting.email_notification
           @cur_user_email = @user_holder.email
+=======
+      if @current_setting && @current_setting.email_notification
+          @cur_user_email = @cur_user.email
+>>>>>>> 73fa4eaf89d576e6425d5052496f13879d2a7333
           @message = Message.new(:sender_name => documentation.patient)
           @message.receiver_email = 'cbvxstem@gmail.com'
           MessageMailer.document_notification(@message).deliver

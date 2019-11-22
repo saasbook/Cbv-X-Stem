@@ -39,6 +39,7 @@ class Ability
 
     # Guest Access Control Policy
     can :manage, Message
+    can :manage, Profile
 
   end
 end

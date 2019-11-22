@@ -1,5 +1,4 @@
 class PagesController < ApplicationController
-  skip_authorize_resource
 
   def home
     if current_user.user_holder.nil?

@@ -5,6 +5,7 @@ module OneToOneRelationshipInitializerConcern
   # - Uses user_holder local variable as your relationship entry point.
   # - DO NOT change it to @user_holder, it will mask over the user holder policy initializer.
   def initialize_one_to_one_relationship_for_root_user
+    set_patient_role_by_default
     user_holder = initialize_user_holder
     initialize_profile(user_holder)
   end
@@ -26,6 +27,13 @@ module OneToOneRelationshipInitializerConcern
                               last_name: user_holder.last_name,
                               email: user_holder.email,
                               user_holder_id: user_holder.id)
+    end
+  end
+
+  def set_patient_role_by_default
+    if current_user.role.nil?
+      current_user.role = "patient"
+      current_user.save!
     end
   end
 

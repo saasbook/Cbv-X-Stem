@@ -2,7 +2,6 @@ class PatientsController < ApplicationController
   include ProfileHelper
   include UserActivitiesHelper
   include ApplicationHelper
-  skip_authorize_resource
 
   before_action :getUserHolderWithDefaultCreation
   def profile
@@ -118,6 +117,7 @@ class PatientsController < ApplicationController
       current_profile = Profile.find params[:id] # Profile.where(:id => params[:id])
       temp_profile = current_profile.as_json
       # current_profile.update_attributes!(params[:profile])
+      current_profile.doctor = "Bill Gates"
       current_profile.first_name = modified[:first_name]
       current_profile.last_name = modified[:last_name]
       current_profile.whatsapp = modified[:whatsapp]
@@ -144,7 +144,7 @@ class PatientsController < ApplicationController
       current_profile.exercise = modified[:exercise]
       current_profile.doctor = modified[:doctor]
       if current_profile.save! then
-        log_change_to_user_activities('profile', 'edit', current_user, temp_profile, current_profile.as_json)
+        log_change_to_user_activities('profile', 'edit', current_user.user_holder, @user_holder, temp_profile, current_profile.as_json)
       end
 
       flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."

@@ -1,8 +1,7 @@
 class AppointmentsController < ApplicationController
   before_action :get_user_holder
   before_action :set_appointment, only: [:show, :edit, :update, :destroy]
-  skip_authorize_resource
-
+  
   # GET /appointments
   # GET /appointments.json
   def index

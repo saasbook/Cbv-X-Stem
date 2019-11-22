@@ -1,6 +1,5 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-  skip_authorize_resource
 
   # GET /messages
   # GET /messages.json

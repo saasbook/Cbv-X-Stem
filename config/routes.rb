@@ -59,4 +59,8 @@ Rails.application.routes.draw do
   # Doctor Schedule routes
   post '/user_holders/:user_holder_id/meetings_create', to: 'meetings#create', as: 'doctor_create_meeting'
   patch '/user_holders/:user_holder_id/update_meeting/:id', to: 'meetings#update', as: 'doctor_update_meeting'
+
+
+  get '/patient/:id/show_doctor_schedule', to:'meetings#show_doctor_schedule', as:'show_doctor_schedule'
+  patch '/patient/:id/book/:meeting_id', to:'meetings#book', as: 'book_meeting'
 end
