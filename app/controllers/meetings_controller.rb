@@ -66,9 +66,6 @@ class MeetingsController < ApplicationController
   # PATCH/PUT /meetings/1.json
   def update
 
-
-
-
     respond_to do |format|
       if @meeting.update(meeting_params)
         format.html { redirect_to user_holder_meetings_path, notice: 'Meeting was successfully updated.' }
@@ -91,20 +88,22 @@ class MeetingsController < ApplicationController
   end
 
   def show_doctor_schedule
-    # @cur_profile = Profile.find_by(current_user.)
-    # @cur_user_holder = current_user.user_holder
-    # @cur_user_holder = @user_holder
-    # @cur_profile = @cur_user_holder.profile
-    # @my_doctor = @cur_profile.doctor
-    # if (!@my_doctor.nil?)
-    #   @first_name, @last_name = @my_doctor.split
-    #   @doctor_user_holder = UserHolder.find_by(first_name: @first_name, last_name: @last_name)
-    #   @meetings = @doctor_user_holder.meetings
-    # end
-
-    # @meetings = Meeting.where(patient_id: params[:user_holder_id])
-    @meetings = Meeting.where(patient_id: [nil, ""])
+    @something = current_user.id
+    @booked = Meeting.where(patient_id: current_user.id)
+    @meetings = Meeting.where(patient_id: [nil, ""]).order :start_time  
   end
+
+  def book
+    @meeting = Meeting.find_by(params[:meeting_id])
+    @meeting.patient_id = params[:id]
+    @meeting.save
+    respond_to do |format|      
+      format.html { redirect_to user_holder_meetings_path, notice: 'Meeting was successfully booked.' }
+      format.json { render :show, status: :ok, location: @meeting }
+    end
+  end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
