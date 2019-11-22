@@ -1,0 +1,56 @@
+<div class = "search_table">
+<p id="notice"><%= notice %></p>
+<div>
+<h1 style="text-align: center">Booked Meetings</h1>
+<br>
+</div>
+
+<br>
+
+<table class = "table table-striped col-md-12">
+   <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Doctor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @booked.each do |meeting| %>
+      <tr>
+        <td><%= meeting.start_time %></td>
+        <td><%= meeting.end_time %></td>
+        <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
+              </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h1 style="text-align: center">Available Meetings</h1>
+<br>
+</div>
+
+<br>
+<table class = "table table-striped col-md-12">
+   <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Doctor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meetings.each do |meeting| %>
+      <tr>
+        <td><%= meeting.start_time %></td>
+        <td><%= meeting.end_time %></td>
+        <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
+        <td><%= link_to 'Book', book_meeting_path(current_user.id, meeting.id), method: :patch%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
