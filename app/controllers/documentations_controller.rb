@@ -1,5 +1,4 @@
 class DocumentationsController < ApplicationController
-  skip_authorize_resource
   def index
     @documentations = Documentation.all
     # puts User.find_by(first_name: @documentations[0].patient)

@@ -2,7 +2,6 @@ class PatientsController < ApplicationController
   include ProfileHelper
   include UserActivitiesHelper
   include ApplicationHelper
-  skip_authorize_resource
 
   before_action :getUserHolderWithDefaultCreation
   def profile

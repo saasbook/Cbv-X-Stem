@@ -1,5 +1,4 @@
 class SearchPatientsController < ApplicationController
-  skip_authorize_resource
     def searchPatients
         if !current_user.is_doctor?
             flash[:error] = "Only Doctor can access this page"

@@ -1,6 +1,6 @@
 class MedicationsController < ApplicationController
   before_action :set_medication, only: [:show, :edit, :update, :destroy]
-
+  authorize_resource
   # GET /medications
   # GET /medications.json
   def index
