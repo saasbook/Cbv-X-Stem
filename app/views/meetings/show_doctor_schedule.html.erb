@@ -23,10 +23,7 @@
         <td><%= meeting.start_time %></td>
         <td><%= meeting.end_time %></td>
         <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
-        <td><%= link_to 'Show', user_holder_meeting_path(meeting.user_holder_id, meeting.id) %></td>
-        <td><%= link_to 'Edit', edit_user_holder_meeting_path(meeting.user_holder_id, meeting.id) %></td>
-        <td><%= link_to 'Destroy', user_holder_meeting_path(meeting.user_holder_id, meeting.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+              </tr>
     <% end %>
   </tbody>
 </table>
@@ -52,7 +49,7 @@
         <td><%= meeting.start_time %></td>
         <td><%= meeting.end_time %></td>
         <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
-        <td><%= link_to 'Book', book_meeting_path(current_user.id, meeting.id), method: :update %></td>
+        <td><%= link_to 'Book', book_meeting_path(current_user.id, meeting.id), method: :patch%></td>
       </tr>
     <% end %>
   </tbody>
