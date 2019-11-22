@@ -4,14 +4,17 @@ class MeetingsController < ApplicationController
   # GET /meetings
   # GET /meetings.json
   def index
-    # @meetings = Meeting.all
-    if params[:user_holder_id]
-      @cur_user_holder =  current_user.user_holder
-      @meetings = @cur_user_holder.meetings
-    else
-      @meetings = Meeting.all
-    end
-
+    # # @meetings = Meeting.all
+    # # Why check params for user_holder, but then using the root user one?
+    # # I assume it is root user for now.
+    # if params[:user_holder_id]
+    #   @cur_user_holder =  current_user.user_holder
+    #   @meetings = @cur_user_holder.meetings
+    # else
+    #   # No point to show all meeting.
+    #   @meetings = Meeting.all
+    # end
+    @meetings = current_user.user_holder.meetings
   end
 
   # GET /meetings/1
