@@ -1,20 +1,59 @@
 <div class = "search_table">
 <p id="notice"><%= notice %></p>
 <div>
-<h1 style="text-align: center">Available Meetings</h1>
+<h1 style="text-align: center">Booked Meetings</h1>
 <br>
 </div>
 
 <br>
 
-<%= month_calendar events: @meetings do |date, meetings| %>
-  <%= date %>
+<table class = "table table-striped col-md-12">
+   <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Doctor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
-  <% meetings.each do |meeting| %>
-    <div>
-      <%= link_to "Available #{meeting.start_time.strftime("%l:%M%P")}-#{meeting.end_time.strftime("%l:%M%P")}", user_holder_meeting_path(meeting.user_holder_id, meeting.id)  %>
-    </div>
-  <% end %>
-<% end %>
+  <tbody>
+    <% @booked.each do |meeting| %>
+      <tr>
+        <td><%= meeting.start_time %></td>
+        <td><%= meeting.end_time %></td>
+        <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
+        <td><%= link_to 'Show', user_holder_meeting_path(meeting.user_holder_id, meeting.id) %></td>
+        <td><%= link_to 'Edit', edit_user_holder_meeting_path(meeting.user_holder_id, meeting.id) %></td>
+        <td><%= link_to 'Destroy', user_holder_meeting_path(meeting.user_holder_id, meeting.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= link_to 'New Meeting', new_user_holder_meeting_path(current_user) %>
+<h1 style="text-align: center">Available Meetings</h1>
+<br>
+</div>
+
+<br>
+<table class = "table table-striped col-md-12">
+   <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Doctor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meetings.each do |meeting| %>
+      <tr>
+        <td><%= meeting.start_time %></td>
+        <td><%= meeting.end_time %></td>
+        <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
+        <td><%= link_to 'Book', book_meeting_path(current_user.id, meeting.id), method: :update %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

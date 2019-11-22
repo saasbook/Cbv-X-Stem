@@ -57,4 +57,5 @@ Rails.application.routes.draw do
 
 
   get '/patient/:id/show_doctor_schedule', to:'meetings#show_doctor_schedule', as:'show_doctor_schedule'
+  patch '/patient/:id/book/:meeting_id', to:'meetings#book', as: 'book_meeting'
 end
