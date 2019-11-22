@@ -1,4 +1,5 @@
 class MeetingsController < ApplicationController
+  skip_authorize_resource
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
   # GET /meetings
@@ -100,7 +101,9 @@ class MeetingsController < ApplicationController
     #   @doctor_user_holder = UserHolder.find_by(first_name: @first_name, last_name: @last_name)
     #   @meetings = @doctor_user_holder.meetings
     # end
-    @meetings = Meeting.all
+
+    # @meetings = Meeting.where(patient_id: params[:user_holder_id])
+    @meetings = Meeting.where(patient_id: [nil, ""])
   end
 
   private

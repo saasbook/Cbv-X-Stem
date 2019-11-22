@@ -1,7 +1,7 @@
 <div class = "search_table">
 <p id="notice"><%= notice %></p>
 <div>
-<h1 style="text-align: center">Doctor #{@my_doctor}'s Schedule</h1>
+<h1 style="text-align: center">Available Meetings</h1>
 <br>
 </div>
 
@@ -12,7 +12,7 @@
 
   <% meetings.each do |meeting| %>
     <div>
-      <%= link_to "#{meeting.name}", user_holder_meeting_path(meeting.user_holder_id, meeting.id)  %>
+      <%= link_to "Available #{meeting.start_time.strftime("%l:%M%P")}-#{meeting.end_time.strftime("%l:%M%P")}", user_holder_meeting_path(meeting.user_holder_id, meeting.id)  %>
     </div>
   <% end %>
 <% end %>

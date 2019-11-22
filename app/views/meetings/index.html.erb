@@ -4,29 +4,7 @@
 <h1 style="text-align: center">My Schedule</h1>
 <br>
 </div>
-<table class = "table table-striped col-md-12">
-   <thead>
-    <tr>
-      <th>Name</th>
-      <th>Start time</th>
-      <th>End time</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @meetings.each do |meeting| %>
-      <tr>
-        <td><%= meeting.name %></td>
-        <td><%= meeting.start_time %></td>
-        <td><%= meeting.end_time %></td>
-        <td><%= link_to 'Show', user_holder_meeting_path(meeting.user_holder_id, meeting.id) %></td>
-        <td><%= link_to 'Edit', edit_user_holder_meeting_path(meeting.user_holder_id, meeting.id) %></td>
-        <td><%= link_to 'Destroy', user_holder_meeting_path(meeting.user_holder_id, meeting.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <br>
 
@@ -35,7 +13,10 @@
 
   <% meetings.each do |meeting| %>
     <div>
-      <%= link_to "#{meeting.name}", user_holder_meeting_path(meeting.user_holder_id, meeting.id)  %>
+      <%= if meeting.patient_id.nil? 
+        then link_to "Available #{meeting.start_time.strftime("%l:%M%P")}-#{meeting.end_time.strftime("%l:%M%P")}", user_holder_meeting_path(meeting.user_holder_id, meeting.id) 
+        else link_to "#{UserHolder.find(meeting.patient_id).first_name + ' ' + UserHolder.find(meeting.patient_id).last_name } #{meeting.start_time.strftime("%l:%M%P")}-#{meeting.end_time.strftime("%l:%M%P")}", user_holder_meeting_path(meeting.user_holder_id, meeting.id) end %>
+
     </div>
   <% end %>
 <% end %>

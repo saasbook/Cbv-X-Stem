@@ -2,12 +2,6 @@
 
 <%= form_for(@new_meeting, url: doctor_create_meeting_path(@cur_user_holder)) do |form| %>
   
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
   <div class="field">
     <%= form.label :start_time %>
     <%= form.datetime_select :start_time %>
