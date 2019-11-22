@@ -118,6 +118,7 @@ class PatientsController < ApplicationController
       current_profile = Profile.find params[:id] # Profile.where(:id => params[:id])
       temp_profile = current_profile.as_json
       # current_profile.update_attributes!(params[:profile])
+      current_profile.doctor = "Bill Gates"
       current_profile.first_name = modified[:first_name]
       current_profile.last_name = modified[:last_name]
       current_profile.whatsapp = modified[:whatsapp]

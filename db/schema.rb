@@ -67,8 +67,7 @@ ActiveRecord::Schema.define(version: 2019_11_22_073137) do
     t.datetime "updated_at", null: false
     t.integer "user_holder_id"
     t.datetime "end_time"
-    t.boolean "is_booked"
-    t.string "patient"
+    t.integer "patient_id"
   end
 
   create_table "messages", force: :cascade do |t|
