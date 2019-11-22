@@ -42,5 +42,6 @@ users.each do |current_user|
                               last_name: new_user.last_name,
                               email: new_user.email,
                               whatsapp: current_user[:whatsapp],
+                              role: new_user.role,
                               user_holder_id: new_user_holder.id)
 end
