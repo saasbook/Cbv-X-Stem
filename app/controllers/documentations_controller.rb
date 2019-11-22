@@ -65,7 +65,7 @@ class DocumentationsController < ApplicationController
 
   def edit
     @documentation = Documentation.find(params[:id])
-    
+
   end
 
   def update_landing
@@ -131,5 +131,5 @@ class DocumentationsController < ApplicationController
     def documentation_params
       params.require(:documentation).permit(:patient, :attachment, :doctype, :documents_name, :documents_info, :documents_status, :documents_explanation, :user_holder_id)
     end
-  
+
 end
