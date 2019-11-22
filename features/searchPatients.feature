@@ -7,17 +7,20 @@ Feature: search patients as doctor
 Background: patients have been added to database
 
   Given the following users exist:
-  | first_name | last_name | email           | password | password_confirmation | is_doctor |
-  | Peter      | Pei       | pp2@gmail.com   | password | password              | true      |
-  | Tom        | Brady     | tomb2@gmail.com | password | password              | false     |
-  | Steven     | Jobs      | sj@gmail.com    | password | password              | false     |
-  | Tim        | Cook      | tc@gmail.com    | password | password              | false     |
+  | role     | first_name | last_name | email            | password | password_confirmation | is_doctor |
+  | doctor   | Peter      | Pei       | pp2@gmail.com    | password | password              | true      |
+  | patient  | Tom        | Brady     | tomb2@gmail.com  | password | password              | false     |
+  | patient  | Steven     | Jobs      | sj@gmail.com     | password | password              | false     |
+  | patient  | Tim        | Cook      | tc@gmail.com     | password | password              | false     |
+  | guest    | Guest      | Guest     | guest@guest.com  | password | password              | false     |
 
-  Then The number of patients should be 4
+  Then The number of patients should be 5
   Given I am logged in as "Peter"
   And I am on the searchPatients home page
+  Then I should see "Search For Patient"
 
 Scenario: search Patients by first name:
+  
   When I fill in "search_first_name" with "Peter"
   And I press "search_submit"
   Then I should see "Peter"
@@ -46,7 +49,7 @@ Scenario: Only Doctor can access the searchPatient Page
   Given I log out
   Then I should see "Please log"
   When I am on the searchPatients home page
-  Then I should see "You must login as doctor to access this page"
+  Then I should see "Only Doctor can access this page"
 
   Given I am logged in as "Tom"
   When I am on the searchPatients home page
