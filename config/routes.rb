@@ -14,6 +14,7 @@ Rails.application.routes.draw do
    resources :treatments
    resources :medications
    resources :appointments
+   resources :documentations
    resources :user_activities, except: [:update, :new, :create, :edit, :destroy]
   end
 
@@ -22,13 +23,17 @@ Rails.application.routes.draw do
   patch 'treatment/update', to: 'treatments#update'
 
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
-  resources :documentations, only: [:index, :new, :create, :destroy]
+  # resources :documentations, only: [:index, :new, :create, :destroy]
 
-  get 'documentations/index'
-  get 'documentations/new'
-  get 'documentations/create'
-  get 'documentations/destroy'
+  # get 'documentations/index'
+  # get 'documentations/new'
+  post 'documentations/create', to: 'documentations#create'
+  patch 'documentations/update_landing'
+  patch 'documentations/update', to: 'documentations#update'
+  delete 'documentations/destroy', to: 'documentations#destroy'
   get 'documentations/download_pdf'
+
+
   resources :messages
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'pages#home'
