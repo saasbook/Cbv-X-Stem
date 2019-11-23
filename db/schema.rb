@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_164632) do
+ActiveRecord::Schema.define(version: 2019_11_23_001022) do
+
+  create_table "appointments", force: :cascade do |t|
+    t.string "patient"
+    t.string "location"
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_holder_id"], name: "index_appointments_on_user_holder_id"
+  end
 
   create_table "documentations", force: :cascade do |t|
     t.string "patient"
@@ -18,6 +29,13 @@ ActiveRecord::Schema.define(version: 2019_11_04_164632) do
     t.string "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "documents_info"
+    t.string "documents_status"
+    t.string "documents_name"
+    t.text "documents_explanation"
+    t.string "status"
+    t.integer "user_holder_id"
+    t.index ["user_holder_id"], name: "index_documentations_on_user_holder_id"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -26,7 +44,32 @@ ActiveRecord::Schema.define(version: 2019_11_04_164632) do
     t.integer "user_holder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "documents_info"
+    t.string "documents_status"
+    t.string "documents_name"
+    t.text "documents_explanation"
     t.index ["user_holder_id"], name: "index_documents_on_user_holder_id"
+  end
+
+  create_table "medications", force: :cascade do |t|
+    t.string "provider"
+    t.string "directions"
+    t.string "days"
+    t.text "description"
+    t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_holder_id"], name: "index_medications_on_user_holder_id"
+  end
+
+  create_table "meetings", force: :cascade do |t|
+    t.string "name"
+    t.datetime "start_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_holder_id"
+    t.datetime "end_time"
+    t.integer "patient_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -37,6 +80,8 @@ ActiveRecord::Schema.define(version: 2019_11_04_164632) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_holder_id"
+    t.index ["user_holder_id"], name: "index_messages_on_user_holder_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -44,8 +89,6 @@ ActiveRecord::Schema.define(version: 2019_11_04_164632) do
     t.string "last_name"
     t.string "email"
     t.integer "user_holder_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "address_line1"
     t.string "address_line2"
     t.string "city"
@@ -67,16 +110,34 @@ ActiveRecord::Schema.define(version: 2019_11_04_164632) do
     t.string "current_job"
     t.string "exercise"
     t.string "doctor"
-    t.index ["user_holder_id"], name: "index_profiles_on_user_holder_id"
+    t.string "whatsapp"
+    t.string "role"
   end
 
   create_table "treatments", force: :cascade do |t|
+    t.string "provider"
+    t.string "location"
+    t.string "status"
     t.string "name"
-    t.string "description"
+    t.text "description"
     t.integer "user_holder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_holder_id"], name: "index_treatments_on_user_holder_id"
+  end
+
+  create_table "user_activities", force: :cascade do |t|
+    t.string "actor"
+    t.string "action"
+    t.string "category"
+    t.string "original_val"
+    t.string "new_val"
+    t.string "description"
+    t.integer "user_holder_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "field"
+    t.index ["user_holder_id"], name: "index_user_activities_on_user_holder_id"
   end
 
   create_table "user_holders", force: :cascade do |t|
@@ -93,6 +154,9 @@ ActiveRecord::Schema.define(version: 2019_11_04_164632) do
     t.integer "user_holder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.boolean "email_notification"
+    t.boolean "whatsapp_notification"
     t.index ["user_holder_id"], name: "index_user_settings_on_user_holder_id"
   end
 
@@ -106,6 +170,8 @@ ActiveRecord::Schema.define(version: 2019_11_04_164632) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_doctor"
+    t.string "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

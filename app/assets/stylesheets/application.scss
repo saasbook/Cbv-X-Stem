@@ -2,6 +2,7 @@
 /*
 *= require_tree
 *= require_self
+*= require simple_calendar
 */
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -54,7 +55,7 @@ body {
   width: 100%;
   padding-top: 0.5rem;
   padding-bottom: 1.2rem;
-  padding-left: 0.5rem;
+  padding-left: 2.5rem;
   padding-right: 0.5rem;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -67,13 +68,13 @@ body {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-areas: "left mid1 mid1 mid1 mid2 mid2 right1 right2"
-                       "left mid1 mid1 mid1 mid2 mid2 right1 right2"
-                       "left mid1 mid1 mid1 mid2 mid2 right1 right2"
-                       "left mid1 mid1 mid1 mid2 mid2 right1 right2"
-                       "left mid1 mid1 mid1 mid2 mid2 right1 right2";
+  grid-template-areas: "left mid1 mid1 mid1 mid2 mid2 right1 right1 right2"
+                       "left mid1 mid1 mid1 mid2 mid2 right1 right1 right2"
+                       "left mid1 mid1 mid1 mid2 mid2 right1 right1 right2"
+                       "left mid1 mid1 mid1 mid2 mid2 right1 right1 right2"
+                       "left mid1 mid1 mid1 mid2 mid2 right1 right1 right2";
 
-  grid-template-columns: repeat(8, 12%);
+  grid-template-columns: 10% 10% 10% 10% 10% auto 4% 10% 10%;
   grid-template-rows: repeat(5,20%);
 }
 
@@ -115,7 +116,7 @@ body {
 }
 
 .right-function-pivotal {
-  padding: 0.1rem;
+  padding: 0.5rem;
   margin-top: 0.5rem;
   margin-right: 0.5rem;
   background-color: #a3b7d6;
@@ -123,7 +124,7 @@ body {
 }
 
 .right-setting-pivotal {
-  padding: 0.1rem;
+  padding: 0.5rem;
   margin-top: 0.5rem;
   margin-right: 0.5rem;
   background-color: #a3b7d6;
@@ -219,7 +220,8 @@ object-fit: contain;
 }
 
 .doctor-pivotal-link {
-  color: #dc3545;
+  //color: #dc3545;
+  color: #FAEBD7 !important;
 }
 
 .no-show {
@@ -241,4 +243,13 @@ object-fit: contain;
 
 .contact-general-item2 {
     grid-area: right;
+}
+
+.bond_name_male {
+  font-weight: bold;
+  color: #7FFFD4;
+}
+.bond_name_female {
+  font-weight: bold;
+  color: #ff7faa;
 }

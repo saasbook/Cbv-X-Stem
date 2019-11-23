@@ -1,10 +1,12 @@
 class MessagesController < ApplicationController
+  before_action :get_user_holder
   before_action :set_message, only: [:show, :edit, :update, :destroy]
 
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.all
+    #@messages = Message.all
+    @messages = @user_holder.messages
   end
 
   # GET /messages/1
@@ -14,7 +16,8 @@ class MessagesController < ApplicationController
 
   # GET /messages/new
   def new
-    @message = Message.new
+      #@message = Message.new
+      @message = @user_holder.messages.new
   end
 
   # GET /messages/1/edit
@@ -24,12 +27,16 @@ class MessagesController < ApplicationController
   # POST /messages
   # POST /messages.json
   def create
-    @message = Message.new(message_params)
+    #@message = Message.new(message_params)
+    @message = @user_holder.messages.new(message_params)
+    @message.receiver_email = 'cbvxstem@gmail.com'
 
     respond_to do |format|
       if @message.save
-        MessageMailer.new_message(@message).deliver
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        MessageMailer.clinic_message(@message).deliver
+        MessageMailer.clinic_confirmation(@message).deliver
+
+        format.html { redirect_to [@user_holder, @message], notice: 'Message was successfully created.' }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new }
@@ -43,7 +50,7 @@ class MessagesController < ApplicationController
   def update
     respond_to do |format|
       if @message.update(message_params)
-        format.html { redirect_to @message, notice: 'Message was successfully updated.' }
+        format.html { redirect_to [@user_holder, @message], notice: 'Message was successfully updated.' }
         format.json { render :show, status: :ok, location: @message }
       else
         format.html { render :edit }
@@ -57,12 +64,23 @@ class MessagesController < ApplicationController
   def destroy
     @message.destroy
     respond_to do |format|
-      format.html { redirect_to messages_url, notice: 'Message was successfully destroyed.' }
+      format.html { redirect_to [@user_holder, @message], notice: 'Message was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
+  def contact_clinic
+  end
+
+  def contact_general
+
+  end
+
   private
+
+    def get_user_holder
+      @user_holder = UserHolder.find(params[:user_holder_id])
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])

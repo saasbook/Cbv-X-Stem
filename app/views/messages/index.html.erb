@@ -1,37 +1,35 @@
 <div class="container">
   <p id="notice"><%= notice %></p>
 
-  <h1>Messages</h1>
+  <h1 style="text-align: center">Message Box</h1>
+  <br>
 
-  <table>
+
+
+  <div class = "search_table">
+  <table class = "table table-striped col-md-12">
     <thead>
       <tr>
-        <th>Sender name</th>
         <th>Sender email</th>
         <th>Receiver email</th>
         <th>Subject</th>
         <th>Body</th>
-        <th colspan="3"></th>
+        <th colspan="2"></th>
       </tr>
     </thead>
-
     <tbody>
       <% @messages.each do |message| %>
         <tr>
-          <td><%= message.sender_name %></td>
           <td><%= message.sender_email %></td>
           <td><%= message.receiver_email %></td>
-          <td><%= message.subject %></td>
-          <td><%= message.body %></td>
-          <td><%= link_to 'Show', message %></td>
-          <td><%= link_to 'Edit', edit_message_path(message) %></td>
-          <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= message.subject.length > 15 ? message.subject[0..15] + "..." : message.subject %></td>
+          <td><%= message.body.length > 8 ? message.body[0..8] + "..." : message.body %></td>
+          <td><%= link_to 'Show', [@user_holder, message] %></td>
+          <td><%= link_to 'Destroy', [@user_holder, message], method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
+  </div>
   <br>
-
-  <%= link_to 'New Message', new_message_path %>
 </div>

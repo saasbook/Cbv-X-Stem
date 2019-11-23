@@ -1,4 +1,4 @@
-<%= form_with(model: message, local: true) do |form| %>
+<%= form_with(model: [@user_holder, @message], local: true) do |form| %>
   <% if message.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
@@ -19,11 +19,6 @@
   <div class="field">
     <%= form.label :Your_email %>
     <%= form.text_field :sender_email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :Doctor_email %>
-    <%= form.text_field :receiver_email %>
   </div>
 
   <div class="field">

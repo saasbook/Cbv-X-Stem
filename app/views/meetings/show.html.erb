@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= UserHolder.find(@meeting.user_holder_id).first_name + ' '+ UserHolder.find(@meeting.user_holder_id).last_name %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @meeting.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @meeting.end_time %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_holder_meeting_path(@meeting) %> |
+<%= link_to 'Cancel', user_holder_meeting_path(@meeting.user_holder_id, @meeting.id), method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', user_holder_meetings_path %>

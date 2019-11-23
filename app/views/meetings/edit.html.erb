@@ -1,0 +1,22 @@
+<h1>Editing Meeting</h1>
+
+<%= form_for(@new_meeting, url: doctor_update_meeting_path(@new_meeting.user_holder_id,@new_meeting.id)) do |form| %>
+  
+
+  <div class="field">
+    <%= form.label :start_time %>
+    <%= form.datetime_select :start_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_time %>
+    <%= form.datetime_select :end_time %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Back', user_holder_meetings_path(current_user) %>
