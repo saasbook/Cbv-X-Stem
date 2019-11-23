@@ -20,7 +20,7 @@
               </span>
               <span class="right-setting-pivotal" style="background-color: #4473C5; ">
                   <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'doctor-pivotal-link', id: "user_logout" %></div>
-                  <div><%= link_to "Message Box", messages_path, class: 'doctor-pivotal-link' %></div>
+                  <div><%= link_to "Message Box", user_holder_messages_path(@user_holder), class: 'doctor-pivotal-link' %></div>
               </span>
             </div>
         </div>

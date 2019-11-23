@@ -15,6 +15,7 @@ Rails.application.routes.draw do
    resources :medications
    resources :appointments
    resources :documentations
+   resources :messages
    resources :user_activities, except: [:update, :new, :create, :edit, :destroy]
   end
 
@@ -34,11 +35,10 @@ Rails.application.routes.draw do
   get 'documentations/download_pdf'
 
 
-  resources :messages
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'pages#home'
   get 'about-me', to: 'pages#about'
-  get 'contact', to: 'messages#contact'
+  get 'contact', to: 'pages#contact'
   get 'contact_general', to: 'messages#contact_general'
   get 'patient/profile', to: 'patients#profile'
   get 'patient/setting', to: 'patients#setting'

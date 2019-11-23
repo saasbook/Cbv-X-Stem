@@ -36,4 +36,10 @@ class UserHolder < ApplicationRecord
   has_many :appointments
   accepts_nested_attributes_for :appointments,
                               reject_if: lambda { |attrs| attrs['patient'].blank? || attrs['location'].blank? || attrs['start'].blank? || attrs['end'].blank? }
+
+  # One to Many Relationship :: One UserHolder to Many Messages
+  has_many :messages
+  accepts_nested_attributes_for :messages,
+                              reject_if: lambda { |attrs| attrs['sender_name'].blank? || attrs['sender_email'].blank? || attrs['receiver_email'].blank?}
+
 end

@@ -24,8 +24,8 @@
           <td><%= message.receiver_email %></td>
           <td><%= message.subject.length > 15 ? message.subject[0..15] + "..." : message.subject %></td>
           <td><%= message.body.length > 8 ? message.body[0..8] + "..." : message.body %></td>
-          <td><%= link_to 'Show', message %></td>
-          <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Show', [@user_holder, message] %></td>
+          <td><%= link_to 'Destroy', [@user_holder, message], method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>

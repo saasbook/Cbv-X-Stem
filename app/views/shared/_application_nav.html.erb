@@ -27,7 +27,7 @@
                   <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'right-pivotal-link' %></div>
                   <div><%= link_to "User Setting", patient_setting_path, class: 'right-pivotal-link' %></div>
                   <div><%= link_to 'User Activities', user_holder_user_activities_path(@user_holder) %></div>
-                  <div><%= link_to "Message Box", messages_path, class: 'right-pivotal-link' %></div>
+                  <div><%= link_to "Message Box", user_holder_messages_path(@user_holder), class: 'right-pivotal-link' %></div>
               </span>
             </div>
         </div>
