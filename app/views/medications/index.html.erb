@@ -1,5 +1,5 @@
 <div class = "search_table">
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
 <div>
 <h1 style="text-align: center">Medications</h1>
 <br>
@@ -8,6 +8,7 @@
 
   <thead>
     <tr>
+      <th>Name</th>
       <th>Provider</th>
       <th>Directions</th>
       <th>Days</th>
@@ -20,6 +21,7 @@
   <tbody>
     <% @medications.each do |medication| %>
       <tr>
+        <td><%= medication.name %></td>
         <td><%= medication.provider %></td>
         <td><%= medication.directions.length > 10 ? medication.directions[0..10] + "..." : medication.directions %></td>
         <td><%= medication.days %></td>

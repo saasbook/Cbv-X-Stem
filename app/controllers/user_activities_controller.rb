@@ -1,4 +1,4 @@
-class UserActivitiesController < ApplicationController
+uclass UserActivitiesController < ApplicationController
   before_action :set_user_activity, only: [:show, :edit, :update, :destroy]
   authorize_resource
   # GET /user_activities
