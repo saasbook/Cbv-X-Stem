@@ -6,6 +6,11 @@
 </p>
 
 <p>
+  <strong>Patient:</strong>
+  <%= UserHolder.find(@meeting.patient_id).first_name + ' '+ UserHolder.find(@meeting.patient_id).last_name %>
+</p>
+
+<p>
   <strong>Start time:</strong>
   <%= @meeting.start_time %>
 </p>
@@ -15,6 +20,20 @@
   <%= @meeting.end_time %>
 </p>
 
+<p>
+  <strong>Status:</strong>
+  <%= @meeting.status %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @meeting.location %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @meeting.description %>
+</p>
 
 <%= link_to 'Edit', edit_user_holder_meeting_path(@meeting) %> |
 <%= link_to 'Cancel', user_holder_meeting_path(@meeting.user_holder_id, @meeting.id), method: :delete, data: { confirm: 'Are you sure?' } %> |
