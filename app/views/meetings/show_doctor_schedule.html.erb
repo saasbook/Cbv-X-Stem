@@ -25,7 +25,7 @@
         <td><%= meeting.end_time %></td>
         <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
         <td><%= meeting.status %></td>
-        <td><%= link_to 'Details', user_holder_meeting_path(meeting.user_holder_id, meeting.id) %></td>
+        <td><%= link_to 'Details', show_patient_appointment_path(meeting.id) %></td>
               </tr>
     <% end %>
   </tbody>

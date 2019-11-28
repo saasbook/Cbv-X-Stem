@@ -133,6 +133,11 @@ class MeetingsController < ApplicationController
 
   end
 
+  def show_patient_appointment
+    @meeting = Meeting.where(:id =>params[:meeting_id]).first
+
+  end
+
 
 
   def book_edit

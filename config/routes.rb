@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   patch '/patient/:id/book_edit/:meeting_id', to:'meetings#book_edit', as: 'book_meeting_edit'
   patch '/confirm/:meeting_id', to:'meetings#confirm', as: 'confirm_meeting'
   patch '/reject/:meeting_id', to:'meetings#reject', as: 'reject_meeting'
+  get '/show_appointment/:meeting_id', to:'meetings#show_patient_appointment', as:'show_patient_appointment'
 
 
 end
