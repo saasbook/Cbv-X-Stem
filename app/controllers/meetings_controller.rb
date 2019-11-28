@@ -132,7 +132,7 @@ class MeetingsController < ApplicationController
     respond_to do |format|
       @meeting = Meeting.where(:id =>params[:meeting_id]).first
       @meeting.status = "rejected"
-      if @meeting.save
+      if @meeting.save!
         format.html { redirect_to user_holder_meetings_path(@meeting.user_holder_id), notice: 'Meeting was rejected.' }
         format.json { render :show, status: :ok, location: @meeting }
       end
