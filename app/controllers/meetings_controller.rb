@@ -88,10 +88,18 @@ class MeetingsController < ApplicationController
 
   def show_doctor_schedule
     # regenerate_all_available_time_to_database
+
+    if current_user.is_doctor
+      @meetings = Meeting.where(category: "Doctors").where(status: "available").where('start_time >= ?',  Time.now.utc).order :start_time
+    else
+      @meetings = Meeting.where(category: "Patients").where(status: "available").where('start_time >= ?',  Time.now.utc).order :start_time
+    end
+
+
     @something = current_user.id
     @booked = Meeting.where(patient_id: current_user.id)
     # @meetings = Meeting.where(patient_id: [nil, ""]).where('start_time >= ?',  Time.now.utc).order :start_time
-    @meetings = Meeting.where(status: "available").where('start_time >= ?',  Time.now.utc).order :start_time
+    # @meetings = Meeting.where(status: "available").where('start_time >= ?',  Time.now.utc).order :start_time
   end
 
   def book
@@ -175,6 +183,6 @@ class MeetingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
-      params.require(:meeting).permit(:name, :start_time, :end_time)
+      params.require(:meeting).permit(:name, :start_time, :end_time, :category)
     end
 end

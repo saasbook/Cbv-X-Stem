@@ -6,9 +6,16 @@
 </p>
 
 <p>
-  <strong>Patient:</strong>
+  <strong>Appointment Requester:</strong>
   <%= UserHolder.find(@meeting.patient_id).first_name + ' '+ UserHolder.find(@meeting.patient_id).last_name %>
 </p>
+
+<p>
+  <strong>Category:</strong>
+  <%= "Appointment with  #{@meeting.category.downcase} " %>
+</p>
+
+
 
 <p>
   <strong>Start time:</strong>
