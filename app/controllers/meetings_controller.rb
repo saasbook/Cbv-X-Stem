@@ -115,25 +115,41 @@ class MeetingsController < ApplicationController
   # end
 
   def confirm
-    respond_to do |format|
-      @meeting = Meeting.where(:id =>params[:meeting_id]).first
-      @meeting.status = "confirmed"
-      if @meeting.save
-        format.html { redirect_to user_holder_meetings_path(@meeting.user_holder_id), notice: 'Meeting was confirmed.' }
-        format.json { render :show, status: :ok, location: @meeting }
-      end
+    change("confirmed")
+    # respond_to do |format|
+    #   @meeting = Meeting.where(:id =>params[:meeting_id]).first
+    #   @meeting.status = "confirmed"
+    #   if @meeting.save
+    #     format.html { redirect_to user_holder_meetings_path(@meeting.user_holder_id), notice: 'Meeting was confirmed.' }
+    #     format.json { render :show, status: :ok, location: @meeting }
+    #   end
 
-    end
+    # end
 
   end
 
 
   def reject
+    change("rejected")
+    # respond_to do |format|
+    #   @meeting = Meeting.where(:id =>params[:meeting_id]).first
+    #   @meeting.status = "rejected"
+    #   if @meeting.save!
+    #     format.html { redirect_to user_holder_meetings_path(@meeting.user_holder_id), notice: 'Meeting was rejected.' }
+    #     format.json { render :show, status: :ok, location: @meeting }
+    #   end
+
+    # end
+
+
+  end
+
+  def change(nextstatus)
     respond_to do |format|
       @meeting = Meeting.where(:id =>params[:meeting_id]).first
-      @meeting.status = "rejected"
+      @meeting.status = nextstatus
       if @meeting.save!
-        format.html { redirect_to user_holder_meetings_path(@meeting.user_holder_id), notice: 'Meeting was rejected.' }
+        format.html { redirect_to user_holder_meetings_path(@meeting.user_holder_id), notice: 'Meeting was ' + nextstatus + '.' }
         format.json { render :show, status: :ok, location: @meeting }
       end
 
