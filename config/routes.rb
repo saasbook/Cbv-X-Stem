@@ -62,5 +62,12 @@ Rails.application.routes.draw do
 
 
   get '/patient/:id/show_doctor_schedule', to:'meetings#show_doctor_schedule', as:'show_doctor_schedule'
-  patch '/patient/:id/book/:meeting_id', to:'meetings#book', as: 'book_meeting'
+  # patch '/patient/:id/book/:meeting_id', to:'meetings#book', as: 'book_meeting'
+  get '/patient/:id/book/:meeting_id', to:'meetings#book', as: 'book_meeting'
+  patch '/patient/:id/book_edit/:meeting_id', to:'meetings#book_edit', as: 'book_meeting_edit'
+  patch '/confirm/:meeting_id', to:'meetings#confirm', as: 'confirm_meeting'
+  patch '/reject/:meeting_id', to:'meetings#reject', as: 'reject_meeting'
+  get '/show_appointment/:meeting_id', to:'meetings#show_patient_appointment', as:'show_patient_appointment'
+
+
 end

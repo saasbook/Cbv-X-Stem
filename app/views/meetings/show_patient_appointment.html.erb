@@ -10,11 +10,12 @@
   <%= UserHolder.find(@meeting.patient_id).first_name + ' '+ UserHolder.find(@meeting.patient_id).last_name %>
 </p>
 
-
 <p>
   <strong>Category:</strong>
   <%= "Appointment with  #{@meeting.category.downcase} " %>
 </p>
+
+
 
 <p>
   <strong>Start time:</strong>
@@ -41,6 +42,4 @@
   <%= @meeting.description %>
 </p>
 
-<%= link_to 'Edit', edit_user_holder_meeting_path(@meeting) %> |
-<%= link_to 'Cancel', user_holder_meeting_path(@meeting.user_holder_id, @meeting.id), method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', user_holder_meetings_path %>
+<%= link_to 'Back', show_doctor_schedule_path(@meeting.patient_id) %>
