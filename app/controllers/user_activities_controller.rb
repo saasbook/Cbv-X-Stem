@@ -1,4 +1,4 @@
-uclass UserActivitiesController < ApplicationController
+class UserActivitiesController < ApplicationController
   before_action :set_user_activity, only: [:show, :edit, :update, :destroy]
   authorize_resource
   # GET /user_activities
@@ -12,7 +12,9 @@ uclass UserActivitiesController < ApplicationController
   def show
   end
 
-
+  def details
+    @user_activity = UserActivity.find(params[:id])
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -1,47 +1,32 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+    <h1 style="text-align: center">User Activity</h1>
+    <p><strong>Modified by:</strong> <%= @user_activity.actor %></p>
+    <p><strong>Category:</strong> <%= @user_activity.category %></p>
+    <p><strong>Action:</strong> <%= @user_activity.action %></p>
+    <p><strong>Modified on:</strong> <%= @user_activity.created_at %></p>
+    <p><strong>Description:</strong> <%= @user_activity.description %></p>
 
-<p>
-  <strong>Actor:</strong>
-  <%= @user_activity.actor %>
-</p>
+    <table class="table table-striped col-md-12">
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Original val</th>
+                <th>New val</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% fields = @user_activity.field.split(";") %>
+            <% originals = @user_activity.original_val.split(";") %>
+            <% changes = @user_activity.new_val.split(";") %>
+            <% for i in 0 .. (fields.length - 1) %>
+                <tr>
+                    <td><%= fields[i] %></td>
+                    <td><%= originals[i] %></td>
+                    <td><%= changes[i] %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
 
-<p>
-  <strong>Action:</strong>
-  <%= @user_activity.action %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @user_activity.category %>
-</p>
-<p>
-  <strong>Field:</strong>
-  <%= @user_activity.field %>
-</p>
-
-<p>
-  <strong>Original val:</strong>
-  <%= @user_activity.original_val %>
-</p>
-
-<p>
-  <strong>New val:</strong>
-  <%= @user_activity.new_val %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @user_activity.description %>
-</p>
-
-<p>
-  <strong>Time Changed:</strong>
-  <%= @user_activity.created_at %>
-</p>
-
-<p>
-  <strong>User holder:</strong>
-  <%= @user_activity.user_holder %>
-</p>
-
-<%= link_to 'Back', user_holder_user_activities_path(@user_holder) %>
+    <%= link_to 'Back', user_holder_user_activities_path(@user_holder), :class => 'col-md-1.5 btn btn-danger' %>
+</div>
