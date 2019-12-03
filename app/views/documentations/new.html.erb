@@ -1,15 +1,3 @@
-<% if !@documentation.errors.empty? %>
-   <div class = "alert alert-error">
-
-      <ul>
-         <% @documentation.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-         <% end %>
-      </ul>
-
-   </div>
-<% end %>
-
 <div class = "well">
    <%# <%= form_for @documentation, html: { multipart: true } do |f| %>
       <%# <%= f.label :patient %>
@@ -61,6 +49,7 @@
          <%= form.label :attachment %>
          <%= form.file_field :attachment %>
       </div>
+
       <div class="field">
          <% if current_user.is_doctor %>
             <%= check_box_tag "email_notif", 'yes', id:"email_notif" %> 
