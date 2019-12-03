@@ -90,7 +90,7 @@ class MeetingsController < ApplicationController
     # regenerate_all_available_time_to_database
 
     if current_user.is_doctor
-      @meetings = Meeting.where(category: "Doctors").where(status: "available").where('start_time >= ?',  Time.now.utc).order :start_time
+      @meetings = Meeting.where(category: "Doctors").where.not(user_holder_id: current_user.id).where(status: "available").where('start_time >= ?',  Time.now.utc).order :start_time
     else
       @meetings = Meeting.where(category: "Patients").where(status: "available").where('start_time >= ?',  Time.now.utc).order :start_time
     end
@@ -177,6 +177,7 @@ class MeetingsController < ApplicationController
         if @meeting.save
           format.html { redirect_to show_doctor_schedule_path, notice: 'Meeting was successfully booked.' }
           format.json { render :show, status: :ok, location: @meeting }
+          send_notification(@meeting)
         end
       # else
       #   format.html { render :edit }
@@ -186,6 +187,37 @@ class MeetingsController < ApplicationController
 
 
 
+  end
+
+
+  def send_notification(meeting)
+    # @patient = @meeting.patient_id
+    @patient = UserHolder.find(meeting.patient_id)
+    @doctor = UserHolder.find(meeting.user_holder_id)
+    @first_name = @patient.first_name
+    @last_name = @patient.last_name
+    @name = @first_name + ' ' + @last_name
+
+    
+    # @first_name, @last_name = documentation.patient.split
+    @current_setting = @doctor.user_setting
+
+    # unless @current_setting.nil?
+      # if @current_setting.email_notification
+          @cur_user_email = @doctor.email
+      # end
+      # if @current_setting && @current_setting.email_notification
+      #     @cur_user_email = @cur_user.email
+
+          @message = Message.new(:sender_name => @name)
+          @message.receiver_email = @cur_user_email
+          MessageMailer.book_notification(@message).deliver
+          # if @cur_user_email != ""
+          #     @message.sender_email =  @cur_user_email
+          #     MessageMailer.document_confirmation(@message).deliver
+          # end
+      # end
+    # end
   end
 
 
