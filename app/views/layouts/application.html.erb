@@ -15,7 +15,7 @@
     <%= if !current_user.is_doctor then render 'shared/application_nav' else render 'shared/doctor_nav' end %>
     <p class="notice"><%= notice %></p>
     <% if not flash[:notice].nil? %>
-        <div class="alert alert-primary" role="alert"> <%= flash[:notice] %></div>
+        <div class="alert alert-primary" role="alert"> <%= if flash[:notice].is_a?(Array) then flash[:notice].join("<br>").html_safe else flash[:notice] end%></div>
     <% end %>
     <p class="alert"><%= alert %></p>
     <% if not flash[:error].nil? %>

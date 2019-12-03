@@ -7,5 +7,12 @@
     Do you want WhatsApp notification? <%= f.select :whatsapp_notification, [["Yes", true], ["No", false]], :required => true %><br />
          
     <%= f.submit 'Submit change', :class => 'col-md-1.5 btn btn-danger' %>
+
+    <%= f.collection_check_boxes(:program_ids, @programs, :id, :title) do |b| %>
+    <div> <%= b.check_box %><%= b.label { b.text } %></div>
+    <% end %>
+
   <% end %>
+
+
 </div>

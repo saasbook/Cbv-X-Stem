@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_23_001022) do
+ActiveRecord::Schema.define(version: 2019_12_03_071722) do
 
   create_table "appointments", force: :cascade do |t|
     t.string "patient"
@@ -84,6 +84,16 @@ ActiveRecord::Schema.define(version: 2019_11_23_001022) do
     t.index ["user_holder_id"], name: "index_messages_on_user_holder_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_holder_id"
+    t.boolean "create_doc", default: true
+    t.boolean "change_doc_status", default: true
+    t.boolean "require_doc_change", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_holder_id"], name: "index_notifications_on_user_holder_id"
+  end
+
   create_table "profiles", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -155,8 +165,12 @@ ActiveRecord::Schema.define(version: 2019_11_23_001022) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.boolean "email_notification"
-    t.boolean "whatsapp_notification"
+    t.string "create_doc_email_notification", default: "Always notify me"
+    t.string "create_doc_whatsapp_notification", default: "Never notify me"
+    t.string "change_doc_email_notification", default: "Always notify me"
+    t.string "change_doc_whatsapp_notification", default: "Never notify me"
+    t.string "require_doc_email_notification", default: "Always notify me"
+    t.string "require_doc_whatsapp_notification", default: "Never notify me"
     t.index ["user_holder_id"], name: "index_user_settings_on_user_holder_id"
   end
 

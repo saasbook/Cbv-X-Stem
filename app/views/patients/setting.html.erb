@@ -1,15 +1,32 @@
-<div class="container">
-  <h1 style="text-align: center">User Setting</h1>
-  <br>
-  <p><b>Email notification:</b> <%= @current_setting.email_notification ? "Yes" : "No" %>
-  </p>
-  <p><b>WhatsApp notification:</b>
-      <%=  @current_setting.whatsapp_notification ? "Yes" : "No" %></p>
-        <p></p>
-  <button class="col-md-1.5 btn btn-success">
-    <%= link_to "Edit Setting", patient_edit_setting_path(@current_user) %>
-  </button>
-  <br>
-  <p></p>
-</div>
+<div class='container'>
+  <h2>Notifications Setting</h2>
 
+
+
+  <%= form_for(@current_setting, url: patient_update_setting_path(@current_user)) do |f| %>
+    <p><b></b> <b>Email</b> <b>WhatsApp</b>
+        
+    <p><b>Doctor or I create a new document:</b> 
+    <%= f.select :create_doc_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %>
+
+    <%= f.select :create_doc_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %>
+    </p>
+
+    <p><b>Doctor changes the status of my document:</b> 
+    <%= f.select :change_doc_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %>
+
+    <%= f.select :change_doc_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %>
+    </p>
+
+    <p><b>Doctor requires a change for my document:</b> 
+    <%= f.select :require_doc_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %>
+
+    <%= f.select :require_doc_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %>
+    </p>
+         
+    <%= f.submit 'Submit change', :class => 'col-md-1.5 btn btn-danger' %>
+
+  <% end %>
+
+
+</div>

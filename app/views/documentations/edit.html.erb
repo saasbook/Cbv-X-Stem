@@ -62,6 +62,20 @@
          <%= form.file_field :attachment %>
       </div>
 
+      <div class="field">
+         <% if current_user.is_doctor %>
+            <%= check_box_tag "email_notif", 'yes', id:"email_notif" %> 
+            <%= form.label "Notify the patient by email" %>
+            <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %> 
+            <%= form.label "Notify the patient by WhatsApp" %>
+         <% else %>
+            <%= check_box_tag "email_notif", 'yes', id:"email_notif" %> 
+            <%= form.label "Notify me by email" %>
+            <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %> 
+            <%= form.label "Notify me by WhatsApp" %>
+         <% end %>
+      </div>
+
       <div class="actions">
          <%= form.submit %>
       </div>

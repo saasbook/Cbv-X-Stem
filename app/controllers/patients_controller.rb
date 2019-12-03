@@ -34,25 +34,29 @@ class PatientsController < ApplicationController
     end
   end
 
-  def edit_setting
-    @current_holder = @current_user.user_holder
-    @current_setting = @current_holder.user_setting
-    if @current_setting.nil?
-     @current_setting = UserSetting.create(:user_holder_id => @current_holder.user_id)
-    end
-    render 'edit_setting'
-  end
-
   def update_setting
     @current_user = User.find(params[:id])
     @current_holder = @current_user.user_holder
     @current_setting = @current_holder.user_setting
     @my_setting = params[:user_setting]
 
-    @current_setting.email_notification = @my_setting[:email_notification].to_s.downcase == "true"
-    @current_setting.whatsapp_notification = @my_setting[:whatsapp_notification].to_s.downcase == "true"
+    @current_setting.create_doc_email_notification = @my_setting[:create_doc_email_notification]
+    @current_setting.create_doc_whatsapp_notification = @my_setting[:create_doc_whatsapp_notification]
+    @current_setting.change_doc_email_notification = @my_setting[:change_doc_email_notification]
+    @current_setting.change_doc_whatsapp_notification = @my_setting[:change_doc_whatsapp_notification]
+    @current_setting.require_doc_email_notification = @my_setting[:require_doc_email_notification]
+    @current_setting.require_doc_whatsapp_notification = @my_setting[:require_doc_whatsapp_notification]
     @current_setting.save!
 
+    if @my_setting[:create_doc_email_notification] == "Never notify me"
+      flash[:notice] = ["You select to never notify you by email when doctor or you create a document for you."]
+    end
+    if @my_setting[:change_doc_email_notification] == "Never notify me"
+      flash[:notice] << "You select to never notify you by email when a doctor changes the status of your document."
+    end
+    if @my_setting[:require_doc_email_notification] == "Never notify me"
+      flash[:notice] << "You select to never notify you by email when a doctor requires a change for your document."
+    end
     redirect_to patient_setting_path
 
   end
