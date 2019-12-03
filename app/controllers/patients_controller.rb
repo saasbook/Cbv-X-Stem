@@ -148,11 +148,17 @@ class PatientsController < ApplicationController
       current_profile.exercise = modified[:exercise]
       current_profile.doctor = modified[:doctor]
       if current_profile.save! then
-        log_change_to_user_activities('profile', 'edit', current_user.user_holder, @user_holder, temp_profile, current_profile.as_json)
+        log_change_to_user_activities('profile', 'edit', current_user.user_holder, current_profile.user_holder, temp_profile, current_profile.as_json)
       end
 
-      flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
-      redirect_to patient_profile_path
+
+      if @current_user.user_holder.profile == current_profile
+        flash[:notice] = "Your profile has been successfully updated."
+        redirect_to patient_profile_path
+      else
+        flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
+        redirect_to patient_path(current_profile)
+      end
     rescue StandardError
       flash[:error] = "One of the fields was not filled out correctly."
       redirect_to patient_edit_profile_path(current_profile)

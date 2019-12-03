@@ -34,6 +34,12 @@ class MessageMailer < ApplicationMailer
     mail to: @message.sender_email,
         subject: "Confirmation: a document uploaded"
   end
+
+  def book_notification(message)
+    @message = message
+    mail to: @message.receiver_email,
+        subject: "A slot was booked by #{message.sender_name}"
+  end
         
 
 

@@ -24,9 +24,6 @@
   <p><b>Current Job:</b> <%=  @current_profile.current_job %></p>
   <p><b>Physical exercise:</b> <%=  @current_profile.exercise %></p>
   <p></p>
-  <button class="col-md-1.5 btn btn-success">
-    <%= link_to "Edit Profile", patient_edit_profile_path(@current_profile) %>
-  </button>
-  <br>
-  <p></p>
+  <%= link_to "Edit Profile", patient_edit_profile_path(@current_profile), class: 'btn btn-primary' %>
+  <%= link_to "User Activity", user_holder_user_activities_path(@current_profile.user_holder), class: 'btn btn-primary' %>
 </div>

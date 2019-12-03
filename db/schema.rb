@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2019_12_03_071722) do
     t.integer "user_holder_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["user_holder_id"], name: "index_medications_on_user_holder_id"
   end
 
@@ -70,6 +71,10 @@ ActiveRecord::Schema.define(version: 2019_12_03_071722) do
     t.integer "user_holder_id"
     t.datetime "end_time"
     t.integer "patient_id"
+    t.string "status"
+    t.string "location"
+    t.string "description"
+    t.string "category"
   end
 
   create_table "messages", force: :cascade do |t|
