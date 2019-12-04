@@ -46,16 +46,38 @@ class PatientsController < ApplicationController
     @current_setting.change_doc_whatsapp_notification = @my_setting[:change_doc_whatsapp_notification]
     @current_setting.require_doc_email_notification = @my_setting[:require_doc_email_notification]
     @current_setting.require_doc_whatsapp_notification = @my_setting[:require_doc_whatsapp_notification]
+    @current_setting.create_tre_email_notification = @my_setting[:create_tre_email_notification]
+    @current_setting.create_tre_whatsapp_notification = @my_setting[:create_tre_whatsapp_notification]
+    @current_setting.change_tre_email_notification = @my_setting[:change_tre_email_notification]
+    @current_setting.change_tre_whatsapp_notification = @my_setting[:change_tre_whatsapp_notification]
+    @current_setting.create_med_email_notification = @my_setting[:create_med_email_notification]
+    @current_setting.create_med_whatsapp_notification = @my_setting[:create_med_whatsapp_notification]
+    @current_setting.change_med_email_notification = @my_setting[:change_med_email_notification]
+    @current_setting.change_med_whatsapp_notification = @my_setting[:change_med_whatsapp_notification]
     @current_setting.save!
 
     if @my_setting[:create_doc_email_notification] == "Never notify me"
-      flash[:notice] = ["You select to never notify you by email when doctor or you create a document for you."]
+      flash[:notice] = ["You select to never notify you by email when a document is added for you."]
+    else
+      flash[:notice] = []
     end
     if @my_setting[:change_doc_email_notification] == "Never notify me"
-      flash[:notice] << "You select to never notify you by email when a doctor changes the status of your document."
+      flash[:notice] << "You select to never notify you by email when your document is changed."
     end
     if @my_setting[:require_doc_email_notification] == "Never notify me"
-      flash[:notice] << "You select to never notify you by email when a doctor requires a change for your document."
+      flash[:notice] << "You select to never notify you by email when a change for your document is required."
+    end
+    if @my_setting[:create_tre_email_notification] == "Never notify me"
+      flash[:notice] << ["You select to never notify you by email when a treatment is added for you."]
+    end
+    if @my_setting[:change_tre_email_notification] == "Never notify me"
+      flash[:notice] << "You select to never notify you by email when your treatment is changed."
+    end
+    if @my_setting[:create_med_email_notification] == "Never notify me"
+      flash[:notice] << ["You select to never notify you by email when a meditation is added for you."]
+    end
+    if @my_setting[:change_med_email_notification] == "Never notify me"
+      flash[:notice] << "You select to never notify you by email when your meditation is changed."
     end
     redirect_to patient_setting_path
 

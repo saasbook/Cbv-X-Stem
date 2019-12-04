@@ -176,6 +176,14 @@ ActiveRecord::Schema.define(version: 2019_12_03_071722) do
     t.string "change_doc_whatsapp_notification", default: "Never notify me"
     t.string "require_doc_email_notification", default: "Always notify me"
     t.string "require_doc_whatsapp_notification", default: "Never notify me"
+    t.string "create_tre_email_notification", default: "Always notify me"
+    t.string "create_tre_whatsapp_notification", default: "Never notify me"
+    t.string "change_tre_email_notification", default: "Always notify me"
+    t.string "change_tre_whatsapp_notification", default: "Never notify me"
+    t.string "create_med_email_notification", default: "Always notify me"
+    t.string "create_med_whatsapp_notification", default: "Never notify me"
+    t.string "change_med_email_notification", default: "Always notify me"
+    t.string "change_med_whatsapp_notification", default: "Never notify me"
     t.index ["user_holder_id"], name: "index_user_settings_on_user_holder_id"
   end
 

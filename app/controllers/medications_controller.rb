@@ -37,7 +37,25 @@ class MedicationsController < ApplicationController
 
     respond_to do |format|
       if @medication.save
-        format.html { redirect_to user_holder_medications_path(@user_holder), notice: 'Medication was successfully created.' }
+        flash[:notice] = ['Medication was successfully created.' ]
+        if @user_holder.user_setting.nil?
+          @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
+        end
+        if @user_holder.user_setting.create_med_email_notification == "Always notify me" || @user_holder.user_setting.create_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
+          send_email_notif("created")
+        elsif @user_holder.user_setting.create_med_email_notification == "Never notify me" && params[:email_notif]
+          flash[:notice] << "The patient has selected to never notify him or her when a medication is created so the email is not sent."
+        end
+        
+        if @user_holder.profile.whatsapp && @user_holder.user_setting.create_med_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_med_email_notification == "Only notifiy me when specified" && params[:whatsapp_notif]
+          #do something
+        elsif !@user_holder.profile.whatsapp
+          flash[:notice] << "The patient doesn't have a WhatsApp number."
+        elsif @user_holder.user_setting.change_med_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
+          flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when a medication is created so the message is not sent."
+        end
+
+        format.html { redirect_to user_holder_medications_path(@user_holder)}
         format.json { render :show, status: :created, location: @medication }
         log_create_delete_to_user_activities('medication', 'create', current_user.user_holder, @user_holder)
       else
@@ -53,7 +71,24 @@ class MedicationsController < ApplicationController
     respond_to do |format|
       temp_medication = @medication.as_json
       if @medication.update(medication_params)
-        format.html { redirect_to user_holder_medications_path(@user_holder), notice: 'Medication was successfully updated.' }
+        flash[:notice] = ['Medication was successfully updated.']
+        if @user_holder.user_setting.nil?
+          @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
+        end
+        if @user_holder.user_setting.change_med_email_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
+          send_email_notif("updated")
+        elsif @user_holder.user_setting.change_med_email_notification == "Never notify me" && params[:email_notif]
+          flash[:notice] << "The patient has selected to never notify him or her when a doctor changes his or her medication so the email is not sent."
+        end
+        if @user_holder.profile.whatsapp && @user_holder.user_setting.change_med_whatsapp_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:whatsapp_notif]
+          #do something
+        elsif !@user_holder.profile.whatsapp
+          flash[:notice] << "The patient doesn't have a WhatsApp number."
+        elsif @user_holder.user_setting.change_med_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
+          flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when his or her medication is changed so the message is not sent."
+        end
+
+        format.html { redirect_to user_holder_medications_path(@user_holder)}
         format.json { render :show, status: :ok, location: @medication }
         log_change_to_user_activities('medication', 'edit', current_user.user_holder, @user_holder, temp_medication, @medication.as_json)
       else
@@ -72,6 +107,12 @@ class MedicationsController < ApplicationController
       format.html { redirect_to user_holder_medications_path(@user_holder), notice: 'Medication was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def send_email_notif(action)
+    @message = Message.new(:sender_name => current_user.first_name + " " + current_user.last_name)
+    @message.receiver_email = @user_holder.email
+    MessageMailer.general_notification(@message, "medication", action).deliver
   end
 
   private
