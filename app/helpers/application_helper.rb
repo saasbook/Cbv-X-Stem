@@ -83,9 +83,6 @@ module ApplicationHelper
   end
 
   def check_login_as_doctor(path)
-    puts("hhhh")
-    puts(@current_user.id)
-    puts(params[:id])
     if (not is_doctor?) && params[:id] != @current_user.id.to_s
       go_to_root
     else
