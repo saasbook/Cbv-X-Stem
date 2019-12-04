@@ -36,7 +36,15 @@ class DocumentationsController < ApplicationController
       # puts @user_holder.inspect
       # puts @documentations[0].inspect
     end
-  
+    
+    def information
+      @documentation = Documentation.find(params[:id])
+      if @documentation.satisfied == true
+        render "documentations/satisfied"
+      else
+        render "documentations/not_satisfied"
+      end
+    end
     def new
       @documentation = Documentation.new
       @user = User.find_by_email(@user_holder.email)

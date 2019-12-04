@@ -14,11 +14,15 @@
    <thead>
       <tr>
          <!--<th style="width: 16.66%">Name</th> -->
+         <th style="width: 20%">Name</th>
          <th style="width: 20%">Document Type</th>
          <th style="width: 20%">        </th>
          <th style="width: 20%">Download Link</th>
+         <th style="width: 20%">Uploaded By</th>
+         <th style="width: 20%" align="center">Last Modified By</th>
          <th style="width: 20%">Status</th>
-         <th style="width: 20%">Delete Option </th>
+         <th style="width: 20%">        </th>
+         <th style="width: 20%">Details </th>
       </tr>
    </thead>
 
@@ -27,13 +31,20 @@
 
          <tr>
             <!--<td style="width: 16.66%"><%= documentation.patient %></td> -->
+            <td style="width: 20%"><%= documentation.documents_name %></td>
             <td style="width: 20%"><%= documentation.doctype %></td>
-            <td style="width: 20%"><button class="col-md-1.5 btn btn-success"><%= link_to "Update",  edit_user_holder_documentation_path(@user_holder, documentation) %></button></td>
+
+            <td style="width: 20%"><button class="col-md-1.5 btn btn-success" style="display: block; margin: 0 auto;"><%= link_to "Update",  edit_user_holder_documentation_path(@user_holder, documentation) %></button></td>
             <td style="width: 20%"><button class="col-md-1.5 btn btn-success"><%= link_to "Download Document", documentations_download_pdf_path(id: documentation.id) %></button></td>
-            
-            <td style="width: 20%"><%= documentation.status ? "Satisfied" : "Not Satisfied" %></td>
+            <td style="width: 20%"><%= documentation.uploaded_by %></td>
+            <td style="width: 20%"><%= documentation.updated_by%></td>
+
+
+            <td style="width: 20%"><%= documentation.satisfied ? "Satisfied" : "Not Satisfied" %></td>
             <%# Might need to be able to add documentation object inside the link_to method call // :id => documentation.id %>
-            <td style="width: 20%"><button class="col-md-1.5 btn btn-success"><%= link_to "Destroy", [@user_holder, documentation], method: :delete%></button></td>
+            <td style="width: 20%"><button class="col-md-1.5 btn btn-danger"><%= link_to "Destroy", [@user_holder, documentation], method: :delete%></button></td>
+            <td style="width: 20%"><button class="col-md-1.5 btn btn-info"><%= link_to "?", documentations_information_path(id: documentation.id) %></button></td>
+
          </tr>
 
       <% end %>

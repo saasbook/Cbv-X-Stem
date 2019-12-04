@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_22_073137) do
+ActiveRecord::Schema.define(version: 2019_12_03_061935) do
 
   create_table "appointments", force: :cascade do |t|
     t.string "patient"
@@ -35,6 +35,10 @@ ActiveRecord::Schema.define(version: 2019_11_22_073137) do
     t.text "documents_explanation"
     t.string "status"
     t.integer "user_holder_id"
+    t.string "uploaded_by"
+    t.string "updated_by"
+    t.string "reasoning"
+    t.boolean "satisfied"
     t.index ["user_holder_id"], name: "index_documentations_on_user_holder_id"
   end
 

@@ -9,7 +9,7 @@
 
    </div>
 <% end %>
-
+<%= link_to 'Back', 'javascript:history.go(-1);', class: "btn btn-primary" %>
 <div class = "well">
    <%# <%= form_for @documentation, html: { multipart: true } do |f| %>
       <%# <%= f.label :patient %>
@@ -28,15 +28,16 @@
    <%= form_with(model: [@user_holder, @documentation], local: true) do |form| %>
       <% if @documentation.errors.any? %>
          <div id="error_explanation">
-            <h2><%= pluralize(documentation.errors.count, "error") %> prohibited this document from being saved:</h2>
+            <h2><%= pluralize(@documentation.errors.count, "error") %> prohibited this document from being saved:</h2>
             <ul>
-            <% documentation.errors.full_messages.each do |message| %>
+            <% @documentation.errors.full_messages.each do |message| %>
             <li><%= message %></li>
             <% end %>
             </ul>
          </div>
       <% end %>
-
+      <%= name = @user_holder.first_name + @user_holder.last_name%>
+      <%= form.hidden_field :uploaded_by, value: name %> 
       <div class="field">
          <%= form.label :patient %>
          <%= form.text_field :patient %>
@@ -48,13 +49,18 @@
       </div>
 
       <div class="field">
-         <%= form.label :documents_status %>
-         <%= form.select :documents_status, [["Not Satisfied", false], ["Satisfied", true]], :required => true %>
+         <%= form.label :satisfied %>
+         <%= form.select :satisfied, [["Not Satisfied", false], ["Satisfied", true]], :required => true %>
       </div>
 
       <div class="field">
          <%= form.label "Document Name" %>
          <%= form.text_field :documents_name %>
+      </div>
+
+      <div class="field">
+         <%= form.label :reasoning %>
+         <%= form.text_field :reasoning %>
       </div>
 
       <div class="field">

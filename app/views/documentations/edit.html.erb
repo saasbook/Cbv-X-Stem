@@ -9,7 +9,7 @@
 
    </div>
 <% end %>
-
+<%= link_to 'Back', 'javascript:history.go(-1);', class: "btn btn-primary" %>
 <div class = "well">
    <%# <%= form_for @documentation, html: { multipart: true } do |f| %>
       <%# <%= f.label :patient %>
@@ -36,7 +36,7 @@
             </ul>
          </div>
       <% end %>
-
+      <%= form.hidden_field :updated_by, value: @user_holder.first_name %> 
       <div class="field">
          <%= form.label :patient %>
          <%= form.text_field :patient %>
@@ -48,8 +48,13 @@
       </div>
 
       <div class="field">
-         <%= form.label :documents_status %>
-         <%= form.select :documents_status, [["Not Satisfied", false], ["Satisfied", true]], :required => true %>
+         <%= form.label :satisfied %>
+         <%= form.select :satisfied, [["Not Satisfied", false], ["Satisfied", true]], :required => true %>
+      </div>
+
+      <div class="field">
+         <%= form.label :reasoning %>
+         <%= form.text_field :reasoning %>
       </div>
 
       <div class="field">
