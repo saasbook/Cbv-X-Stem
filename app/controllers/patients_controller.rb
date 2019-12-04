@@ -40,6 +40,7 @@ class PatientsController < ApplicationController
     @current_setting = @current_holder.user_setting
     @my_setting = params[:user_setting]
 
+<<<<<<< HEAD
     @current_setting.create_doc_email_notification = @my_setting[:create_doc_email_notification]
     @current_setting.create_doc_whatsapp_notification = @my_setting[:create_doc_whatsapp_notification]
     @current_setting.change_doc_email_notification = @my_setting[:change_doc_email_notification]
@@ -54,7 +55,14 @@ class PatientsController < ApplicationController
     @current_setting.create_med_whatsapp_notification = @my_setting[:create_med_whatsapp_notification]
     @current_setting.change_med_email_notification = @my_setting[:change_med_email_notification]
     @current_setting.change_med_whatsapp_notification = @my_setting[:change_med_whatsapp_notification]
-    @current_setting.save!
+=======
+    @temp_setting = @current_setting.as_json
+
+    if @current_setting.save!
+      log_change_to_user_activities('Settings', 'Edit', @current_holder, @current_holder, \
+                                    @temp_setting, @current_setting.as_json)
+    end
+>>>>>>> f5ed1a14fd3f9ceb498705c8e3dccd1a2e8930c7
 
     if @my_setting[:create_doc_email_notification] == "Never notify me"
       flash[:notice] = ["You select to never notify you by email when a document is added for you."]
@@ -143,7 +151,7 @@ class PatientsController < ApplicationController
       current_profile = Profile.find params[:id] # Profile.where(:id => params[:id])
       temp_profile = current_profile.as_json
       # current_profile.update_attributes!(params[:profile])
-      current_profile.doctor = "Bill Gates"
+      # current_profile.doctor = "Bill Gates"
       current_profile.first_name = modified[:first_name]
       current_profile.last_name = modified[:last_name]
       current_profile.whatsapp = modified[:whatsapp]
@@ -170,7 +178,7 @@ class PatientsController < ApplicationController
       current_profile.exercise = modified[:exercise]
       current_profile.doctor = modified[:doctor]
       if current_profile.save! then
-        log_change_to_user_activities('profile', 'edit', current_user.user_holder, current_profile.user_holder, temp_profile, current_profile.as_json)
+        log_change_to_user_activities('Profile', 'Edit', current_user.user_holder, current_profile.user_holder, temp_profile, current_profile.as_json)
       end
 
 
@@ -181,9 +189,9 @@ class PatientsController < ApplicationController
         flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
         redirect_to patient_path(current_profile)
       end
-    rescue StandardError
-      flash[:error] = "One of the fields was not filled out correctly."
-      redirect_to patient_edit_profile_path(current_profile)
+    # rescue StandardError
+    #   flash[:error] = "One of the fields was not filled out correctly."
+    #   redirect_to patient_edit_profile_path(current_profile)
     end
   end
 
