@@ -9,15 +9,19 @@
     <%= stylesheet_link_tag    'application', 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'%>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Work+Sans:400,700&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <%= if !current_user.is_doctor then render 'shared/application_nav' else render 'shared/doctor_nav' end %>
-    <p class="notice"><%= notice %></p>
+    <!-- <p class="notice"><%= notice %></p> -->
     <% if not flash[:notice].nil? %>
         <div class="alert alert-primary" role="alert"> <%= flash[:notice] %></div>
     <% end %>
-    <p class="alert"><%= alert %></p>
+    <!-- <p class="alert"><%= alert %></p> -->
+    <% if not flash[:alert].nil? %>
+        <div class="alert alert-secondary" role="alert"><%= flash[:alert] %></div>
+    <% end %>
     <% if not flash[:error].nil? %>
         <div class="alert alert-danger" role="alert"> <%= flash[:error] %></div>
     <% end %>

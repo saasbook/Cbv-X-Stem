@@ -9,6 +9,6 @@ class PagesController < ApplicationController
   def about
   end
 
-  def contact_general
+  def contact
   end
 end

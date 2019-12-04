@@ -13,17 +13,17 @@
 <div class = "well">
    <%# <%= form_for @documentation, html: { multipart: true } do |f| %>
       <%# <%= f.label :patient %>
-      <%# <<%= f.text_field :patient %> 
-      <%# <%= f.label :doctype %> 
-      <%# <%= f.text_field :doctype %> 
+      <%# <<%= f.text_field :patient %>
+      <%# <%= f.label :doctype %>
+      <%# <%= f.text_field :doctype %>
       <%# <%= f.label :documents_status %>
       <%# <%= f.select :documents_status, [["Not Satisfied", false], ["Satisfied", true]], :required => true %>
-      <%# <%= f.label "Document Name" %> 
-      <%# <%= f.text_field :documents_name %> 
-      <%# <%= f.label :attachment %> 
-      <%# <%= f.file_field :attachment %> 
-      <%# <%= f.submit "Save", class: "btn btn-primary" %> 
-   <%# <% end %> 
+      <%# <%= f.label "Document Name" %>
+      <%# <%= f.text_field :documents_name %>
+      <%# <%= f.label :attachment %>
+      <%# <%= f.file_field :attachment %>
+      <%# <%= f.submit "Save", class: "btn btn-primary" %>
+   <%# <% end %>
 
    <%= form_with(model: [@user_holder, @documentation], local: true) do |form| %>
       <% if @documentation.errors.any? %>

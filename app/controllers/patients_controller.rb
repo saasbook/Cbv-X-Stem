@@ -49,9 +49,14 @@ class PatientsController < ApplicationController
     @current_setting = @current_holder.user_setting
     @my_setting = params[:user_setting]
 
+    @temp_setting = @current_setting.as_json
+
     @current_setting.email_notification = @my_setting[:email_notification].to_s.downcase == "true"
     @current_setting.whatsapp_notification = @my_setting[:whatsapp_notification].to_s.downcase == "true"
-    @current_setting.save!
+    if @current_setting.save!
+      log_change_to_user_activities('Settings', 'Edit', @current_holder, @current_holder, \
+                                    @temp_setting, @current_setting.as_json)
+    end
 
     redirect_to patient_setting_path
 
@@ -117,7 +122,7 @@ class PatientsController < ApplicationController
       current_profile = Profile.find params[:id] # Profile.where(:id => params[:id])
       temp_profile = current_profile.as_json
       # current_profile.update_attributes!(params[:profile])
-      current_profile.doctor = "Bill Gates"
+      # current_profile.doctor = "Bill Gates"
       current_profile.first_name = modified[:first_name]
       current_profile.last_name = modified[:last_name]
       current_profile.whatsapp = modified[:whatsapp]
@@ -144,14 +149,20 @@ class PatientsController < ApplicationController
       current_profile.exercise = modified[:exercise]
       current_profile.doctor = modified[:doctor]
       if current_profile.save! then
-        log_change_to_user_activities('profile', 'edit', current_user.user_holder, @user_holder, temp_profile, current_profile.as_json)
+        log_change_to_user_activities('Profile', 'Edit', current_user.user_holder, current_profile.user_holder, temp_profile, current_profile.as_json)
       end
 
-      flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
-      redirect_to patient_profile_path
-    rescue StandardError
-      flash[:error] = "One of the fields was not filled out correctly."
-      redirect_to patient_edit_profile_path(current_profile)
+
+      if @current_user.user_holder.profile == current_profile
+        flash[:notice] = "Your profile has been successfully updated."
+        redirect_to patient_profile_path
+      else
+        flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
+        redirect_to patient_path(current_profile)
+      end
+    # rescue StandardError
+    #   flash[:error] = "One of the fields was not filled out correctly."
+    #   redirect_to patient_edit_profile_path(current_profile)
     end
   end
 

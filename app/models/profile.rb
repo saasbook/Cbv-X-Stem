@@ -21,7 +21,11 @@ class Profile < ApplicationRecord
   end
 
   def profile_params
-    params.permit(:first_name, :last_name, :email, :whatsapp, :address_line1, :address_line2, :city, :state, :country, :postal_code, :phone, :reached_through)
+    params.permit(:first_name, :last_name, :email, :whatsapp, :address_line1, \
+                  :address_line2, :city, :state, :country, :postal_code, :phone, \
+                  :reached_through, :birthday, :sex, :health_plan, :contacts,
+                  :weight, :height, :smoke, :smoke_a_day, :alcohol, :alcohol_use, \
+                  :current_job, :exercise, :doctor)
   end
 
   # TODO creates corresponding controller and link to the profile model function here.

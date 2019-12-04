@@ -3,6 +3,6 @@
 
   <%= render 'form', message: @message %>
 
-  <%= link_to 'Show', @message %> |
-  <%= link_to 'Back', messages_path %>
+  <%= link_to 'Show', [@user_holder, @message] %> |
+  <%= link_to 'Message Box', user_holder_messages_path %>
 </div>

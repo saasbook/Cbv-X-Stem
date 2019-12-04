@@ -3,7 +3,7 @@ class TreatmentsController < ApplicationController
   before_action :set_treatment, only: [:show, :edit, :update, :destroy]
   authorize_resource
   include UserActivitiesHelper
-  
+
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.json { head :forbidden, content_type: 'text/html' }
@@ -80,8 +80,6 @@ class TreatmentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_treatment
-      puts "TESTING TREATMENT"
-      puts @user_holder.treatments.find(params[:id])
       @treatment = @user_holder.treatments.find(params[:id])
     end
 

@@ -1,7 +1,7 @@
 class DocumentationsController < ApplicationController
-
+  before_action :set_documentation, only: [:show, :edit, :update, :destroy]
+  include UserActivitiesHelper
   def index
-    # @cur_user_holder =  current_user.user_holder
     @documentations = @user_holder.documentations
     puts "USER HOLDER"
     puts @user_holder.inspect
@@ -29,57 +29,62 @@ class DocumentationsController < ApplicationController
   end
 
   def new
-    # @cur_user_holder =  current_user.user_holder
-    @documentation = @user_holder.documentations.new
-    @user = User.find_by_email(@user_holder.email)
-    if @user.is_doctor?
-      render "documentations/new"
-    else
-      render "documentations/patient_new"
-    end
+    @documentation = @user_holder.documentations.build
   end
 
   def create
-      # @user = User.find_by_email(@user_holder.email)
-      # name = [@user.first_name, @user.last_name].join(" ")
-      puts "Documentation Params"
+
+      # # @user = User.find_by_email(@user_holder.email)
+      # # name = [@user.first_name, @user.last_name].join(" ")
+      # puts "Documentation Params"
+      # # puts documentation_params
+
+      # # NEED TO GET A WAY TO GET THE APPROPRIATE USER HOLDER based on name input
+      # # @cur_user_holder = current_user.user_holder
+      # puts "USER HOLDER"
+      # puts @user_holder
+      # name = [@user_holder.first_name, @user_holder.last_name].join(" ")
+      # puts name
+      # documentation_params[:uploaded_by] = name
       # puts documentation_params
-
-      # NEED TO GET A WAY TO GET THE APPROPRIATE USER HOLDER based on name input
-      # @cur_user_holder = current_user.user_holder
-      puts "USER HOLDER"
-      puts @user_holder
-      name = [@user_holder.first_name, @user_holder.last_name].join(" ")
-      puts name
-      documentation_params[:uploaded_by] = name
-      puts documentation_params
-      @documentation = @user_holder.documentations.create(documentation_params)
-      # @documentation.patient = name
-      puts @documentation.inspect
+      # @documentation = @user_holder.documentations.create(documentation_params)
+      # # @documentation.patient = name
+      # puts @documentation.inspect
 
 
-      # # Ensure that only one row for the given patient
-      # Documentation.all.each do |document|
-      #   puts "TESTING2"
-      #   puts @documentation.patient
-      #   puts document.patient
-      #   if document.patient == @documentation.patient
-      #     Documentation.find(document.id).destroy
-      #   end
-      # end
+      # # # Ensure that only one row for the given patient
+      # # Documentation.all.each do |document|
+      # #   puts "TESTING2"
+      # #   puts @documentation.patient
+      # #   puts document.patient
+      # #   if document.patient == @documentation.patient
+      # #     Documentation.find(document.id).destroy
+      # #   end
+      # # end
 
-      if @documentation.save
+      # if @documentation.save
 
-         redirect_to user_holder_documentations_path(@user_holder), notice: "The document #{@documentation.patient} has been uploaded."
-         send_notification(@documentation)
-      else
-         render "new"
+      #    redirect_to user_holder_documentations_path(@user_holder), notice: "The document #{@documentation.patient} has been uploaded."
+      #    send_notification(@documentation)
+      # else
+      #    render "new"
+      #------------------
+      @documentation = @user_holder.documentations.build(documentation_params)
+      respond_to do |format|
+        if @documentation.save
+          format.html { redirect_to user_holder_documentations_path(@user_holder), notice: 'Document was successfully created.' }
+          format.json { render :show, status: :created, location: @documentation }
+          log_create_delete_to_user_activities('document', 'create', current_user.user_holder, @user_holder)
+          send_notification(@documentation)
+        else
+          format.html { render :new }
+          format.json { render json: @documentation.errors, status: :unprocessable_entity }
+        end
+
       end
   end
 
   def edit
-    @documentation = Documentation.find(params[:id])
-    
   end
 
   def update_landing
@@ -130,20 +135,22 @@ class DocumentationsController < ApplicationController
   end
 
   def destroy
-    @documentation = @user_holder.documentations.find(params[:id])
-    # @documentation = Documentation.find(params[:id])
     @documentation.destroy
-    puts "TEST"
-    redirect_to user_holder_documentations_path(@user_holder), notice: 'Document was successfully destroyed.'
+    log_create_delete_to_user_activities('document', 'delete', current_user.user_holder, @user_holder)
+    respond_to do |format|
+      format.html { redirect_to user_holder_documentations_path(@user_holder), notice: 'Document was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+
   end
 
   private
-    # def set_documentation
-    #   @documentation = @user_holder.documentations.find(params[:id])
-    # end
+    def set_documentation
+      @documentation = @user_holder.documentations.find(params[:id])
+    end
 
     def documentation_params
       params.require(:documentation).permit(:patient, :attachment, :doctype, :documents_name, :documents_info, :documents_status, :documents_explanation, :user_holder_id, :satisfied, :reasoning, :updated_by, :uploaded_by)
     end
-  
+
 end

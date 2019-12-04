@@ -1,8 +1,8 @@
 <div class="container">
   <div class = "search_table">
-  <p id="notice"><%= notice %></p>
+  <!-- <p id="notice"><%= notice %></p> -->
   <div>
-  <h1 style="text-align: center">User Activities</h1>
+  <h1 style="text-align: center">Activity on <%= @name %>'s Account</h1>
   <br>
   </div>
   <table class = "table table-striped col-md-12">
@@ -20,12 +20,13 @@
     </thead>
     <tbody>
       <% @user_activities.each do |user_activity| %>
+        <% is_single_change = user_activity.field.split(";").length == 1 %>
         <tr>
           <td><%= user_activity.category %></td>
           <td><%= user_activity.action %></td>
-          <td><%= user_activity.field %></td>
-          <td><%= user_activity.original_val %></td>
-          <td><%= user_activity.new_val %></td>
+          <td><%= is_single_change ? user_activity.field.chomp(";") : "Multiple details have been changed." %></td>
+          <td><%= is_single_change ? user_activity.original_val.chomp(";") : "See details page for more info." %></td>
+          <td><%= is_single_change ? user_activity.new_val.chomp(";") : "See details page for more info." %></td>
           <td><%= user_activity.actor %></td>
           <td><%= user_activity.created_at %></td>
           <td><%= link_to 'Details', user_holder_user_activity_path(@user_holder, user_activity) %></td>
@@ -33,8 +34,9 @@
       <% end %>
     </tbody>
   </table>
-
-
-
-
+  <% if is_doctor? %>
+    <%= link_to "Return to profile", patient_path(@user_holder.profile), class: 'btn btn-primary' %>
+  <% else %>
+    <%= link_to "Return to profile", patient_profile_path, class: 'btn btn-primary' %>
+  <% end %>
 </div>
