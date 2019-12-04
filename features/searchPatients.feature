@@ -35,10 +35,10 @@ Scenario: search Patients by first name and last name:
 
 Scenario: We can go to patients' profiles
   When I am on the searchPatients home page
-  Then I should see "Tom Brady profile"
+  Then I should see "Tom Brady Info"
   And I follow "2_profile"
   Then I should see "Tom Brady"
-  And I should see "Edit Profile"
+  And I should see "Patient's Info"
 
 Scenario: We want to search parients by first name
   When I am on the searchPatients home page

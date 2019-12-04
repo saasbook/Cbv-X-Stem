@@ -52,9 +52,9 @@ module ApplicationHelper
 
   def profile_name_format(first_name, last_name)
     if Guess.gender(first_name)[:gender] != "male" then
-      name_formatted = "<span class='bond_name_female'>#{first_name + " " + last_name}</span>" + " profile"
+      name_formatted = "<span class='bond_name_female'>#{first_name + " " + last_name}</span>" + " Info"
     else
-      name_formatted = "<span class='bond_name_male'>#{first_name + " " + last_name}</span>" + " profile"
+      name_formatted = "<span class='bond_name_male'>#{first_name + " " + last_name}</span>" + " Info"
     end
     name_formatted.html_safe
   end
@@ -71,4 +71,25 @@ module ApplicationHelper
     Digest::SHA1.hexdigest(email)[0..6]
   end
 
+  def redirect_with_userid(user_holder_id)
+    @current_profile = Profile.find(user_holder_id)
+    params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
+    params[:patient_id] = @current_profile.user_holder_id
+  end
+
+  def go_to_root
+    flash[:error] = "You are not authorized to view this page!"
+    redirect_to root_path
+  end
+
+  def check_login_as_doctor(path)
+    if not is_doctor?
+      go_to_root
+    else
+      @current_profile = Profile.find(params[:id])
+      params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
+      params[:patient_id] = @current_profile.user_holder_id
+      render path
+    end  
+  end
 end

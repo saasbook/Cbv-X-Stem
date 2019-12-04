@@ -1,29 +1,44 @@
-<div class="container">
-  <h1 style="text-align: center">Profile</h1>
-  <br>
-  <p><b>Name:</b> <%= @current_profile.first_name + " " + @current_profile.last_name %> </p>
-  <p><b>Full address:</b> <%= getFullAddress(@current_profile) %>
-  </p>
-  <p><b>Mobile phone:</b>
-      <%=  @current_profile.phone %></p>
-  <p><b>Email:</b> <%= @current_profile.email %></p>
-  <p><b>WhatsApp:</b> <%= @current_profile.whatsapp %></p>
-  <p><b>Date of birth:</b> <%=  @current_profile.birthday %> </p>
-  <p><b>Age:</b> <%= @age %></p>
-  <p><b>Sex:</b> <%=  @current_profile.sex %></p>
-  <p><b>Health plan:</b> <%=  @current_profile.health_plan %></p>
-  <p><b>Family doctor or specialized:</b> <%=  @current_profile.doctor %> </p>
-  <p><b>Identification ID, Passport:</b> <!-- Not yet implemented --> </p>
-  <p><b>Contacts (in case of emergency):</b> <%=  @current_profile.contacts %> </p>
-  <p><b>How did you reach us?:</b>
-      <%=  @current_profile.reached_through %></p>
-  <p><b>Weight:</b> <%=  @current_profile.weight %> </p>
-  <p><b>Height:</b> <%=  @current_profile.height %> </p>
-  <p><b>Smoke:</b> <%=  @current_profile.smoke ? @current_profile.smoke_a_day.to_s + " cigarettes/day" : "No" %> </p>
-  <p><b>Alcohol:</b> <%=  @current_profile.alcohol ? "Yes:" + @current_profile.alcohol_use : "No" %> </p>
-  <p><b>Current Job:</b> <%=  @current_profile.current_job %></p>
-  <p><b>Physical exercise:</b> <%=  @current_profile.exercise %></p>
-  <p></p>
-  <%= link_to "Edit Profile", patient_edit_profile_path(@current_profile), class: 'btn btn-primary' %>
-  <%= link_to "User Activity", user_holder_user_activities_path(@current_profile.user_holder), class: 'btn btn-primary' %>
-</div>
+<h1 style="text-align: center">Profile</h1>
+<br>
+<div class = "leftBar">
+   <nav id="sidebar">
+      <div class="sidebar-header">
+         <h4><%= params[:patient_name]%> </h4>
+      </div>
+
+      <ul class="list-unstyled components">
+         <p>Patient's Info</p>
+         <li><%= link_to "Profile", patient_path(params[:patient_id])%></a></li>
+         <li><%= link_to "Documents", user_holder_documentations_path(params[:patient_id])%></a></li>
+         <li><%= link_to "Medications", user_holder_medications_path(params[:patient_id])%></a></li>
+         <li><%= link_to "Treatments", user_holder_treatments_path(params[:patient_id])%></a></li>
+      </ul>
+   </nav>
+ </div>
+  <div class = "right-container">
+    <p><b>Name:</b> <%= @current_profile.first_name + " " + @current_profile.last_name %> </p>
+    <p><b>Full address:</b> <%= getFullAddress(@current_profile) %>
+    </p>
+    <p><b>Mobile phone:</b>
+        <%=  @current_profile.phone %></p>
+    <p><b>Email:</b> <%= @current_profile.email %></p>
+    <p><b>WhatsApp:</b> <%= @current_profile.whatsapp %></p>
+    <p><b>Date of birth:</b> <%=  @current_profile.birthday %> </p>
+    <p><b>Age:</b> <%= @age %></p>
+    <p><b>Sex:</b> <%=  @current_profile.sex %></p>
+    <p><b>Health plan:</b> <%=  @current_profile.health_plan %></p>
+    <p><b>Family doctor or specialized:</b> <%=  @current_profile.doctor %> </p>
+    <p><b>Identification ID, Passport:</b> <!-- Not yet implemented --> </p>
+    <p><b>Contacts (in case of emergency):</b> <%=  @current_profile.contacts %> </p>
+    <p><b>How did you reach us?:</b>
+        <%=  @current_profile.reached_through %></p>
+    <p><b>Weight:</b> <%=  @current_profile.weight %> </p>
+    <p><b>Height:</b> <%=  @current_profile.height %> </p>
+    <p><b>Smoke:</b> <%=  @current_profile.smoke ? @current_profile.smoke_a_day.to_s + " cigarettes/day" : "No" %> </p>
+    <p><b>Alcohol:</b> <%=  @current_profile.alcohol ? "Yes:" + @current_profile.alcohol_use : "No" %> </p>
+    <p><b>Current Job:</b> <%=  @current_profile.current_job %></p>
+    <p><b>Physical exercise:</b> <%=  @current_profile.exercise %></p>
+    <p></p>
+    <%= link_to "Edit Profile", patient_edit_profile_path(@current_profile), class: 'btn btn-primary' %>
+    <%= link_to "User Activity", user_holder_user_activities_path(@current_profile.user_holder), class: 'btn btn-primary' %>
+  </div>

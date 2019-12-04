@@ -16,8 +16,7 @@ class TreatmentsController < ApplicationController
   # GET /treatments.json
   def index
     @treatments = @user_holder.treatments
-    gon.whatsapp_action = params[:a] if params[:a] != ''
-    gon.whatsapp_num = @user_holder.profile.whatsapp
+    redirect_with_userid(params[:user_holder_id])
   end
 
   # GET /treatments/1
