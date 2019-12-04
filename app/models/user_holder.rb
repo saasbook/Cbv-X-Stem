@@ -9,6 +9,9 @@ class UserHolder < ApplicationRecord
 
   # One to One Relationship :: One UserHolder to One UserSetting.
   has_one :user_setting
+  has_one :email_notif, :through => :user_setting
+  has_one :whatsapp_notif, :through => :user_setting
+  has_one :website_notif, :through => :user_setting
 
   has_many :meetings
 

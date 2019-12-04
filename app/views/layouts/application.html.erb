@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Cbvxstem</title>
+    <%= include_gon %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'%>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -16,7 +17,7 @@
     <%= if !current_user.is_doctor then render 'shared/application_nav' else render 'shared/doctor_nav' end %>
     <!-- <p class="notice"><%= notice %></p> -->
     <% if not flash[:notice].nil? %>
-        <div class="alert alert-primary" role="alert"> <%= flash[:notice] %></div>
+        <div class="alert alert-primary" role="alert"> <%= if flash[:notice].is_a?(Array) then flash[:notice].join("<br>").html_safe else flash[:notice] end%></div>
     <% end %>
     <!-- <p class="alert"><%= alert %></p> -->
     <% if not flash[:alert].nil? %>
