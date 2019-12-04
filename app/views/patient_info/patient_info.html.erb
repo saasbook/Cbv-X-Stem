@@ -7,22 +7,8 @@
 
         <ul class="list-unstyled components">
             <p>Patient's Info</p>
-            <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
-                <ul class="collapse list-unstyled" id="homeSubmenu">
-                    <li>
-                        <a href="#">Dummy Home 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Dummy Home 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Dummy Home 3</a>
-                    </li>
-                </ul>
-            </li>
             <li><%= link_to "Profile", patient_path()%></a></li>
-            <li><%= link_to "Documents", documentations_index_path()%></a></li>
+            <li><%= link_to "Documents", user_holder_documentations_path(params[:patient_id])%></a></li>
             <li><%= link_to "Medications", user_holder_medications_path(params[:patient_id])%></a></li>
             <li><%= link_to "Treatments", user_holder_treatments_path(params[:patient_id])%></a></li>
         </ul>
