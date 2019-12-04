@@ -2,7 +2,7 @@
   <div class = "search_table">
   <!-- <p id="notice"><%= notice %></p> -->
   <div>
-  <h1 style="text-align: center">User Activities</h1>
+  <h1 style="text-align: center">Activity on <%= @name %>'s Account</h1>
   <br>
   </div>
   <table class = "table table-striped col-md-12">
@@ -24,7 +24,7 @@
         <tr>
           <td><%= user_activity.category %></td>
           <td><%= user_activity.action %></td>
-          <td><%= is_single_change ? user_activity.field.chomp(";") : "Multiple changes" %></td>
+          <td><%= is_single_change ? user_activity.field.chomp(";") : "Multiple details have been changed." %></td>
           <td><%= is_single_change ? user_activity.original_val.chomp(";") : "See details page for more info." %></td>
           <td><%= is_single_change ? user_activity.new_val.chomp(";") : "See details page for more info." %></td>
           <td><%= user_activity.actor %></td>

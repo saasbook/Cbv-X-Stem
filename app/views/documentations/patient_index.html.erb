@@ -30,7 +30,7 @@
             <td style="width: 20%"><%= documentation.doctype %></td>
             <td style="width: 20%"><button class="col-md-1.5 btn btn-success"><%= link_to "Update",  edit_user_holder_documentation_path(@user_holder, documentation) %></button></td>
             <td style="width: 20%"><button class="col-md-1.5 btn btn-success"><%= link_to "Download Document", documentations_download_pdf_path(id: documentation.id) %></button></td>
-            
+
             <td style="width: 20%"><%= documentation.status ? "Satisfied" : "Not Satisfied" %></td>
             <%# Might need to be able to add documentation object inside the link_to method call // :id => documentation.id %>
             <td style="width: 20%"><button class="col-md-1.5 btn btn-success"><%= link_to "Destroy", [@user_holder, documentation], method: :delete%></button></td>
