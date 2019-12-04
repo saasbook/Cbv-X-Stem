@@ -40,7 +40,6 @@ class PatientsController < ApplicationController
     @current_setting = @current_holder.user_setting
     @my_setting = params[:user_setting]
 
-<<<<<<< HEAD
     @current_setting.create_doc_email_notification = @my_setting[:create_doc_email_notification]
     @current_setting.create_doc_whatsapp_notification = @my_setting[:create_doc_whatsapp_notification]
     @current_setting.change_doc_email_notification = @my_setting[:change_doc_email_notification]
@@ -55,14 +54,13 @@ class PatientsController < ApplicationController
     @current_setting.create_med_whatsapp_notification = @my_setting[:create_med_whatsapp_notification]
     @current_setting.change_med_email_notification = @my_setting[:change_med_email_notification]
     @current_setting.change_med_whatsapp_notification = @my_setting[:change_med_whatsapp_notification]
-=======
+
     @temp_setting = @current_setting.as_json
 
     if @current_setting.save!
       log_change_to_user_activities('Settings', 'Edit', @current_holder, @current_holder, \
                                     @temp_setting, @current_setting.as_json)
     end
->>>>>>> f5ed1a14fd3f9ceb498705c8e3dccd1a2e8930c7
 
     if @my_setting[:create_doc_email_notification] == "Never notify me"
       flash[:notice] = ["You select to never notify you by email when a document is added for you."]
