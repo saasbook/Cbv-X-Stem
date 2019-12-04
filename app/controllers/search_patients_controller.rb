@@ -9,7 +9,7 @@ class SearchPatientsController < ApplicationController
         # Not working. If you really want to have role in profile, set it in the initializer.
         # But it is not a good idea of putting authority info in profile (profile is changable)
         # @patients = Profile.where(role: "patient")
-        @patients_list = User.where("role='patient' and email != 'testuser01@testuser.com' and email != 'guest@guest.com'").pluck(:id)
+        @patients_list = User.where("role='patient' and email != 'testuser01@testuser.com' and email != 'guest@guest.com' and email != 'testuser02@testuser.com'").pluck(:id)
         @patients = Profile.where(user_holder_id: UserHolder.where(user_id: @patients_list).pluck(:id))
 
         @patients = @patients.where.not(email: "tp1@gmail.com")
