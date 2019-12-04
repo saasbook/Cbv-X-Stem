@@ -6,35 +6,9 @@ class DocumentationsController < ApplicationController
     gon.whatsapp_num = @user_holder.profile.whatsapp
     
     @documentations = @user_holder.documentations
-<<<<<<< HEAD
-    puts "USER HOLDER"
-    puts @user_holder.inspect
-    puts @user_holder.treatments
-    puts @documentations.inspect
-    puts @user_holder.first_name
-    @user = User.find_by_email(@user_holder.email)
-    if @user.is_doctor?
-      render "documentations/index"
-    else
-      render "documentations/patient_index"
-    end
-    # puts User.find_by(first_name: @documentations[0].patient)
-    # puts "TESTING"
-    # puts @user_holder.inspect
-  end
-
-  def information
-    @documentation = Documentation.find(params[:id])
-    if @documentation.satisfied == true
-      render "documentations/satisfied"
-    else
-      render "documentations/not_satisfied"
-    end
-=======
     @current_profile = Profile.find(params[:user_holder_id])
     params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
     params[:patient_id] = @current_profile.user_holder_id
->>>>>>> add slide bar
   end
 
   def new
