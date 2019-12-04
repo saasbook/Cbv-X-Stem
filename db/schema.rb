@@ -35,6 +35,10 @@ ActiveRecord::Schema.define(version: 2019_12_03_071722) do
     t.text "documents_explanation"
     t.string "status"
     t.integer "user_holder_id"
+    t.string "uploaded_by"
+    t.string "updated_by"
+    t.string "reasoning"
+    t.boolean "satisfied"
     t.index ["user_holder_id"], name: "index_documentations_on_user_holder_id"
   end
 

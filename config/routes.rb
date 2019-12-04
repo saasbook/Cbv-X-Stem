@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   patch 'documentations/update_landing'
   patch 'documentations/update', to: 'documentations#update'
   delete 'documentations/destroy', to: 'documentations#destroy'
+  get 'documentations/information', to: 'documentations#information'
   get 'documentations/download_pdf'
 
 

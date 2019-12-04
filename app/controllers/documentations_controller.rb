@@ -3,6 +3,29 @@ class DocumentationsController < ApplicationController
   include UserActivitiesHelper
   def index
     @documentations = @user_holder.documentations
+    puts "USER HOLDER"
+    puts @user_holder.inspect
+    puts @user_holder.treatments
+    puts @documentations.inspect
+    puts @user_holder.first_name
+    @user = User.find_by_email(@user_holder.email)
+    if @user.is_doctor?
+      render "documentations/index"
+    else
+      render "documentations/patient_index"
+    end
+    # puts User.find_by(first_name: @documentations[0].patient)
+    # puts "TESTING"
+    # puts @user_holder.inspect
+  end
+
+  def information
+    @documentation = Documentation.find(params[:id])
+    if @documentation.satisfied == true
+      render "documentations/satisfied"
+    else
+      render "documentations/not_satisfied"
+    end
   end
 
   def new
@@ -10,6 +33,42 @@ class DocumentationsController < ApplicationController
   end
 
   def create
+
+      # # @user = User.find_by_email(@user_holder.email)
+      # # name = [@user.first_name, @user.last_name].join(" ")
+      # puts "Documentation Params"
+      # # puts documentation_params
+
+      # # NEED TO GET A WAY TO GET THE APPROPRIATE USER HOLDER based on name input
+      # # @cur_user_holder = current_user.user_holder
+      # puts "USER HOLDER"
+      # puts @user_holder
+      # name = [@user_holder.first_name, @user_holder.last_name].join(" ")
+      # puts name
+      # documentation_params[:uploaded_by] = name
+      # puts documentation_params
+      # @documentation = @user_holder.documentations.create(documentation_params)
+      # # @documentation.patient = name
+      # puts @documentation.inspect
+
+
+      # # # Ensure that only one row for the given patient
+      # # Documentation.all.each do |document|
+      # #   puts "TESTING2"
+      # #   puts @documentation.patient
+      # #   puts document.patient
+      # #   if document.patient == @documentation.patient
+      # #     Documentation.find(document.id).destroy
+      # #   end
+      # # end
+
+      # if @documentation.save
+
+      #    redirect_to user_holder_documentations_path(@user_holder), notice: "The document #{@documentation.patient} has been uploaded."
+      #    send_notification(@documentation)
+      # else
+      #    render "new"
+      #------------------
       @documentation = @user_holder.documentations.build(documentation_params)
       respond_to do |format|
         if @documentation.save
@@ -41,6 +100,7 @@ class DocumentationsController < ApplicationController
           format.html { render :new }
           format.json { render json: @documentation.errors, status: :unprocessable_entity }
         end
+
       end
   end
 
@@ -134,7 +194,7 @@ class DocumentationsController < ApplicationController
     end
 
     def documentation_params
-      params.require(:documentation).permit(:patient, :attachment, :doctype, :documents_name, :documents_info, :documents_status, :documents_explanation, :user_holder_id)
+      params.require(:documentation).permit(:patient, :attachment, :doctype, :documents_name, :documents_info, :documents_status, :documents_explanation, :user_holder_id, :satisfied, :reasoning, :updated_by, :uploaded_by)
     end
 
 end

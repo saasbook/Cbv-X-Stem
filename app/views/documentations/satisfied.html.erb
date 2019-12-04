@@ -1,0 +1,17 @@
+<% if !flash[:notice].blank? %>
+   <div class = "alert alert-info">
+      <%= flash[:notice] %>
+   </div>
+<% end %>
+
+<h1 style="text-align: center">Satisfied</h1>
+<br>
+
+<%= link_to "New Document", new_user_holder_documentation_path(@user_holder), class: "btn btn-primary" %>
+
+<h2><%= @documentation.documents_name %></h2><br>
+<h3>Current Status: <%= @documentation.satisfied %></h3><br>
+<h3>Reasoning: <%= @documentation.reasoning %></h3>
+<br>
+
+

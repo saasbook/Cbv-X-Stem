@@ -1,3 +1,15 @@
+<% if !@documentation.errors.empty? %>
+   <div class = "alert alert-error">
+
+      <ul>
+         <% @documentation.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+         <% end %>
+      </ul>
+
+   </div>
+<% end %>
+<%= link_to 'Back', 'javascript:history.go(-1);', class: "btn btn-primary" %>
 <div class = "well">
    <%# <%= form_for @documentation, html: { multipart: true } do |f| %>
       <%# <%= f.label :patient %>
@@ -24,7 +36,8 @@
             </ul>
          </div>
       <% end %>
-
+      <%= name = @user_holder.first_name + @user_holder.last_name%>
+      <%= form.hidden_field :uploaded_by, value: name %> 
       <div class="field">
          <%= form.label :patient %>
          <%= form.text_field :patient %>
@@ -36,13 +49,18 @@
       </div>
 
       <div class="field">
-         <%= form.label :documents_status %>
-         <%= form.select :documents_status, [["Not Satisfied", false], ["Satisfied", true]], :required => true %>
+         <%= form.label :satisfied %>
+         <%= form.select :satisfied, [["Not Satisfied", false], ["Satisfied", true]], :required => true %>
       </div>
 
       <div class="field">
          <%= form.label "Document Name" %>
          <%= form.text_field :documents_name %>
+      </div>
+
+      <div class="field">
+         <%= form.label :reasoning %>
+         <%= form.text_field :reasoning %>
       </div>
 
       <div class="field">
