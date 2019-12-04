@@ -174,6 +174,8 @@ ActiveRecord::Schema.define(version: 2019_12_03_071722) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
+    t.boolean "email_notification", default: true
+    t.boolean "whatsapp_notification", default: true
     t.string "create_doc_email_notification", default: "Always notify me"
     t.string "create_doc_whatsapp_notification", default: "Never notify me"
     t.string "change_doc_email_notification", default: "Always notify me"

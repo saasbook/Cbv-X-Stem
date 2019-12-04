@@ -125,7 +125,7 @@ class DocumentationsController < ApplicationController
       if @user_holder.user_setting.change_doc_email_notification == "Always notify me" || @user_holder.user_setting.change_doc_email_notification == "Only notifiy me when specified" && params[:email_notif]
         send_email_notif("updated")
       elsif @user_holder.user_setting.change_doc_email_notification == "Never notify me" && params[:email_notif]
-        flash[:notice] << "The patient has selected to never notify him or her when his or her document is changed so the email is not sent."]
+        flash[:notice] << "The patient has selected to never notify him or her when his or her document is changed so the email is not sent."
       end
       if @user_holder.profile.whatsapp && @user_holder.user_setting.change_doc_whatsapp_notification == "Always notify me" || @user_holder.user_setting.change_doc_email_notification == "Only notifiy me when specified" && params[:whatsapp_notif]
           #do something
