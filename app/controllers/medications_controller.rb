@@ -14,8 +14,14 @@ class MedicationsController < ApplicationController
   # GET /medications.json
   def index
     @medications = @user_holder.medications
+<<<<<<< HEAD
     gon.whatsapp_action = params[:a] if params[:a] != ''
     gon.whatsapp_num = @user_holder.profile.whatsapp
+=======
+    @current_profile = Profile.find(params[:user_holder_id])
+    params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
+    params[:patient_id] = @current_profile.user_holder_id
+>>>>>>> add slide bar
   end
 
   # GET /medications/1

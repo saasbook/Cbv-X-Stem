@@ -6,6 +6,7 @@ class DocumentationsController < ApplicationController
     gon.whatsapp_num = @user_holder.profile.whatsapp
     
     @documentations = @user_holder.documentations
+<<<<<<< HEAD
     puts "USER HOLDER"
     puts @user_holder.inspect
     puts @user_holder.treatments
@@ -29,6 +30,11 @@ class DocumentationsController < ApplicationController
     else
       render "documentations/not_satisfied"
     end
+=======
+    @current_profile = Profile.find(params[:user_holder_id])
+    params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
+    params[:patient_id] = @current_profile.user_holder_id
+>>>>>>> add slide bar
   end
 
   def new

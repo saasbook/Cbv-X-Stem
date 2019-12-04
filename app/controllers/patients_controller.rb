@@ -110,6 +110,8 @@ class PatientsController < ApplicationController
         redirect_to root_path
     else
         @current_profile = Profile.find(params[:id])
+        params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
+        params[:patient_id] = @current_profile.user_holder_id
         render 'profile'
     end
   end
