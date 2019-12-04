@@ -16,6 +16,8 @@ class TreatmentsController < ApplicationController
   # GET /treatments.json
   def index
     @treatments = @user_holder.treatments
+    gon.whatsapp_action = params[:a] if params[:a] != ''
+    gon.whatsapp_num = @user_holder.profile.whatsapp
   end
 
   # GET /treatments/1
@@ -48,16 +50,16 @@ class TreatmentsController < ApplicationController
         elsif @user_holder.user_setting.create_tre_email_notification == "Never notify me" && params[:email_notif]
           flash[:notice] << "The patient has selected to never notify him or her when a treatment is created so the email is not sent."
         end
-        
-        if @user_holder.profile.whatsapp && @user_holder.user_setting.create_tre_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_tre_email_notification == "Only notifiy me when specified" && params[:whatsapp_notif]
-          #do something
+        aa = ''
+        if @user_holder.profile.whatsapp && (@user_holder.user_setting.create_tre_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_tre_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])
+          aa = 'created'
         elsif !@user_holder.profile.whatsapp
           flash[:notice] << "The patient doesn't have a WhatsApp number."
         elsif @user_holder.user_setting.change_tre_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
           flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when a treatment is created so the message is not sent."
         end
 
-        format.html { redirect_to user_holder_treatments_path(@user_holder)}
+        format.html { redirect_to user_holder_treatments_path(@user_holder, a: aa)}
         format.json { render :show, status: :created, location: @treatment }
         log_create_delete_to_user_activities('treatment', 'create', current_user.user_holder, @user_holder)
       else
@@ -85,15 +87,16 @@ class TreatmentsController < ApplicationController
           flash[:notice] << "The patient has selected to never notify him or her by email when his or her treatment is changed so the email is not sent."
         end
 
-        if @user_holder.profile.whatsapp && @user_holder.user_setting.change_tre_whatsapp_notification == "Always notify me" || @user_holder.user_setting.change_tre_email_notification == "Only notifiy me when specified" && params[:whatsapp_notif]
-          #do something
+        aa = ''
+        if @user_holder.profile.whatsapp && (@user_holder.user_setting.change_tre_whatsapp_notification == "Always notify me" || @user_holder.user_setting.change_tre_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])
+          aa = 'updated'
         elsif !@user_holder.profile.whatsapp
           flash[:notice] << "The patient doesn't have a WhatsApp number."
         elsif @user_holder.user_setting.change_tre_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
           flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when his or her treatment is changed so the message is not sent."
         end
 
-        format.html { redirect_to user_holder_treatments_path(@user_holder)}
+        format.html { redirect_to user_holder_treatments_path(@user_holder, a: aa)}
         format.json { render :show, status: :ok, location: @treatment }
         log_change_to_user_activities('treatment', 'edit', current_user.user_holder, @user_holder, temp_treatment, @treatment.as_json)
       else
