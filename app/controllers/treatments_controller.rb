@@ -16,9 +16,9 @@ class TreatmentsController < ApplicationController
   # GET /treatments.json
   def index
     @treatments = @user_holder.treatments
-    @current_profile = Profile.find(params[:user_holder_id])
-    params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
-    params[:patient_id] = @current_profile.user_holder_id
+    @current_tre_profile = Profile.find(params[:user_holder_id])
+    params[:patient_name] = @current_tre_profile.first_name + " " + @current_tre_profile.last_name
+    params[:patient_id] = @current_tre_profile.user_holder_id
   end
 
   # GET /treatments/1

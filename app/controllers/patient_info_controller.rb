@@ -5,7 +5,7 @@ class PatientInfoController < ApplicationController
     skip_authorize_resource
     def show
         if not is_doctor?
-            flash[:error] = "You are not authorized to view this page."
+            flash[:error] = "You are not authorized to view this page!"
             redirect_to root_path
         else
             @current_profile = Profile.find(params[:id])

@@ -6,9 +6,9 @@ class DocumentationsController < ApplicationController
     gon.whatsapp_num = @user_holder.profile.whatsapp
     
     @documentations = @user_holder.documentations
-    @current_profile = Profile.find(params[:user_holder_id])
-    params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
-    params[:patient_id] = @current_profile.user_holder_id
+    @current_doc_profile = Profile.find(params[:user_holder_id])
+    params[:patient_name] = @current_doc_profile.first_name + " " + @current_doc_profile.last_name
+    params[:patient_id] = @current_doc_profile.user_holder_id
   end
 
   def new
