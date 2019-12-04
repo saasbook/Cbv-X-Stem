@@ -81,4 +81,15 @@ module ApplicationHelper
     flash[:error] = "You are not authorized to view this page!"
     redirect_to root_path
   end
+
+  def check_login_as_doctor(path)
+    if not is_doctor?
+      go_to_root
+    else
+      @current_profile = Profile.find(params[:id])
+      params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
+      params[:patient_id] = @current_profile.user_holder_id
+      render path
+    end  
+  end
 end

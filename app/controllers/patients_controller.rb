@@ -105,14 +105,7 @@ class PatientsController < ApplicationController
 
   def show
     # must be logged in
-    if not is_doctor?
-        go_to_root
-    else
-        @current_profile = Profile.find(params[:id])
-        params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
-        params[:patient_id] = @current_profile.user_holder_id
-        render 'profile'
-    end
+    check_login_as_doctor('profile')
   end
 
   def edit
