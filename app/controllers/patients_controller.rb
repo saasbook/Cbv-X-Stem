@@ -106,8 +106,7 @@ class PatientsController < ApplicationController
   def show
     # must be logged in
     if not is_doctor?
-        flash[:error] = "You are not authorized to view this page."
-        redirect_to root_path
+        go_to_root
     else
         @current_profile = Profile.find(params[:id])
         params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name

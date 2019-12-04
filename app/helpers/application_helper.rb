@@ -71,4 +71,14 @@ module ApplicationHelper
     Digest::SHA1.hexdigest(email)[0..6]
   end
 
+  def redirect_with_userid(user_holder_id)
+    @current_profile = Profile.find(user_holder_id)
+    params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
+    params[:patient_id] = @current_profile.user_holder_id
+  end
+
+  def go_to_root
+    flash[:error] = "You are not authorized to view this page!"
+    redirect_to root_path
+  end
 end

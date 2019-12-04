@@ -14,9 +14,7 @@ class MedicationsController < ApplicationController
   # GET /medications.json
   def index
     @medications = @user_holder.medications
-    @current_med_profile = Profile.find(params[:user_holder_id])
-    params[:patient_name] = @current_med_profile.first_name + " " + @current_med_profile.last_name
-    params[:patient_id] = @current_med_profile.user_holder_id
+    redirect_with_userid(params[:user_holder_id])
   end
 
   # GET /medications/1
