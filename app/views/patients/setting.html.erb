@@ -11,8 +11,8 @@
         <thead>
           <tr>
             <th></th>
-            <th><i class="far fa-envelope"></i></th>
-            <th><i class="fab fa-whatsapp"></i></th>
+            <th><i class="far fa-envelope" aria-label="Email notification settings"></i></th>
+            <th><i class="fab fa-whatsapp" aria-label="WhatsApp notification settings"></i></th>
           </tr>
         </thead>
         <tbody>
@@ -57,10 +57,10 @@
                 <td><%= f.select :change_med_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
                 <td><%= f.select :change_med_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
             </tr>
-          
+
         </tbody>
     </table>
-         
+
     <%= f.submit 'Submit change', :class => 'col-md-1.5 btn btn-danger' %>
 
   <% end %>
