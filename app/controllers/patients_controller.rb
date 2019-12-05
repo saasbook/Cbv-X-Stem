@@ -17,7 +17,7 @@ class PatientsController < ApplicationController
     else
       #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
       # - The patient should be urged to fill up their profile when they visit the profile first time.
-      # - It doesn't make sure to have profile that has required field not filled.
+      # - It doesn't make sure to have profile that has required fieldnot filled.
       @current_profile = getProfileWithDefaultCreation(@user_holder)
     end
 
@@ -25,6 +25,8 @@ class PatientsController < ApplicationController
     # and store in variable
     redirect_with_userid(@current_user.id)
     @age = @current_profile.calculate_age_from_birthday(@current_profile.birthday)
+    @name = @current_profile.first_name + " " + @current_profile.last_name
+    @is_doctor = is_doctor?()
   end
 
   def setting
@@ -39,6 +41,8 @@ class PatientsController < ApplicationController
     @current_user = User.find(params[:id])
     @current_holder = @current_user.user_holder
     @current_setting = @current_holder.user_setting
+    @temp_setting = @current_setting.as_json
+
     @my_setting = params[:user_setting]
 
     @current_setting.create_doc_email_notification = @my_setting[:create_doc_email_notification]
@@ -56,8 +60,6 @@ class PatientsController < ApplicationController
     @current_setting.change_med_email_notification = @my_setting[:change_med_email_notification]
     @current_setting.change_med_whatsapp_notification = @my_setting[:change_med_whatsapp_notification]
 
-    @temp_setting = @current_setting.as_json
-
     if @current_setting.save!
       log_change_to_user_activities('Settings', 'Edit', @current_holder, @current_holder, \
                                     @temp_setting, @current_setting.as_json)
@@ -66,25 +68,25 @@ class PatientsController < ApplicationController
     if @my_setting[:create_doc_email_notification] == "Never notify me"
       flash[:notice] = ["You select to never notify you by email when a document is added for you."]
     else
-      flash[:notice] = []
+      flash[:notice] = ["Changes have been successfully saved."]
     end
     if @my_setting[:change_doc_email_notification] == "Never notify me"
-      flash[:notice] << "You select to never notify you by email when your document is changed."
+      flash[:notice] << "You have selected to never notify you by email when your document is changed."
     end
     if @my_setting[:require_doc_email_notification] == "Never notify me"
-      flash[:notice] << "You select to never notify you by email when a change for your document is required."
+      flash[:notice] << "You have selected to never notify you by email when a change for your document is required."
     end
     if @my_setting[:create_tre_email_notification] == "Never notify me"
-      flash[:notice] << ["You select to never notify you by email when a treatment is added for you."]
+      flash[:notice] << ["You have selected to never notify you by email when a treatment is added for you."]
     end
     if @my_setting[:change_tre_email_notification] == "Never notify me"
-      flash[:notice] << "You select to never notify you by email when your treatment is changed."
+      flash[:notice] << "You have selected to never notify you by email when your treatment is changed."
     end
     if @my_setting[:create_med_email_notification] == "Never notify me"
-      flash[:notice] << ["You select to never notify you by email when a meditation is added for you."]
+      flash[:notice] << ["You have selected to never notify you by email when a meditation is added for you."]
     end
     if @my_setting[:change_med_email_notification] == "Never notify me"
-      flash[:notice] << "You select to never notify you by email when your meditation is changed."
+      flash[:notice] << "You have selected to never notify you by email when your meditation is changed."
     end
     redirect_to patient_setting_path
 

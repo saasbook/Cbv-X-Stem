@@ -8,10 +8,11 @@
 
 #sidebar {
     min-width: 130px;
-    max-width: 130px;
+    max-width: 180px;
     background:#f2f2f2;
     color: #fff;
     transition: all 0.3s;
+    border-bottom: 2px solid #47748b;
 }
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
@@ -26,7 +27,6 @@ p {
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: #0099ff;
 }
 
 a, a:hover, a:focus {
@@ -42,7 +42,6 @@ a, a:hover, a:focus {
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul p {
