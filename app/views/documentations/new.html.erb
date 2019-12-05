@@ -36,16 +36,15 @@
             </ul>
          </div>
       <% end %>
-      <%= name = @user_holder.first_name + @user_holder.last_name%>
-      <%= form.hidden_field :uploaded_by, value: name %> 
+      <%= form.hidden_field :uploaded_by, value: current_user.first_name + " " + current_user.last_name %>
       <div class="field">
          <%= form.label :patient %>
-         <%= form.text_field :patient %>
+         <%= form.text_field :patient, :value => @user_holder.first_name + " " + @user_holder.last_name  %>
       </div>
 
       <div class="field">
          <%= form.label :doctype %>
-         <%= form.text_field :doctype %>
+         <%= form.text_field :doctype, :value => "pdf" %>
       </div>
 
       <div class="field">
@@ -70,14 +69,14 @@
 
       <div class="field">
          <% if current_user.is_doctor %>
-            <%= check_box_tag "email_notif", 'yes', id:"email_notif" %> 
+            <%= check_box_tag "email_notif", 'yes', id:"email_notif" %>
             <%= form.label "Notify the patient by email" %>
-            <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %> 
+            <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %>
             <%= form.label "Notify the patient by WhatsApp" %>
          <% else %>
-            <%= check_box_tag "email_notif", 'yes', id:"email_notif" %> 
+            <%= check_box_tag "email_notif", 'yes', id:"email_notif" %>
             <%= form.label "Notify me by email" %>
-            <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %> 
+            <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %>
             <%= form.label "Notify me by WhatsApp" %>
          <% end %>
       </div>
