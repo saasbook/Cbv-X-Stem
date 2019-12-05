@@ -18,15 +18,13 @@
               </span>
               <span class="right-function-pivotal">
                   <div><%= link_to "Profile", patient_profile_path(@user_holder), class: 'right-pivotal-link' %></div>
-                  <div><%= link_to "Documents", user_holder_documentations_path(@user_holder), class: 'right-pivotal-link' %></div>
-                  <div><%= link_to 'Treatments', user_holder_treatments_path(@user_holder), class: 'right-pivotal-link' %></div>
-                  <div><%= link_to 'Medications', user_holder_medications_path(@user_holder), class: 'right-pivotal-link' %></div>
+                  <div><%= link_to 'Medical Record', user_holder_treatments_path(@user_holder), class: 'right-pivotal-link' %></div>
                   <div><%= link_to 'Make Appointment', show_doctor_schedule_path(@user_holder), class: 'right-pivotal-link' %></div>
               </span>
               <span class="right-setting-pivotal">
                   <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'right-pivotal-link' %></div>
                   <div><%= link_to "User Setting", patient_setting_path, class: 'right-pivotal-link' %></div>
-                  <div><%= link_to 'User Activities', user_holder_user_activities_path(@user_holder) %></div>
+                  <div><%= link_to 'Activity Log', user_holder_user_activities_path(@user_holder) %></div>
                   <div><%= link_to "Message Box", user_holder_messages_path(@user_holder), class: 'right-pivotal-link' %></div>
               </span>
             </div>
