@@ -83,7 +83,7 @@ module ApplicationHelper
   end
 
   def check_login_as_doctor(path)
-    if not is_doctor?
+    if (not is_doctor?) && params[:id] != @current_user.id.to_s
       go_to_root
     else
       @current_profile = Profile.find(params[:id])

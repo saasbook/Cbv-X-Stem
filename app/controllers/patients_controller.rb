@@ -23,6 +23,7 @@ class PatientsController < ApplicationController
 
     # IMPORTANT: call profile class's calculate_age_from_birthday function
     # and store in variable
+    redirect_with_userid(@current_user.id)
     @age = @current_profile.calculate_age_from_birthday(@current_profile.birthday)
     @name = @current_profile.first_name + " " + @current_profile.last_name
     @is_doctor = is_doctor?()
@@ -107,6 +108,7 @@ class PatientsController < ApplicationController
 
   def show
     # must be logged in
+    redirect_with_userid(@current_user.id)
     check_login_as_doctor('profile')
   end
 
