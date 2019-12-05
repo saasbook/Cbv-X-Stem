@@ -121,7 +121,15 @@ class DocumentationsController < ApplicationController
       redirect_to user_holder_documentations_path(@user_holder, a: aa)
     end
   end
-
+  
+  def information
+    @documentation = Documentation.find(params[:id])
+    if @documentation.satisfied == true
+      render "documentations/satisfied"
+    else
+      render "documentations/not_satisfied"
+    end
+  end
 
   def download_pdf
     #@documentation = @user_holder.documentations.find(params[:id])
