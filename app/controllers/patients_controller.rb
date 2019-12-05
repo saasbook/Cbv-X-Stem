@@ -17,13 +17,15 @@ class PatientsController < ApplicationController
     else
       #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
       # - The patient should be urged to fill up their profile when they visit the profile first time.
-      # - It doesn't make sure to have profile that has required field not filled.
+      # - It doesn't make sure to have profile that has required fieldnot filled.
       @current_profile = getProfileWithDefaultCreation(@user_holder)
     end
 
     # IMPORTANT: call profile class's calculate_age_from_birthday function
     # and store in variable
     @age = @current_profile.calculate_age_from_birthday(@current_profile.birthday)
+    @name = @current_profile.first_name + " " + @current_profile.last_name
+    @is_doctor = is_doctor?()
   end
 
   def setting

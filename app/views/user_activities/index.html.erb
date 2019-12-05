@@ -1,10 +1,6 @@
+<h1 style="text-align: center">Activity on <%= @name %>'s Account</h1>
 <div class="container">
-  <div class = "search_table">
-  <!-- <p id="notice"><%= notice %></p> -->
-  <div>
-  <h1 style="text-align: center">Activity on <%= @name %>'s Account</h1>
   <br>
-  </div>
   <table class = "table table-striped col-md-12">
     <thead>
       <tr>
@@ -39,4 +35,5 @@
   <% else %>
     <%= link_to "Return to profile", patient_profile_path, class: 'btn btn-primary' %>
   <% end %>
+
 </div>

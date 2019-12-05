@@ -5,7 +5,7 @@
 <br>
 </div>
 
-<div class = "leftBar">
+<!-- <div class = "leftBar">
    <nav id="sidebar">
       <div class="sidebar-header">
          <h4><%= params[:patient_name]%> </h4>
@@ -19,8 +19,8 @@
          <li><%= link_to "Treatments", user_holder_treatments_path(params[:patient_id])%></a></li>
       </ul>
    </nav>
- </div> 
-
+ </div>  -->
+<%= render 'shared/user_side_nav' %>
 <div class = "right-container">
   <table class = "table table-striped col-md-12">
 
@@ -60,4 +60,4 @@
       <%= link_to "Add Medication", new_user_holder_medication_path(@user_holder) %>
     </button>
   <% end %>
-</div>  
+</div>

@@ -4,7 +4,7 @@
 <h1 style="text-align: center">Treatments</h1>
 <br>
 </div>
-
+<!--
 <div class = "leftBar">
    <nav id="sidebar">
       <div class="sidebar-header">
@@ -19,9 +19,10 @@
          <li><%= link_to "Treatments", user_holder_treatments_path(params[:patient_id])%></a></li>
       </ul>
    </nav>
-</div> 
+</div>  -->
+<%= render 'shared/user_side_nav' %>
 <div class = "right-container">
-  <table class = "table table-striped col-md-12">
+  <table class = "table table-striped col-md-12" display="inline-block">
       <thead>
         <tr>
           <th>Provider</th>
@@ -57,4 +58,4 @@
         <%= link_to "Add Treatment", new_user_holder_treatment_path(@user_holder) %>
       </button>
     <% end %>
-</div>   
+</div>
