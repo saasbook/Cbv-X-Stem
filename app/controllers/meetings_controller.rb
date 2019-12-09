@@ -87,7 +87,7 @@ class MeetingsController < ApplicationController
   end
 
   def show_doctor_schedule
-    # regenerate_all_available_time_to_database
+    regenerate_all_available_time_to_database
 
     if current_user.is_doctor
       @meetings = Meeting.where(category: "Doctors").where.not(user_holder_id: current_user.id).where(status: "available").where('start_time >= ?',  Time.now.utc).order :start_time
@@ -198,7 +198,7 @@ class MeetingsController < ApplicationController
     @last_name = @patient.last_name
     @name = @first_name + ' ' + @last_name
 
-    
+
     # @first_name, @last_name = documentation.patient.split
     @current_setting = @doctor.user_setting
 

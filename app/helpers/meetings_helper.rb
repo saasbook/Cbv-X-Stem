@@ -30,8 +30,8 @@ module MeetingsHelper
     User.where("role='doctor' and email != 'testuser01@testuser.com'").each do |doctor|
       meetings_doctor = doctor.user_holder.meetings.nil? ? [] : doctor.user_holder.meetings.pluck(:start_time)
       # final version should only filter out occupied time slot.
-      # meetings_doctor = doctor.user_holder.meetings.nil? ? [] : doctor.user_holder.meetings.where('patient_id != ""').pluck(:start_time)
-      available_slot_num = doctor.user_holder.meetings.nil? ? [] : doctor.user_holder.meetings.where(patient_id: [nil, '']).pluck(:start_time).length
+      meetings_doctor = doctor.user_holder.meetings.nil? ? [] : doctor.user_holder.meetings.where('status != "available"').pluck(:start_time)
+      available_slot_num = doctor.user_holder.meetings.nil? ? [] : doctor.user_holder.meetings.where('status = "available"').pluck(:start_time).length
       res +=ten_slot_generator_capped_within_week(res, meetings_doctor, doctor.id, available_slot_num)
     end
     res
@@ -41,7 +41,8 @@ module MeetingsHelper
     regenerate_all_available_time_list
     regenerate_all_available_time_list.each do |dou|
       doctor = User.find_by_id(dou[1])
-      doctor.user_holder.meetings.create!(start_time: dou[0], end_time: dou[0]+1.hour)
+      # doctor.user_holder.meetings.create!(start_time: dou[0], end_time: dou[0]+1.hour)
+      doctor.user_holder.meetings.create!(start_time: dou[0], end_time: dou[0]+1.hour, category: "Patients", status: "available")
     end
   end
 
