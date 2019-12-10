@@ -2,7 +2,7 @@ class DocumentationsController < ApplicationController
   before_action :set_documentation, only: [:show, :edit, :update, :destroy]
   include UserActivitiesHelper
   def index
-    gon.whatsapp_action = params[:a] if params[:a] != ''
+    gon.whatsapp_action = flash[:a] if flash[:a] == 'created' || flash[:a] == 'updated'
     gon.whatsapp_num = @user_holder.profile.whatsapp
     
     @documentations = @user_holder.documentations
@@ -65,16 +65,16 @@ class DocumentationsController < ApplicationController
           elsif @user_holder.user_setting.change_doc_email_notification == "Never notify me" && params[:email_notif]
             flash[:notice] << "The patient has selected to never notify him or her when a document is created so the email is not sent."
           end
-          aa = ''
+          flash[:a] = ''
           if @user_holder.profile.whatsapp && (@user_holder.user_setting.create_doc_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_doc_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])
-            aa = 'created'
+            flash[:a] = 'created'
           elsif !@user_holder.profile.whatsapp
             flash[:notice] << "The patient doesn't have a WhatsApp number."
           elsif @user_holder.user_setting.change_doc_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
             flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when a document is created so the message is not sent."
           end
           #end
-          format.html { redirect_to user_holder_documentations_path(@user_holder, a: aa)}
+          format.html { redirect_to user_holder_documentations_path(@user_holder)}
           format.json { render :show, status: :created, location: @documentation }
           log_create_delete_to_user_activities('document', 'create', current_user.user_holder, @user_holder)
 
@@ -109,16 +109,16 @@ class DocumentationsController < ApplicationController
       elsif @user_holder.user_setting.change_doc_email_notification == "Never notify me" && params[:email_notif]
         flash[:notice] << "The patient has selected to never notify him or her when his or her document is changed so the email is not sent."
       end
-      aa = ''
+      flash[:a] = ''
       if @user_holder.profile.whatsapp && (@user_holder.user_setting.change_doc_whatsapp_notification == "Always notify me" || @user_holder.user_setting.change_doc_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif] == "yes")
-        aa = 'updated'
+        flash[:a] = 'updated'
       elsif !@user_holder.profile.whatsapp
         flash[:notice] << "The patient doesn't have a WhatsApp number."
       elsif @user_holder.user_setting.change_doc_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
         flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when his or her document is changed so the message is not sent."
       end
 
-      redirect_to user_holder_documentations_path(@user_holder, a: aa)
+      redirect_to user_holder_documentations_path(@user_holder)
     end
   end
   
