@@ -103,6 +103,7 @@ RSpec.describe TreatmentsController, type: :controller do
       it "creates a new Treatment" do
         @user = users(:doctor_)
         @patient = users(:patient_)
+        UserHolder.create!(first_name: @patient.first_name, last_name: @patient.last_name, email: @patient.email, user_id: @patient.id)
         attributes = { "provider" => "provider1",
             "name" => "name1",
             "location" => "location1",
@@ -124,6 +125,7 @@ RSpec.describe TreatmentsController, type: :controller do
       it "creates a new Treatment" do
         @user = users(:doctor_)
         @patient = users(:patient_)
+        UserHolder.create!(first_name: @patient.first_name, last_name: @patient.last_name, email: @patient.email, user_id: @patient.id)
         Profile.create!(first_name: @patient.first_name, last_name: @patient.last_name, email: @patient.email, whatsapp: '6198089569', user_holder_id: @patient.user_holder.id)
         sign_in @user
         UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
@@ -175,6 +177,7 @@ RSpec.describe TreatmentsController, type: :controller do
         sign_in @user
         UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
         @patient = users(:patient_)
+        UserHolder.create!(first_name: @patient.first_name, last_name: @patient.last_name, email: @patient.email, user_id: @patient.id)
         attributes = { "provider" => "provider1",
             "name" => "name1",
             "location" => "location1",
@@ -207,6 +210,7 @@ RSpec.describe TreatmentsController, type: :controller do
       sign_in @user
       UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
       @patient = users(:patient_)
+      UserHolder.create!(first_name: @patient.first_name, last_name: @patient.last_name, email: @patient.email, user_id: @patient.id)
       attributes = { "provider" => "provider1",
           "name" => "name1",
           "location" => "location1",
@@ -234,6 +238,7 @@ RSpec.describe TreatmentsController, type: :controller do
         sign_in @user
         UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
         @patient = users(:patient_)
+        UserHolder.create!(first_name: @patient.first_name, last_name: @patient.last_name, email: @patient.email, user_id: @patient.id)
         attributes = { "provider" => "provider1",
             "name" => "name1",
             "location" => "location1",
