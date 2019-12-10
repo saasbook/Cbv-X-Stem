@@ -22,8 +22,9 @@ RSpec.describe TreatmentsController, type: :controller do
     it "returns a success response" do
       @user = users(:patient_)
       sign_in @user
+      UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
       Profile.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, whatsapp: '6198089569', user_holder_id: @user.user_holder.id)
-      get :index, params: { "user_holder_id" => @user.user_holder }, session: valid_session
+      get :index, params: { "user_holder_id" => @user.user_holder.id}, session: valid_session
       expect(response).to be_success
     end
   end
@@ -34,8 +35,9 @@ RSpec.describe TreatmentsController, type: :controller do
     it "returns a success response" do
       @user = users(:patient_)
       sign_in @user
+      UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
       @treatment = treatments(:t1)
-      get :show, params: {"user_holder_id" => @user.user_holder, id: @treatment.id}, session: valid_session
+      get :show, params: {"user_holder_id" => @user.user_holder.id, id: @treatment.id}, session: valid_session
       expect(response).to be_success
     end
   end
@@ -46,8 +48,9 @@ RSpec.describe TreatmentsController, type: :controller do
     it "returns a success response" do
       @user = users(:patient_)
       sign_in @user
+      UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
       @treatment = treatments(:t1)
-      get :new, params: {"user_holder_id" => @user.user_holder}, session: valid_session
+      get :new, params: {"user_holder_id" => @user.user_holder.id}, session: valid_session
       expect(response).to redirect_to "/user_holders/"+ @user.user_holder.id.to_s + "/treatments"
     end
 
@@ -59,8 +62,9 @@ RSpec.describe TreatmentsController, type: :controller do
     it "returns a success response" do
       @user = users(:patient_)
       sign_in @user
+      UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
       @treatment = treatments(:t1)
-      get :edit, params: {"user_holder_id" => @user.user_holder, id: @treatment.id}, session: valid_session
+      get :edit, params: {"user_holder_id" => @user.user_holder.id, id: @treatment.id}, session: valid_session
       expect(response).to redirect_to "/user_holders/"+ @user.user_holder.id.to_s + "/treatments"
     end
 
@@ -75,7 +79,8 @@ RSpec.describe TreatmentsController, type: :controller do
       it "creates a new Treatment" do
         @user = users(:patient_)
         sign_in @user
-        post :create, params: {"user_holder_id" => @user.user_holder, treatment: valid_attributes}, session: valid_session
+        UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
+        post :create, params: {"user_holder_id" => @user.user_holder.id, treatment: valid_attributes}, session: valid_session
         expect(response).to redirect_to("/user_holders/"+ @user.user_holder.id.to_s + "/treatments")
       end
     end
@@ -84,7 +89,8 @@ RSpec.describe TreatmentsController, type: :controller do
       it "creates a new Treatment" do
         @user = users(:patient_)
         sign_in @user
-        post :create, params: {"user_holder_id" => @user.user_holder, treatment: invalid_attributes}, session: valid_session
+        UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
+        post :create, params: {"user_holder_id" => @user.user_holder.id, treatment: invalid_attributes}, session: valid_session
         expect(response).to redirect_to("/user_holders/"+ @user.user_holder.id.to_s + "/treatments")
       end
     end
@@ -102,13 +108,14 @@ RSpec.describe TreatmentsController, type: :controller do
             "location" => "location1",
             "status" => "status1",
             "description" => "description1",
-            "user_holder_id" => @patient.user_holder,
+            "user_holder_id" => @patient.user_holder.id,
           }
 
         Profile.create!(first_name: @patient.first_name, last_name: @patient.last_name, email: @patient.email, whatsapp: '6198089569', user_holder_id: @patient.user_holder.id)
         sign_in @user
+        UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
         expect {
-          post :create, params: {"user_holder_id" => @patient.user_holder, treatment: attributes}, session: valid_session
+          post :create, params: {"user_holder_id" => @patient.user_holder.id, treatment: attributes}, session: valid_session
         }.to change(Treatment, :count).by(1)
       end
     end
@@ -119,8 +126,9 @@ RSpec.describe TreatmentsController, type: :controller do
         @patient = users(:patient_)
         Profile.create!(first_name: @patient.first_name, last_name: @patient.last_name, email: @patient.email, whatsapp: '6198089569', user_holder_id: @patient.user_holder.id)
         sign_in @user
+        UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
         expect {
-          post :create, params: {"user_holder_id" => @patient.user_holder, treatment: invalid_attributes}, session: valid_session
+          post :create, params: {"user_holder_id" => @patient.user_holder.id, treatment: invalid_attributes}, session: valid_session
         }.to raise_error(ActionController::ParameterMissing)
       end
     end
@@ -135,6 +143,7 @@ RSpec.describe TreatmentsController, type: :controller do
       it "updates the requested treatment" do
         @user = users(:patient_)
         sign_in @user
+        UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
         attributes = { "provider" => "provider1",
             "name" => "name1",
             "location" => "location1",
@@ -150,7 +159,7 @@ RSpec.describe TreatmentsController, type: :controller do
             "description" => "description2",
             "user_holder_id" => @user.user_holder.id,
           }
-        put :update, params: {"id" => treatment.id ,"user_holder_id" => @user.user_holder, treatment: attributes2}, session: valid_session
+        put :update, params: {"id" => treatment.id ,"user_holder_id" => @user.user_holder.id, treatment: attributes2}, session: valid_session
         expect(response).to redirect_to("/user_holders/"+ @user.user_holder.id.to_s + "/treatments")
       end
     end
@@ -164,6 +173,7 @@ RSpec.describe TreatmentsController, type: :controller do
       it "updates the requested treatment" do
         @user = users(:doctor_)
         sign_in @user
+        UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
         @patient = users(:patient_)
         attributes = { "provider" => "provider1",
             "name" => "name1",
@@ -181,7 +191,7 @@ RSpec.describe TreatmentsController, type: :controller do
             "description" => "description2",
             "user_holder_id" => @patient.user_holder.id,
           }
-        put :update, params: {"id" => treatment.id ,"user_holder_id" => @patient.user_holder, treatment: attributes2}, session: valid_session
+        put :update, params: {"id" => treatment.id ,"user_holder_id" => @patient.user_holder.id, treatment: attributes2}, session: valid_session
         treatment.reload
         expect(treatment.name).to eq("name2")
       end
@@ -195,6 +205,7 @@ RSpec.describe TreatmentsController, type: :controller do
     it "destroys the requested treatment" do
       @user = users(:doctor_)
       sign_in @user
+      UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
       @patient = users(:patient_)
       attributes = { "provider" => "provider1",
           "name" => "name1",
@@ -208,7 +219,8 @@ RSpec.describe TreatmentsController, type: :controller do
 
       @user = users(:patient_)
       sign_in @user
-      delete :destroy, params: {"id" => treatment.id ,"user_holder_id" => @patient.user_holder}, session: valid_session
+      UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
+      delete :destroy, params: {"id" => treatment.id ,"user_holder_id" => @patient.user_holder.id}, session: valid_session
       expect(response).to redirect_to("/user_holders/"+ @user.user_holder.id.to_s + "/treatments")
     end
   end
@@ -220,6 +232,7 @@ RSpec.describe TreatmentsController, type: :controller do
       it "updates the requested treatment" do
         @user = users(:doctor_)
         sign_in @user
+        UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
         @patient = users(:patient_)
         attributes = { "provider" => "provider1",
             "name" => "name1",
@@ -231,7 +244,7 @@ RSpec.describe TreatmentsController, type: :controller do
         Profile.create!(first_name: @patient.first_name, last_name: @patient.last_name, email: @patient.email, whatsapp: '6198089569', user_holder_id: @patient.user_holder.id)
         treatment = Treatment.create!(attributes)
         expect {
-          delete :destroy, params: {"id" => treatment.id ,"user_holder_id" => @patient.user_holder}, session: valid_session
+          delete :destroy, params: {"id" => treatment.id ,"user_holder_id" => @patient.user_holder.id}, session: valid_session
         }.to change(Treatment, :count).by(-1)
       end
     end
