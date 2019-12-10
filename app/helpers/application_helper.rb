@@ -44,7 +44,7 @@ module ApplicationHelper
     nav_links = ''
 
     nav_items.each do |item|
-      nav_links << "<#{tag_type}><a href='#{item[:url]}' class='#{style} #{active? item[:url]}'>#{item[:title]}</a></#{tag_type}>"
+      nav_links << "<#{tag_type}><a href='#{item[:url]}' style='color: #000;' class='#{style} #{active? item[:url]}'>#{item[:title]}</a></#{tag_type}>"
     end
 
     nav_links.html_safe
@@ -90,6 +90,6 @@ module ApplicationHelper
       params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
       params[:patient_id] = @current_profile.user_holder_id
       render path
-    end  
+    end
   end
 end
