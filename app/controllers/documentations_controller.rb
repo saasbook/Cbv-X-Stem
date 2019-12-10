@@ -164,9 +164,14 @@ class DocumentationsController < ApplicationController
   end
 
   def send_email_notif(action)
-    @message = Message.new(:sender_name => current_user.first_name + " " + current_user.last_name)
-    @message.receiver_email = @user_holder.email
-    MessageMailer.general_notification(@message, "documentation", action).deliver
+    @message = @user_holder.messages.new(:sender_name => current_user.first_name + " " + current_user.last_name,
+                                         :receiver_email => @user_holder.email,
+                                         :sender_email => current_user.user_holder.email,
+                                         :subject => "A documentation was " + action + " by " + current_user.first_name + " " + current_user.last_name,
+                                         :body => "A documentation was " + action + " by " + current_user.first_name + " " + current_user.last_name)
+    if @message.save
+      MessageMailer.general_notification(@message, "documentation", action).deliver
+    end
   end
 
   def destroy

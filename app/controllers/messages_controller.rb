@@ -6,7 +6,8 @@ class MessagesController < ApplicationController
   # GET /messages.json
   def index
     #@messages = Message.all
-    @messages = @user_holder.messages
+    #@messages = @user_holder.messages
+    @messages = Message.where('sender_email=? OR receiver_email=?', @user_holder.email, @user_holder.email)
   end
 
   # GET /messages/1
