@@ -72,7 +72,7 @@ module ApplicationHelper
   end
 
   def redirect_with_userid(user_holder_id)
-    @current_profile = Profile.find(user_holder_id)
+    @current_profile = Profile.find_by_user_holder_id(user_holder_id)
     params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
     params[:patient_id] = @current_profile.user_holder_id
   end
@@ -86,7 +86,8 @@ module ApplicationHelper
     if (not is_doctor?) && params[:id] != @current_user.id.to_s
       go_to_root
     else
-      @current_profile = Profile.find(params[:id])
+      user = User.find(params[:id])
+      @current_profile = Profile.find_by_user_holder_id(user.user_holder.id)
       params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
       params[:patient_id] = @current_profile.user_holder_id
       render path
