@@ -14,7 +14,7 @@ RSpec.describe 'Homepage', type: :feature , js:true do
 
   scenario "visit" do
     visit "/"
-    expect(page).to have_title "Cbvxstem"
+    expect(page).to have_title "CBV X Stem"
     expect(page).to have_css "h2", text: "Welcome back"
     expect(page).to be_accessible.according_to(:wcag2a).checking("html-has-lang", "html-lang-valid")
     expect(page).to be_accessible.according_to(:wcag2a).checking("color-contrast")
