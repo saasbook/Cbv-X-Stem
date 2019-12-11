@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Treatment, type: :feature , js:true do
+RSpec.describe UserActivity, type: :feature , js:true do
   include Warden::Test::Helpers
   fixtures :users
   before do
@@ -13,7 +13,7 @@ RSpec.describe Treatment, type: :feature , js:true do
    end
 
   scenario "visit" do
-    visit "/user_holders/"+ @user.user_holder.id.to_s + "/treatments"
+    visit "/user_holders/"+ @user.user_holder.id.to_s + "/user_activities"
     expect(page).to be_accessible.according_to(:wcag2a).checking("html-has-lang", "html-lang-valid")
     expect(page).to be_accessible.according_to(:wcag2a).checking("color-contrast")
     expect(page).to be_accessible.according_to(:wcag2a).checking("document-title", "empty-heading")
