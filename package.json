@@ -1,5 +1,8 @@
 {
   "name": "cbvxstem",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "axe-core": "^3.4.0"
+  }
 }

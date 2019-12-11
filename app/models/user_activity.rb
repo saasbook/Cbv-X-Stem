@@ -2,9 +2,9 @@ class UserActivity < ApplicationRecord
   belongs_to :user_holder
 
   # Actor, Action, Category, and Original_val are required when creating entry.
-  validates :actor, presence: true, length: { minimum: 3, maximum: 20 }
-  validates :action, presence: true, length: { minimum: 3, maximum: 10 }
-  validates :category, presence: true, length: { minimum: 3, maximum: 10 }
+  validates :actor, presence: true, length: { minimum: 3, maximum: 30 }
+  validates :action, presence: true, length: { minimum: 3, maximum: 30 }
+  validates :category, presence: true, length: { minimum: 3, maximum: 30 }
   validates :original_val, presence: true
 
 

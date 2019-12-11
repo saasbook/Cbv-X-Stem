@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+m11:
+  id: 11
+  provider: "provider11"
+  directions: "directions11"
+  days: "days11"
+  description: "description11"
+  name: "name11"
+  user_holder_id: 1
+
+m12:
+  id: 12
+  provider: "provider12"
+  directions: "directions12"
+  days: "days12"
+  description: "description12"
+  user_holder_id: 1
+
+m13:
+  id: 13
+  provider: "provider13"
+  directions: "directions13"
+  days: "days13"
+  description: "description13"
+  user_holder_id: 1

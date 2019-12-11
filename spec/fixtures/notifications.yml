@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  create_doc: false
+  change_doc_status: false
+  require_doc_change: false
+
+two:
+  create_doc: false
+  change_doc_status: false
+  require_doc_change: false
