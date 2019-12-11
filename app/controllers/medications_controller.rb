@@ -44,20 +44,21 @@ class MedicationsController < ApplicationController
         if @user_holder.user_setting.nil?
           @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
         end
-        if @user_holder.user_setting.create_med_email_notification == "Always notify me" || @user_holder.user_setting.create_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
-          send_email_notif("created")
-        elsif @user_holder.user_setting.create_med_email_notification == "Never notify me" && params[:email_notif]
-          flash[:notice] << "The patient has selected to never notify him or her by email when a medication is created so the email is not sent."
-        end
         
-        flash[:a] = ''
-        if @user_holder.profile.whatsapp && (@user_holder.user_setting.create_med_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_med_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])
-          flash[:a] = 'created'
-        elsif !@user_holder.profile.whatsapp
-          flash[:notice] << "The patient doesn't have a WhatsApp number."
-        elsif @user_holder.user_setting.change_med_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
-          flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when a medication is created so the message is not sent."
-        end
+        #if @user_holder.user_setting.create_med_email_notification == "Always notify me" || @user_holder.user_setting.create_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
+        send_email_notif("created")
+        #elsif @user_holder.user_setting.create_med_email_notification == "Never notify me" && params[:email_notif]
+        #  flash[:notice] << "The patient has selected to never notify him or her by email when a medication is created so the email is not sent."
+        #end
+        send_whatsapp_notif("created")
+        #flash[:a] = ''
+        #if @user_holder.profile.whatsapp && (@user_holder.user_setting.create_med_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_med_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])
+        #  flash[:a] = 'created'
+        #elsif !@user_holder.profile.whatsapp
+        #  flash[:notice] << "The patient doesn't have a WhatsApp number."
+        #elsif @user_holder.user_setting.change_med_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
+        #  flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when a medication is created so the message is not sent."
+        #end
 
         format.html { redirect_to user_holder_medications_path(@user_holder, )}
         format.json { render :show, status: :created, location: @medication }
@@ -80,20 +81,21 @@ class MedicationsController < ApplicationController
           @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
         end
         
-        if @user_holder.user_setting.change_med_email_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
-          send_email_notif("updated")
-        elsif @user_holder.user_setting.change_med_email_notification == "Never notify me" && params[:email_notif]
-          flash[:notice] << "The patient has selected to never notify him or her by email when a doctor changes his or her medication so the email is not sent."
-        end
+        #if @user_holder.user_setting.change_med_email_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
+        send_email_notif("updated")
+        #elsif @user_holder.user_setting.change_med_email_notification == "Never notify me" && params[:email_notif]
+        #  flash[:notice] << "The patient has selected to never notify him or her by email when a doctor changes his or her medication so the email is not sent."
+        #end
 
-        flash[:a] = ''
-        if @user_holder.profile.whatsapp && (@user_holder.user_setting.change_med_whatsapp_notification == "Always notify me" || (@user_holder.user_setting.change_med_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif]))
-          flash[:a] = 'updated'
-        elsif !@user_holder.profile.whatsapp
-          flash[:notice] << "The patient doesn't have a WhatsApp number."
-        elsif @user_holder.user_setting.change_med_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
-          flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when his or her medication is changed so the message is not sent."
-        end
+        send_whatsapp_notif("updated")
+        #flash[:a] = ''
+        #if @user_holder.profile.whatsapp && (@user_holder.user_setting.change_med_whatsapp_notification == "Always notify me" || (@user_holder.user_setting.change_med_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif]))
+        #  flash[:a] = 'updated'
+        #elsif !@user_holder.profile.whatsapp
+        #  flash[:notice] << "The patient doesn't have a WhatsApp number."
+        #elsif @user_holder.user_setting.change_med_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
+        #  flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when his or her medication is changed so the message is not sent."
+        #end
 
         format.html { redirect_to user_holder_medications_path(@user_holder)}
         format.json { render :show, status: :ok, location: @medication }
@@ -117,13 +119,33 @@ class MedicationsController < ApplicationController
   end
 
   def send_email_notif(action)
-    @message = @user_holder.messages.new(:sender_name => current_user.first_name + " " + current_user.last_name,
-                                         :receiver_email => @user_holder.email,
-                                         :sender_email => current_user.user_holder.email,
-                                         :subject => "A medication was " + action + " by " + current_user.first_name + " " + current_user.last_name,
-                                         :body => "A medication was " + action + " by " + current_user.first_name + " " + current_user.last_name)
-    if @message.save
-      MessageMailer.general_notification(@message, "medication", action).deliver
+    if (action == "created" && (@user_holder.user_setting.create_med_email_notification == "Always notify me" || @user_holder.user_setting.create_med_email_notification == "Only notifiy me when specified" && params[:email_notif])) ||
+       (action == "updated" && (@user_holder.user_setting.change_med_email_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:email_notif]))        
+        @message = @user_holder.messages.new(:sender_name => current_user.first_name + " " + current_user.last_name,
+                                           :receiver_email => @user_holder.email,
+                                           :sender_email => current_user.user_holder.email,
+                                           :subject => "A medication was " + action + " by " + current_user.first_name + " " + current_user.last_name,
+                                           :body => "A medication was " + action + " by " + current_user.first_name + " " + current_user.last_name)
+        if @message.save
+          MessageMailer.general_notification(@message, "medication", action).deliver
+        end
+    elsif (action == "created" && @user_holder.user_setting.create_med_email_notification == "Never notify me" && params[:email_notif]) ||
+          (action == "updated" && @user_holder.user_setting.change_med_email_notification == "Never notify me" && params[:email_notif])
+        flash[:notice] << "The patient has selected to never notify him or her by email when a medication is " + action + " so the email is not sent."
+    end
+  end
+
+  def send_whatsapp_notif(action)
+    flash[:a] = ''
+    if @user_holder.profile && @user_holder.profile.whatsapp && 
+       ((action == 'created' && (@user_holder.user_setting.create_med_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_med_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])) ||
+        (action == 'updated' && (@user_holder.user_setting.change_med_whatsapp_notification == "Always notify me" || @user_holder.user_setting.change_med_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])))
+          flash[:a] = action
+    elsif !@user_holder.profile || !@user_holder.profile.whatsapp
+      flash[:notice] << "The patient doesn't have a WhatsApp number."
+    elsif (action == "created" && @user_holder.user_setting.create_med_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]) ||
+          (action == "updated" && @user_holder.user_setting.change_med_whatsapp_notification == "Never notify me" && params[:whatsapp_notif])
+      flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when a medication is " + action + " so the message is not sent."
     end
   end
 

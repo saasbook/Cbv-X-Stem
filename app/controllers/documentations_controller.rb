@@ -60,19 +60,20 @@ class DocumentationsController < ApplicationController
           if @user_holder.user_setting.nil?
             @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
           end
-          if @user_holder.user_setting.create_doc_email_notification == "Always notify me" || @user_holder.user_setting.create_doc_email_notification == "Only notifiy me when specified" && params[:email_notif]
-            send_email_notif("created")
-          elsif @user_holder.user_setting.change_doc_email_notification == "Never notify me" && params[:email_notif]
-            flash[:notice] << "The patient has selected to never notify him or her when a document is created so the email is not sent."
-          end
-          flash[:a] = ''
-          if @user_holder.profile.whatsapp && (@user_holder.user_setting.create_doc_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_doc_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])
-            flash[:a] = 'created'
-          elsif !@user_holder.profile.whatsapp
-            flash[:notice] << "The patient doesn't have a WhatsApp number."
-          elsif @user_holder.user_setting.change_doc_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
-            flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when a document is created so the message is not sent."
-          end
+          #if @user_holder.user_setting.create_doc_email_notification == "Always notify me" || @user_holder.user_setting.create_doc_email_notification == "Only notifiy me when specified" && params[:email_notif]
+          send_email_notif("created")
+          #elsif @user_holder.user_setting.change_doc_email_notification == "Never notify me" && params[:email_notif]
+          #  flash[:notice] << "The patient has selected to never notify him or her when a document is created so the email is not sent."
+          #end
+          send_whatsapp_notif("created")
+          #flash[:a] = ''
+          #if @user_holder.profile.whatsapp && (@user_holder.user_setting.create_doc_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_doc_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])
+          #  flash[:a] = 'created'
+          #elsif !@user_holder.profile.whatsapp
+          #  flash[:notice] << "The patient doesn't have a WhatsApp number."
+          #elsif @user_holder.user_setting.change_doc_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
+          #  flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when a document is created so the message is not sent."
+          #end
           #end
           format.html { redirect_to user_holder_documentations_path(@user_holder)}
           format.json { render :show, status: :created, location: @documentation }
@@ -104,19 +105,20 @@ class DocumentationsController < ApplicationController
       if @user_holder.user_setting.nil?
         @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
       end
-      if @user_holder.user_setting.change_doc_email_notification == "Always notify me" || @user_holder.user_setting.change_doc_email_notification == "Only notifiy me when specified" && params[:email_notif] == "yes"
-        send_email_notif("updated")
-      elsif @user_holder.user_setting.change_doc_email_notification == "Never notify me" && params[:email_notif]
-        flash[:notice] << "The patient has selected to never notify him or her when his or her document is changed so the email is not sent."
-      end
-      flash[:a] = ''
-      if @user_holder.profile.whatsapp && (@user_holder.user_setting.change_doc_whatsapp_notification == "Always notify me" || @user_holder.user_setting.change_doc_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif] == "yes")
-        flash[:a] = 'updated'
-      elsif !@user_holder.profile.whatsapp
-        flash[:notice] << "The patient doesn't have a WhatsApp number."
-      elsif @user_holder.user_setting.change_doc_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
-        flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when his or her document is changed so the message is not sent."
-      end
+      #if @user_holder.user_setting.change_doc_email_notification == "Always notify me" || @user_holder.user_setting.change_doc_email_notification == "Only notifiy me when specified" && params[:email_notif] == "yes"
+      send_email_notif("updated")
+      #elsif @user_holder.user_setting.change_doc_email_notification == "Never notify me" && params[:email_notif]
+      #  flash[:notice] << "The patient has selected to never notify him or her when his or her document is changed so the email is not sent."
+      #end
+      send_whatsapp_notif("updated")
+      #flash[:a] = ''
+      #if @user_holder.profile.whatsapp && (@user_holder.user_setting.change_doc_whatsapp_notification == "Always notify me" || @user_holder.user_setting.change_doc_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif] == "yes")
+      #  flash[:a] = 'updated'
+      #elsif !@user_holder.profile.whatsapp
+      #  flash[:notice] << "The patient doesn't have a WhatsApp number."
+      #elsif @user_holder.user_setting.change_doc_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]
+      #  flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when his or her document is changed so the message is not sent."
+      #end
 
       redirect_to user_holder_documentations_path(@user_holder)
     end
@@ -141,36 +143,56 @@ class DocumentationsController < ApplicationController
     # redirect_to documentations_path, notice: "The document #{@documentation.patient} has been downloaded."
   end
 
-  def send_notification(documentation, action)
-    @first_name, @last_name = documentation.patient.split
-    @current_setting = @user_holder.user_setting
+  #def send_notification(documentation, action)
+  #  @first_name, @last_name = documentation.patient.split
+  #  @current_setting = @user_holder.user_setting
 
-    unless @current_setting.nil?
-      if @current_setting.email_notif
-          @cur_user_email = @user_holder.email
-      end
-      if @current_setting && @current_setting.email_notification
-          @cur_user_email = @cur_user.email
+  #  unless @current_setting.nil?
+  #    if @current_setting.email_notif
+  #        @cur_user_email = @user_holder.email
+  #    end
+  #    if @current_setting && @current_setting.email_notification
+  #        @cur_user_email = @cur_user.email
 
-          @message = Message.new(:sender_name => documentation.patient)
-          @message.receiver_email = 'cbvxstem@gmail.com'
-          MessageMailer.document_notification(@message).deliver
-          if @cur_user_email != ""
-              @message.sender_email =  @cur_user_email
-              MessageMailer.document_confirmation(@message).deliver
-          end
-      end
+  #        @message = Message.new(:sender_name => documentation.patient)
+  #        @message.receiver_email = 'cbvxstem@gmail.com'
+  #        MessageMailer.document_notification(@message).deliver
+  #        if @cur_user_email != ""
+  #            @message.sender_email =  @cur_user_email
+  #            MessageMailer.document_confirmation(@message).deliver
+  #        end
+  #    end
+  #  end
+  #end
+
+  def send_email_notif(action)
+    if (action == "created" && (@user_holder.user_setting.create_doc_email_notification == "Always notify me" || @user_holder.user_setting.create_doc_email_notification == "Only notifiy me when specified" && params[:email_notif])) ||
+       (action == "updated" && (@user_holder.user_setting.change_doc_email_notification == "Always notify me" || @user_holder.user_setting.change_doc_email_notification == "Only notifiy me when specified" && params[:email_notif]))        
+        @message = @user_holder.messages.new(:sender_name => current_user.first_name + " " + current_user.last_name,
+                                           :receiver_email => @user_holder.email,
+                                           :sender_email => current_user.user_holder.email,
+                                           :subject => "A documentation was " + action + " by " + current_user.first_name + " " + current_user.last_name,
+                                           :body => "A documentation was " + action + " by " + current_user.first_name + " " + current_user.last_name)
+        if @message.save
+          MessageMailer.general_notification(@message, "documentation", action).deliver
+        end
+    elsif (action == "created" && @user_holder.user_setting.create_doc_email_notification == "Never notify me" && params[:email_notif]) ||
+          (action == "updated" && @user_holder.user_setting.change_doc_email_notification == "Never notify me" && params[:email_notif])
+        flash[:notice] << "The patient has selected to never notify him or her by email when a documentation is " + action + " so the email is not sent."
     end
   end
 
-  def send_email_notif(action)
-    @message = @user_holder.messages.new(:sender_name => current_user.first_name + " " + current_user.last_name,
-                                         :receiver_email => @user_holder.email,
-                                         :sender_email => current_user.user_holder.email,
-                                         :subject => "A documentation was " + action + " by " + current_user.first_name + " " + current_user.last_name,
-                                         :body => "A documentation was " + action + " by " + current_user.first_name + " " + current_user.last_name)
-    if @message.save
-      MessageMailer.general_notification(@message, "documentation", action).deliver
+  def send_whatsapp_notif(action)
+    flash[:a] = ''
+    if @user_holder.profile && @user_holder.profile.whatsapp && 
+       ((action == 'created' && (@user_holder.user_setting.create_doc_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_doc_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])) ||
+        (action == 'updated' && (@user_holder.user_setting.change_doc_whatsapp_notification == "Always notify me" || @user_holder.user_setting.change_doc_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])))
+          flash[:a] = action
+    elsif !@user_holder.profile || !@user_holder.profile.whatsapp
+      flash[:notice] << "The patient doesn't have a WhatsApp number."
+    elsif (action == "created" && @user_holder.user_setting.create_doc_whatsapp_notification == "Never notify me" && params[:whatsapp_notif]) ||
+          (action == "updated" && @user_holder.user_setting.change_doc_whatsapp_notification == "Never notify me" && params[:whatsapp_notif])
+      flash[:notice] << "The patient has selected to never notify him or her through WhatsApp when a documentation is " + action + " so the message is not sent."
     end
   end
 
