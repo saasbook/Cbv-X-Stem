@@ -44,49 +44,66 @@ class PatientsController < ApplicationController
     @temp_setting = @current_setting.as_json
 
     @my_setting = params[:user_setting]
+    for action in ["create", "change"]
+      for activity in ["doc", "tre", "med"]
+        for tool in ["email", "whatsapp"]
+          @current_setting[action + "_" + activity + "_" + tool + "_notification"] = @my_setting[action + "_" + activity + "_" + tool + "_notification"]
+        end
+      end
+    end
 
-    @current_setting.create_doc_email_notification = @my_setting[:create_doc_email_notification]
-    @current_setting.create_doc_whatsapp_notification = @my_setting[:create_doc_whatsapp_notification]
-    @current_setting.change_doc_email_notification = @my_setting[:change_doc_email_notification]
-    @current_setting.change_doc_whatsapp_notification = @my_setting[:change_doc_whatsapp_notification]
+    #@current_setting.create_doc_email_notification = @my_setting[:create_doc_email_notification]
+    #@current_setting.create_doc_whatsapp_notification = @my_setting[:create_doc_whatsapp_notification]
+    #@current_setting.change_doc_email_notification = @my_setting[:change_doc_email_notification]
+    #@current_setting.change_doc_whatsapp_notification = @my_setting[:change_doc_whatsapp_notification]
     @current_setting.require_doc_email_notification = @my_setting[:require_doc_email_notification]
     @current_setting.require_doc_whatsapp_notification = @my_setting[:require_doc_whatsapp_notification]
-    @current_setting.create_tre_email_notification = @my_setting[:create_tre_email_notification]
-    @current_setting.create_tre_whatsapp_notification = @my_setting[:create_tre_whatsapp_notification]
-    @current_setting.change_tre_email_notification = @my_setting[:change_tre_email_notification]
-    @current_setting.change_tre_whatsapp_notification = @my_setting[:change_tre_whatsapp_notification]
-    @current_setting.create_med_email_notification = @my_setting[:create_med_email_notification]
-    @current_setting.create_med_whatsapp_notification = @my_setting[:create_med_whatsapp_notification]
-    @current_setting.change_med_email_notification = @my_setting[:change_med_email_notification]
-    @current_setting.change_med_whatsapp_notification = @my_setting[:change_med_whatsapp_notification]
+    #@current_setting.create_tre_email_notification = @my_setting[:create_tre_email_notification]
+    #@current_setting.create_tre_whatsapp_notification = @my_setting[:create_tre_whatsapp_notification]
+    #@current_setting.change_tre_email_notification = @my_setting[:change_tre_email_notification]
+    #@current_setting.change_tre_whatsapp_notification = @my_setting[:change_tre_whatsapp_notification]
+    #@current_setting.create_med_email_notification = @my_setting[:create_med_email_notification]
+    #@current_setting.create_med_whatsapp_notification = @my_setting[:create_med_whatsapp_notification]
+    #@current_setting.change_med_email_notification = @my_setting[:change_med_email_notification]
+    #@current_setting.change_med_whatsapp_notification = @my_setting[:change_med_whatsapp_notification]
 
     if @current_setting.save!
       log_change_to_user_activities('Settings', 'Edit', @current_holder, @current_holder, \
                                     @temp_setting, @current_setting.as_json)
-    end
+    
 
-    if @my_setting[:create_doc_email_notification] == "Never notify me"
-      flash[:notice] = ["You select to never notify you by email when a document is added for you."]
-    else
       flash[:notice] = ["Changes have been successfully saved."]
-    end
-    if @my_setting[:change_doc_email_notification] == "Never notify me"
-      flash[:notice] << "You have selected to never notify you by email when your document is changed."
-    end
-    if @my_setting[:require_doc_email_notification] == "Never notify me"
-      flash[:notice] << "You have selected to never notify you by email when a change for your document is required."
-    end
-    if @my_setting[:create_tre_email_notification] == "Never notify me"
-      flash[:notice] << ["You have selected to never notify you by email when a treatment is added for you."]
-    end
-    if @my_setting[:change_tre_email_notification] == "Never notify me"
-      flash[:notice] << "You have selected to never notify you by email when your treatment is changed."
-    end
-    if @my_setting[:create_med_email_notification] == "Never notify me"
-      flash[:notice] << ["You have selected to never notify you by email when a meditation is added for you."]
-    end
-    if @my_setting[:change_med_email_notification] == "Never notify me"
-      flash[:notice] << "You have selected to never notify you by email when your meditation is changed."
+      for action in ["create", "change"]
+        for activity in ["doc", "tre", "med"]
+          if @my_setting[action + "_" + activity + "_email_notification"] == "Never notify me"
+            if action == "create" then aaction = "created" else aaction = "changed" end
+            aactivity = rename(activity)
+            flash[:notice] << "You select to never notify you by email when a " + aactivity + " is " + aaction +"." 
+          end
+        end
+      end
+
+    #if @my_setting[:create_doc_email_notification] == "Never notify me"
+    #  flash[:notice] << "You select to never notify you by email when a document is added for you." 
+    #end
+    #if @my_setting[:change_doc_email_notification] == "Never notify me"
+    #  flash[:notice] << "You have selected to never notify you by email when your document is changed."
+    #end
+      if @my_setting[:require_doc_email_notification] == "Never notify me"
+        flash[:notice] << "You have selected to never notify you by email when a change for your document is required."
+      end
+    #if @my_setting[:create_tre_email_notification] == "Never notify me"
+    #  flash[:notice] << "You have selected to never notify you by email when a treatment is added for you."
+    #end
+    #if @my_setting[:change_tre_email_notification] == "Never notify me"
+    #  flash[:notice] << "You have selected to never notify you by email when your treatment is changed."
+    #end
+    #if @my_setting[:create_med_email_notification] == "Never notify me"
+    #  flash[:notice] << "You have selected to never notify you by email when a meditation is added for you."
+    #end
+    #if @my_setting[:change_med_email_notification] == "Never notify me"
+    #  flash[:notice] << "You have selected to never notify you by email when your meditation is changed."
+    #end
     end
     redirect_to patient_setting_path
 
@@ -188,6 +205,16 @@ class PatientsController < ApplicationController
     # rescue StandardError
     #   flash[:error] = "One of the fields was not filled out correctly."
     #   redirect_to patient_edit_profile_path(current_profile)
+    end
+  end
+
+  def rename(activity)
+    if activity == "tre" 
+      "treatment" 
+    elsif activity == "med"
+      "medication"
+    else
+      "documentation"
     end
   end
 
