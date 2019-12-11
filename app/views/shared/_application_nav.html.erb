@@ -1,4 +1,4 @@
-<div class="blog-masthead">
+<!-- <div class="blog-masthead">
   <div class="container">
         <div class="collapse jumbotron jumbotron-fluid" id="nav-pivotal-printboard" aria-owns="menu">
             <div class="nav-pivotal-interface">
@@ -38,4 +38,58 @@
           </div>
         </div>
   </div>
+</div>
+ -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">CBV X Stem</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about-me">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <% if current_user.role == 'guest' %>
+            <li><%= (link_to raw("<span class=\"glyphicon glyphicon-user nav-icon\" aria-hidden=\"true\"></span> Register"), new_user_registration_path, class: 'btn btn-primary') %></li>
+            <li><%= (link_to raw("<span class=\"glyphicon glyphicon-log-in nav-icon\" aria-hidden=\"true\"></span> Login"), new_user_session_path, class: 'btn btn-primary') %></li>
+                <!-- <li><a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-user nav-icon" aria-hidden="true"></span> Sign Up</a></li>
+                <li><a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-log-in nav-icon" aria-hidden="true"></span> Login</a></li> -->
+            <% else %>
+                <li><a data-toggle="collapse" href="#patient_nav" class="btn btn-primary">Patient</a></li>
+            <% end %>
+        </ul>
+    </div>
+</nav>
+<div id="patient_nav" class="collapse">
+    <div class="row col-container">
+        <div class="col-6">
+            <div class="nav-section">
+                <b>Current User:</b> <%= current_user.role != 'guest' && (current_user.first_name + " " + current_user.last_name) %>
+                <ul>
+                  <li><b>Health plan:</b> <%=  @current_profile.nil? ? "None" : @current_profile.health_plan %></li>
+                  <li><b>Weight:</b> <%=  @current_profile.nil? ? "None" : @current_profile.weight %></li>
+                  <li><b>Height:</b> <%=  @current_profile.nil? ? "None" : @current_profile.height %></li>
+                  <li><b>You have <span class="notification-font"><%=  0 %> </span> pending message. </b> </li>
+                  <li><b>You have <span class="notification-font"><%=  @user_holder.meetings.count %> </span> coming appointment. </b> </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col">
+            <div class="nav-section">
+                <div><%= link_to "Profile", patient_profile_path(@user_holder) %></div>
+                <div><%= link_to 'Medical Record', user_holder_treatments_path(@user_holder) %></div>
+                <div><%= link_to 'Make Appointment', show_doctor_schedule_path(@user_holder) %></div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="nav-section">
+                <div><%= link_to "Logout", destroy_user_session_path, method: :delete %></div>
+                <div><%= link_to "User Setting", patient_setting_path, class: 'right-pivotal-link' %></div>
+                <div><%= link_to 'Activity Log', user_holder_user_activities_path(@user_holder) %></div>
+                <div><%= link_to "Message Box", user_holder_messages_path(@user_holder) %></div>
+            </div>
+        </div>
+    </div>
 </div>

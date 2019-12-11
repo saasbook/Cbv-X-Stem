@@ -302,3 +302,76 @@ object-fit: contain;
 * {
   color: #000;
 }
+
+// redoing the navigation
+.navbar-nav {
+    flex-direction: row;
+}
+
+.navbar {
+    margin-bottom: 0px;
+    border-radius: 0px;
+    -mozkit-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    background-color: #2e6da4;
+    border: 0px solid #2e6da4;
+    color: #fff;
+}
+
+.navbar-inverse .navbar-brand, .navbar-nav {
+    color: #ddd;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #ddd;
+}
+
+.nav_panel, #patient_nav {
+    background-color: #428bca;
+    padding: 20px;
+}
+
+#doctor_nav {
+    background-color: #0b385f;
+    padding: 20px;
+}
+
+#doctor_nav .nav-section {
+    background-color: #adcbe4;
+}
+
+.nav-section {
+    background-color: #95ceff;
+    padding: 5px;
+    border-radius: 5px;
+    -mozkit-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 100%;
+}
+
+.nav-section a, .nav-section a:visited {
+    color: #0e508a;
+}
+
+ .nav-section a:hover, .nav-section a:active {
+    color: #123c61;
+    background-color: #fdee2c;
+    text-decoration: none;
+    border-bottom: 1px dashed #0e508a;
+ }
+
+.col-container {
+  display: flex;
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .col {
+    display: block;
+    width: 100%;
+  }
+}
+
+.nav-icon {
+    color: #fff;
+}
