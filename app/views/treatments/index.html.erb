@@ -36,9 +36,7 @@
         <% #HACK:: as long as database has one record, it will be able to check the ActiveRecord %>
         <% @treatment = Treatment.all.first %>
         <% if can? :create, @treatment %>
-          <button class="col-md-1.5 btn btn-success">
-            <%= link_to "Add Treatment", new_user_holder_treatment_path(@user_holder) %>
-          </button>
+            <%= link_to "Add Treatment", new_user_holder_treatment_path(@user_holder), class:'col-md-1.5 btn btn-primary' %>
         <% end %>
     </div>
   </div>

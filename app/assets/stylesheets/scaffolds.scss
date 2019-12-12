@@ -15,6 +15,15 @@ a:hover, a:active, a:focus {
     text-decoration: none;
 }
 
+td > a, td > a:visited {
+    color: #041e42;
+}
+
+td > a:hover, td > a:active, td > a:focus {
+    background-color: #fdee2c;
+    text-decoration: none;
+}
+
 // TABLES
 
 th {

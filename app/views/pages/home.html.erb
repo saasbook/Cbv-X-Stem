@@ -1,9 +1,3 @@
-<!-- <div align="center">
-  <h2>
-  <%= if current_user.role == 'guest' then "Please log in as Patient or Doctor" else  "Welcome back, " + current_user.first_name end %>
-  </h2>
-</div> -->
-
 <% if current_user.role == 'guest' %>
     <div align="center">
         <h1>Welcome to</h1>
