@@ -4,7 +4,7 @@ class DocumentationsController < ApplicationController
   def index
     gon.whatsapp_action = params[:a] if params[:a] != ''
     gon.whatsapp_num = @user_holder.profile.whatsapp
-    
+
     @documentations = @user_holder.documentations
     redirect_with_userid(params[:user_holder_id])
   end
@@ -53,7 +53,7 @@ class DocumentationsController < ApplicationController
       @documentation = @user_holder.documentations.build(documentation_params)
       respond_to do |format|
         if @documentation.save
-          flash[:notice] = ['Document was successfully created.'] 
+          flash[:notice] = ['Document was successfully created.']
           #if !current_user.is_doctor
             #send_notification(@documentation)
           #else
@@ -99,7 +99,7 @@ class DocumentationsController < ApplicationController
   def update
     @documentation = Documentation.find(params[:id])
     if @documentation.update(documentation_params)
-    
+
       flash[:notice] = ['Document was successfully Updated.']
       if @user_holder.user_setting.nil?
         @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
@@ -121,7 +121,7 @@ class DocumentationsController < ApplicationController
       redirect_to user_holder_documentations_path(@user_holder, a: aa)
     end
   end
-  
+
   def information
     @documentation = Documentation.find(params[:id])
     if @documentation.satisfied == true
@@ -176,7 +176,6 @@ class DocumentationsController < ApplicationController
       format.html { redirect_to user_holder_documentations_path(@user_holder), notice: 'Document was successfully destroyed.' }
       format.json { head :no_content }
     end
-
   end
 
   private

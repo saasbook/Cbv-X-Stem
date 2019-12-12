@@ -4,12 +4,12 @@ class MedicationsController < ApplicationController
   include UserActivitiesHelper
 
   rescue_from CanCan::AccessDenied do |exception|
-    respond_to do |format|
-      format.json { head :forbidden, content_type: 'text/html' }
-      format.html { redirect_to user_holder_medications_path(current_user.user_holder), notice: exception.message }
-      format.js   { head :forbidden, content_type: 'text/html' }
-    end
+    redirect_from_cancan_access_denied(user_holder_medications_path(current_user.user_holder), exception.message)
   end
+
+
+
+
   # GET /medications
   # GET /medications.json
   def index
@@ -47,7 +47,7 @@ class MedicationsController < ApplicationController
         elsif @user_holder.user_setting.create_med_email_notification == "Never notify me" && params[:email_notif]
           flash[:notice] << "The patient has selected to never notify him or her by email when a medication is created so the email is not sent."
         end
-        
+
         aa = ''
         if @user_holder.profile.whatsapp && (@user_holder.user_setting.create_med_whatsapp_notification == "Always notify me" || @user_holder.user_setting.create_med_whatsapp_notification == "Only notifiy me when specified" && params[:whatsapp_notif])
           aa = 'created'
@@ -77,7 +77,7 @@ class MedicationsController < ApplicationController
         if @user_holder.user_setting.nil?
           @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
         end
-        
+
         if @user_holder.user_setting.change_med_email_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
           send_email_notif("updated")
         elsif @user_holder.user_setting.change_med_email_notification == "Never notify me" && params[:email_notif]
@@ -106,12 +106,7 @@ class MedicationsController < ApplicationController
   # DELETE /medications/1
   # DELETE /medications/1.json
   def destroy
-    @medication.destroy
-    log_create_delete_to_user_activities('medication', 'delete', current_user.user_holder, @user_holder)
-    respond_to do |format|
-      format.html { redirect_to user_holder_medications_path(@user_holder), notice: 'Medication was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    general_controller_delete_with_log(current_user.user_holder, @user_holder, @medication, "medication", user_holder_medications_path(@user_holder))
   end
 
   def send_email_notif(action)

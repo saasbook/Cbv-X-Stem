@@ -5,11 +5,7 @@ class TreatmentsController < ApplicationController
   include UserActivitiesHelper
 
   rescue_from CanCan::AccessDenied do |exception|
-    respond_to do |format|
-      format.json { head :forbidden, content_type: 'text/html' }
-      format.html { redirect_to user_holder_treatments_path(current_user.user_holder), notice: exception.message }
-      format.js   { head :forbidden, content_type: 'text/html' }
-    end
+    redirect_from_cancan_access_denied(user_holder_treatments_path(current_user.user_holder), exception.message)
   end
 
   # GET /treatments
@@ -108,12 +104,7 @@ class TreatmentsController < ApplicationController
   # DELETE /treatments/1
   # DELETE /treatments/1.json
   def destroy
-    @treatment.destroy
-    log_create_delete_to_user_activities('treatment', 'delete', current_user.user_holder, @user_holder)
-    respond_to do |format|
-      format.html { redirect_to user_holder_treatments_path(@user_holder), notice: 'Treatment was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    general_controller_delete_with_log(current_user.user_holder, @user_holder, @treatment, "treatment", user_holder_treatments_path(@user_holder))
   end
 
   def send_email_notif(action)
