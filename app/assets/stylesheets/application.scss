@@ -377,6 +377,10 @@ object-fit: contain;
     margin-top: 10px;
 }
 
+a[aria-expanded="true"] {
+    background-color: #2e6da4;
+}
+
 // fixes for links, buttons, etc.
 a.btn,a.btn:visited {
     color: #fff;
@@ -425,9 +429,4 @@ a.carousel-control-prev:visited, a.carousel-control-next:visited {
   .col-container {
       width: 100%;
   }
-
-  // .col.col-6{
-  //     display:block;
-  //     width:100%;
-  // }
 }
