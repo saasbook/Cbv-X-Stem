@@ -1,12 +1,10 @@
 <head>
   <script src="https://kit.fontawesome.com/963e6d96ae.js" crossorigin="anonymous"></script>
 </head>
-<div class='container'>
-  <h2>Notifications Setting</h2>
 
-
-
+<h2 align="center">Notification Settings</h2>
   <%= form_for(@current_setting, url: patient_update_setting_path(@current_user)) do |f| %>
+  <div class='container' style="max-width: 100%; overflow-x: auto;">
     <table class = "table table-striped col-md-12">
         <thead>
           <tr>
@@ -60,9 +58,7 @@
 
         </tbody>
     </table>
-
-    <%= f.submit 'Submit change', :class => 'col-md-1.5 btn btn-danger' %>
+    </div>
+    <div style="margin: 20px 10px;"><%= f.submit 'Submit change', :class => 'col-md-1.5 btn btn-danger' %></div>
 
   <% end %>
-
-</div>

@@ -12,10 +12,12 @@
  * Globals
  */
 
-
-body {
+html, body {
   font-family:'Work Sans', 'Calibri', sans-serif;
   color: #000;
+  background-color: #fff;
+  line-height: 18px;
+  height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -303,7 +305,7 @@ object-fit: contain;
   color: #000;
 }
 
-// redoing the navigation
+// NAVIGATION BAR
 .navbar-nav {
     flex-direction: row;
 }
@@ -314,7 +316,7 @@ object-fit: contain;
     -mozkit-border-radius: 0px;
     -webkit-border-radius: 0px;
     background-color: #2e6da4;
-    border: 0px solid #2e6da4;
+    border: none;
     color: #fff;
 }
 
@@ -343,6 +345,7 @@ object-fit: contain;
 .nav-section {
     background-color: #95ceff;
     padding: 5px;
+
     border-radius: 5px;
     -mozkit-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -362,21 +365,67 @@ object-fit: contain;
 
 .col-container {
   display: flex;
-  width: 100%;
-}
-
-@media only screen and (max-width: 600px) {
-  .col {
-    display: block;
-    width: 100%;
-  }
+  width: 70%;
 }
 
 .nav-icon {
     color: #fff;
 }
 
+#main_icon {
+    width: 300px;
+    margin-top: 10px;
+}
+
 // fixes for links, buttons, etc.
 a.btn,a.btn:visited {
     color: #fff;
+}
+
+// Footer
+#footer {
+    padding: 30px;
+    text-align: center;
+    background-color: #2e6da4;
+    color: #fff;
+    bottom:0;
+    width: 100%;
+}
+
+// Slides on about page
+#about_slides, #about {
+    max-width: 600px;
+}
+
+a.carousel-control-prev:hover, a.carousel-control-prev:active, a.carousel-control-next:hover, a.carousel-control-next:active {
+    background-color: rgba(0,0,0,0.0);
+}
+
+// RESPONSIVE FEATURES
+@media only screen and (max-width: 600px) {
+  .col, .col-6 {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    flex-basis: auto;
+
+    margin-bottom: 5px; // for mobile theme
+  }
+
+  #main_icon {
+      width: 100%;
+  }
+
+  #about-slides, #about {
+      width: 100%;
+  }
+
+  .col-container {
+      width: 100%;
+  }
+
+  // .col.col-6{
+  //     display:block;
+  //     width:100%;
+  // }
 }
