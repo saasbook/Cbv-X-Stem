@@ -93,4 +93,23 @@ module ApplicationHelper
       render path
     end
   end
+
+  def redirect_from_cancan_access_denied(link, msg_)
+    respond_to do |format|
+      format.json { head :forbidden, content_type: 'text/html' }
+      format.html { redirect_to link, notice: msg_ }
+      format.js   { head :forbidden, content_type: 'text/html' }
+    end
+  end
+
+  def general_controller_delete_with_log(actor_uh, receiver_uh, delete_object, delete_object_string, redirect_link)
+      delete_object.destroy
+      log_create_delete_to_user_activities(delete_object_string, 'delete', actor_uh, receiver_uh)
+      respond_to do |format|
+        format.html { redirect_to redirect_link, notice: delete_object_string.capitalize + ' was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+  end
+
+
 end

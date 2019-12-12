@@ -1,8 +1,8 @@
-<h1 style="text-align: center">Profile</h1>
-<br>
-<div class="split-20-80">
-  <div class="left-20"> <%= render 'shared/user_side_nav' %> </div>
-  <div class="right-80">
+<div class="row">
+  <div class="col-sm-3"> <%= render 'shared/user_side_nav' %> </div>
+  <div class="col-sm-9">
+    <h1 style="text-align: center">Profile</h1>
+    <br>
     <div class = "right-container2">
       <p><b>Name:</b> <%= @current_profile.first_name + " " + @current_profile.last_name %> </p>
       <p><b>Full address:</b> <%= getFullAddress(@current_profile) %>

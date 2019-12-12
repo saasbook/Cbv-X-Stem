@@ -5,12 +5,12 @@ class MedicationsController < ApplicationController
   include MessagesHelper
 
   rescue_from CanCan::AccessDenied do |exception|
-    respond_to do |format|
-      format.json { head :forbidden, content_type: 'text/html' }
-      format.html { redirect_to user_holder_medications_path(current_user.user_holder), notice: exception.message }
-      format.js   { head :forbidden, content_type: 'text/html' }
-    end
+    redirect_from_cancan_access_denied(user_holder_medications_path(current_user.user_holder), exception.message)
   end
+
+
+
+
   # GET /medications
   # GET /medications.json
   def index
@@ -45,7 +45,7 @@ class MedicationsController < ApplicationController
         if @user_holder.user_setting.nil?
           @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
         end
-        
+
         #if @user_holder.user_setting.create_med_email_notification == "Always notify me" || @user_holder.user_setting.create_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
         send_email_notif("med", "created")
         #elsif @user_holder.user_setting.create_med_email_notification == "Never notify me" && params[:email_notif]
@@ -81,12 +81,21 @@ class MedicationsController < ApplicationController
         if @user_holder.user_setting.nil?
           @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
         end
+<<<<<<< HEAD
         
         #if @user_holder.user_setting.change_med_email_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
         send_email_notif("med", "updated")
         #elsif @user_holder.user_setting.change_med_email_notification == "Never notify me" && params[:email_notif]
         #  flash[:notice] << "The patient has selected to never notify him or her by email when a doctor changes his or her medication so the email is not sent."
         #end
+=======
+
+        if @user_holder.user_setting.change_med_email_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
+          send_email_notif("updated")
+        elsif @user_holder.user_setting.change_med_email_notification == "Never notify me" && params[:email_notif]
+          flash[:notice] << "The patient has selected to never notify him or her by email when a doctor changes his or her medication so the email is not sent."
+        end
+>>>>>>> 1edc28222837c9afb482f319559942e5b186cfd9
 
         send_whatsapp_notif("med", "updated")
         #flash[:a] = ''
@@ -111,12 +120,7 @@ class MedicationsController < ApplicationController
   # DELETE /medications/1
   # DELETE /medications/1.json
   def destroy
-    @medication.destroy
-    log_create_delete_to_user_activities('medication', 'delete', current_user.user_holder, @user_holder)
-    respond_to do |format|
-      format.html { redirect_to user_holder_medications_path(@user_holder), notice: 'Medication was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    general_controller_delete_with_log(current_user.user_holder, @user_holder, @medication, "medication", user_holder_medications_path(@user_holder))
   end
 
   private

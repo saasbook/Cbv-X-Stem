@@ -2,32 +2,14 @@
   if (gon.whatsapp_action == "updated") {window.open("https://wa.me/1".concat(gon.whatsapp_num,"?text=Your medication is updated. - CbvXStem"), '_blank');}
   else if (gon.whatsapp_action == "created") {window.open("https://wa.me/1".concat(gon.whatsapp_num,"?text=A medication is added for you. - CbvXStem"), '_blank');}
 </script>
-<%# <div class = "search_table"> %>
-<!-- <p id="notice"><%= notice %></p> -->
 <div>
-<h1 style="text-align: center">Medications</h1>
-<br>
 </div>
-
-<!-- <div class = "leftBar">
-   <nav id="sidebar">
-      <div class="sidebar-header">
-         <h4><%= params[:patient_name]%> </h4>
-      </div>
-
-      <ul class="list-unstyled components">
-         <p>Patient's Info</p>
-         <li><%= link_to "Profile", patient_path(params[:patient_id])%></a></li>
-         <li><%= link_to "Documents", user_holder_documentations_path(params[:patient_id])%></a></li>
-         <li><%= link_to "Medications", user_holder_medications_path(params[:patient_id])%></a></li>
-         <li><%= link_to "Treatments", user_holder_treatments_path(params[:patient_id])%></a></li>
-      </ul>
-   </nav>
- </div>  -->
- <div class="split-20-80">
-   <div class="left-20"> <%= render 'shared/user_side_nav' %> </div>
-   <div class="right-80">
-     <div class = "right-container2">
+ <div class="row">
+   <div class="col-sm-3"> <%= render 'shared/user_side_nav' %> </div>
+   <div class="col-sm-9">
+    <h1 style="text-align: center">Medications</h1>
+    <br>
+    <div class = "right-container2" style="overflow-x: auto;">
     <table class = "table table-striped col-md-12">
 
       <thead>
@@ -59,13 +41,13 @@
         <% end %>
       </tbody>
     </table>
-    <% #HACK:: as long as database has one record, it will be able to check the ActiveRecord %>
-    <% @medication = Medication.all.first %>
-    <% if can? :create, @medication %>
-      <button class="col-md-1.5 btn btn-success">
-        <%= link_to "Add Medication", new_user_holder_medication_path(@user_holder) %>
-      </button>
-    <% end %>
+    </div>
+    <div style="margin: 20px 10px;">
+        <% #HACK:: as long as database has one record, it will be able to check the ActiveRecord %>
+        <% @medication = Medication.all.first %>
+        <% if can? :create, @medication %>
+            <%= link_to "Add Medication", new_user_holder_medication_path(@user_holder), class: 'col-md-1.5 btn btn-primary' %>
+        <% end %>
     </div>
   </div>
 </div>

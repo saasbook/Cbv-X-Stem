@@ -1,5 +1,5 @@
 <h1 style="text-align: center">Activity on <%= @name %>'s Account</h1>
-<div class="container">
+<div class="container" style="max-width: 100%; overflow-x: auto;">
   <br>
   <table class = "table table-striped col-md-12">
     <thead>
@@ -30,10 +30,9 @@
       <% end %>
     </tbody>
   </table>
-  <% if is_doctor? %>
-    <%= link_to "Return to profile", patient_path(@user_holder.profile), class: 'btn btn-primary' %>
-  <% else %>
-    <%= link_to "Return to profile", patient_profile_path, class: 'btn btn-primary' %>
-  <% end %>
-
 </div>
+<% if is_doctor? %>
+  <%= link_to "Return to profile", patient_path(@user_holder.profile), class: 'btn btn-primary' %>
+<% else %>
+  <%= link_to "Return to profile", patient_profile_path, class: 'btn btn-primary' %>
+<% end %>
