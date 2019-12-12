@@ -80,22 +80,12 @@ class MedicationsController < ApplicationController
         flash[:notice] = ['Medication was successfully updated.']
         if @user_holder.user_setting.nil?
           @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
-        end
-<<<<<<< HEAD
-        
+        end        
         #if @user_holder.user_setting.change_med_email_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
         send_email_notif("med", "updated")
         #elsif @user_holder.user_setting.change_med_email_notification == "Never notify me" && params[:email_notif]
         #  flash[:notice] << "The patient has selected to never notify him or her by email when a doctor changes his or her medication so the email is not sent."
         #end
-=======
-
-        if @user_holder.user_setting.change_med_email_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
-          send_email_notif("updated")
-        elsif @user_holder.user_setting.change_med_email_notification == "Never notify me" && params[:email_notif]
-          flash[:notice] << "The patient has selected to never notify him or her by email when a doctor changes his or her medication so the email is not sent."
-        end
->>>>>>> 1edc28222837c9afb482f319559942e5b186cfd9
 
         send_whatsapp_notif("med", "updated")
         #flash[:a] = ''
