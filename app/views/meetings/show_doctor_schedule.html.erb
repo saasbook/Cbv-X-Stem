@@ -2,10 +2,10 @@
 <!-- <p id="notice"><%= notice %></p> -->
 <div>
 <h1 style="text-align: center">Booked Meetings</h1>
-<br>
+
 </div>
 
-<br>
+
 
 <table class = "table table-striped col-md-12">
    <thead>
@@ -22,7 +22,7 @@
   <tbody>
     <% @booked.each do |meeting| %>
       <tr>
-        <td><%= meeting.start_time %></td>
+        <td><%= meeting.start_time.in_time_zone("Pacific Time (US & Canada)") %></td>
         <td><%= meeting.end_time %></td>
         <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
         <td><%= UserHolder.find(meeting.user_holder_id).email %></td>
@@ -33,11 +33,18 @@
   </tbody>
 </table>
 
-<h1 style="text-align: center">Available Meetings</h1>
 <br>
-</div>
 
 <br>
+<br>
+<br>
+<br>
+<h1 style="text-align: center">Available Meetings</h1>
+
+</div>
+
+
+
 <table class = "table table-striped col-md-12">
    <thead>
     <tr>
@@ -51,8 +58,8 @@
   <tbody>
     <% @meetings.each do |meeting| %>
       <tr>
-        <td><%= meeting.start_time %></td>
-        <td><%= meeting.end_time %></td>
+        <td><%= meeting.start_time.strftime("%m-%d-%Y %l:%M %P") %></td>
+        <td><%= meeting.end_time.strftime("%m-%d-%Y %l:%M %P") %></td>
         <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
         <td><%= link_to 'Book', book_meeting_path(current_user.id, meeting.id), method: :get%></td>
       </tr>

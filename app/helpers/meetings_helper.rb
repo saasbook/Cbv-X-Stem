@@ -52,7 +52,33 @@ module MeetingsHelper
 #   end
 #
 #   def get_all_doctor_meetings
+
+
 #
 #   end
-#
+
+
+
+   def clean 
+    current = DateTime.now
+    for d in 0..6
+        aday = (current + d.day).day 
+        check = DateTime.new(current.year,current.month,aday, 9, 00, 00)
+        if (Meeting.where(start_time: check).length == 0) 
+            for t in 9..16
+                starttime = DateTime.new(current.year,current.month,aday, t, 00, 00)
+                endtime = DateTime.new(current.year,current.month,aday, t+1, 00, 00)
+                generate_slot(starttime, endtime)
+            end
+        end
+    end  
+   end
+   
+   def generate_slot(starttime, endtime)
+      User.all.each { |user|
+         if user.is_doctor
+            Meeting.create(start_time: starttime, end_time: endtime, user_holder_id: user.id, status: "available", category: "Patients")
+         end
+      }
+ end
 end
