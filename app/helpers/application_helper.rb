@@ -86,14 +86,14 @@ module ApplicationHelper
     params[:patient_id] = @current_profile.user_holder_id
   end
 
-  def go_to_root
-    flash[:error] = "You are not authorized to view this page!"
+  def go_to_root(msg)
+    flash[:error] = msg
     redirect_to root_path
   end
 
   def check_login_as_doctor(path)
     if (not is_doctor?) && params[:id] != @current_user.id.to_s
-      go_to_root
+      go_to_root ("You are not authorized to view this page!")
     else
       user = User.find(params[:id])
       @current_profile = Profile.find_by_user_holder_id(user.user_holder.id)

@@ -2,8 +2,7 @@ class AdminController < ApplicationController
     skip_authorize_resource
     def admin
         if !current_user.role.eql? 'admin'
-            flash[:error] = "Only Admin can go to adminitration page"
-            redirect_to root_path
+            go_to_root("Only Admin can go to adminitration page")
         end
     end
 
@@ -13,8 +12,7 @@ class AdminController < ApplicationController
 
     def delete
         if !current_user.role.eql? 'admin'
-            flash[:error] = "Only Admin can delete doctors"
-            redirect_to root_path
+            go_to_root("Only Admin can delete doctors")
         end
         @doctor_list = User.where("role='doctor'").pluck(:id)
         @doctors = Profile.where(user_holder_id: UserHolder.where(user_id: @doctor_list).pluck(:id))
@@ -51,13 +49,7 @@ class AdminController < ApplicationController
         end
     end
 
-    # create new doctor and valid the input form
-    def create
-        if !current_user.is_doctor?
-            flash[:error] = "Only Admin or Doctor can create doctors"
-            redirect_to root_path
-        end
-        @new_doctor = User.new(doctor_params)
+    def check_error(new_doctor)
         err = ""
         i = 0
         if User.where(email: @new_doctor.email).present?
@@ -77,27 +69,29 @@ class AdminController < ApplicationController
         end
         if @new_doctor.password.length < 6
         end
-        if i > 0
+        err
+    end
+
+
+    # create new doctor and valid the input form
+    def create
+        if !current_user.is_doctor?
+            go_to_root("Only Admin or Doctor can create doctors")
+        end
+        @new_doctor = User.new(doctor_params)
+        err = check_error(@new_doctor)
+        if !err.empty?
             redirect_to create_doctor_path, notice: err
         else 
             @new_doctor.is_doctor = true
             @new_doctor.role = 'doctor'
             respond_to do |format|
                 if @new_doctor.save
-                    new_user_holder = UserHolder.create!(first_name: @new_doctor.first_name,
-                        last_name: @new_doctor.last_name,
-                        email: @new_doctor.email,
-                        user_id: @new_doctor.id)
-                    newprofile = Profile.create!(first_name: @new_doctor.first_name,
-                        last_name: @new_doctor.last_name,
-                        email: @new_doctor.email,
-                        role: @new_doctor.role,
-                        user_holder_id: new_user_holder.id)
+                    new_user_holder = UserHolder.create!(first_name: @new_doctor.first_name, last_name: @new_doctor.last_name, email: @new_doctor.email, user_id: @new_doctor.id)
+                    newprofile = Profile.create!(first_name: @new_doctor.first_name, last_name: @new_doctor.last_name, email: @new_doctor.email, role: @new_doctor.role, user_holder_id: new_user_holder.id)
                     format.html { redirect_to admin_path, notice: 'New doctor was successfully added.' }
-                    # format.json { render :show, status: :created, location: @new_doctor }
                 else
                     format.html {  redirect_to create_doctor_path, notice: "The new doctor was not created" }
-                    # format.json { render json: @new_doctor.errors, status: :unprocessable_entity }
                 end
             end
         end
