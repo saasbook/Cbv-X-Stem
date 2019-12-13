@@ -59,6 +59,15 @@ module ApplicationHelper
     name_formatted.html_safe
   end
 
+  def delete_doctor_format(first_name, last_name)
+    if Guess.gender(first_name)[:gender] != "male" then
+      name_formatted = "Delete  " + "<span class='bond_name_female'>#{first_name + " " + last_name}</span>"
+    else
+      name_formatted = "Delete  " + "<span class='bond_name_male'>#{first_name + " " + last_name}</span>"
+    end
+    name_formatted.html_safe
+  end
+
   def hashForUserHolder(user)
     if user.nil? then
       "unavaliable"
@@ -77,14 +86,14 @@ module ApplicationHelper
     params[:patient_id] = @current_profile.user_holder_id
   end
 
-  def go_to_root
-    flash[:error] = "You are not authorized to view this page!"
+  def go_to_root(msg)
+    flash[:error] = msg
     redirect_to root_path
   end
 
   def check_login_as_doctor(path)
     if (not is_doctor?) && params[:id] != @current_user.id.to_s
-      go_to_root
+      go_to_root ("You are not authorized to view this page!")
     else
       user = User.find(params[:id])
       @current_profile = Profile.find_by_user_holder_id(user.user_holder.id)
@@ -92,6 +101,28 @@ module ApplicationHelper
       params[:patient_id] = @current_profile.user_holder_id
       render path
     end
+  end
+
+  def find_by_email(users)
+    temp_users = []
+    matched_email_list = UserHolder.pluck(:email).select {|email| hashForEmailInFive(email) == params[:search_id]}
+    matched_email_list.each do |e|
+      user_holder_id = UserHolder.find_by_email(e).id
+      temp_users = temp_users + users.where('user_holder_id = ? ', user_holder_id)
+    end
+    temp_users
+  end
+
+  def sort_users(users)
+    case params[:sort]
+    when 'first_name'
+        @first_name_class = 'bg-warning hilite'
+    when 'last_name'
+        @last_name_class = 'bg-warning hilite'
+    when 'user_holder_id'
+        @user_id_class = 'bg-warning hilite'
+    end
+    users.order(params[:sort] => :asc)
   end
 
   def redirect_from_cancan_access_denied(link, msg_)
