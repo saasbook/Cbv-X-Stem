@@ -143,5 +143,51 @@ module ApplicationHelper
       end
   end
 
+  def general_controller_index
+    gon.whatsapp_action = flash[:a] if flash[:a] == 'created' || flash[:a] == 'updated'
+    gon.whatsapp_num = @user_holder.profile.whatsapp
+    redirect_with_userid(params[:user_holder_id])
+  end
+
+
+  def general_controller_create_with_log_notification(create_object, activity, redirect_link)
+    respond_to do |format|
+      if create_object.save
+        flash[:notice] = [activity.capitalize + ' was successfully created.' ]
+        if @user_holder.user_setting.nil?
+          @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
+        end
+        send_email_notif(activity, "created")
+        send_whatsapp_notif(activity, "created")
+        format.html { redirect_to redirect_link}
+        format.json { render :show, status: :created, location: object }
+        log_create_delete_to_user_activities(activity, 'create', current_user.user_holder, @user_holder)
+      else
+        format.html { render :new }
+        format.json { render json: create_object.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def general_controller_update_with_log_notification(update_object, update_object_params, activity, redirect_link)
+    respond_to do |format|
+      temp_object = update_object.as_json
+      if update_object.update(update_object_params)
+        flash[:notice] = [activity.capitalize + ' was successfully updated.']
+        if @user_holder.user_setting.nil?
+          @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
+        end        
+        send_email_notif(activity, "updated")
+        send_whatsapp_notif(activity, "updated")
+        format.html { redirect_to redirect_link}
+        format.json { render :show, status: :ok, location: update_object }
+        log_change_to_user_activities(activity, 'edit', current_user.user_holder, @user_holder, temp_object, update_object.as_json)
+      else
+        format.html { render :edit }
+        format.json { render json: update_object.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
 end
