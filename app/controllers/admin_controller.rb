@@ -10,24 +10,28 @@ class AdminController < ApplicationController
         @new_doctor = User.new
     end
 
+    def filter_by_params(doctors)
+        if (!params[:search_first_name].nil? && !params[:search_first_name].empty?)
+            doctors = doctors.where('lower(first_name) = ? ', params[:search_first_name].downcase)
+        end
+        if (!params[:search_last_name].nil? && !params[:search_last_name].empty?)
+            doctors = doctors.where('lower(last_name) = ? ', params[:search_last_name].downcase)
+        end
+
+        if (!params[:search_id].nil? && !params[:search_id].empty?)
+            doctors = find_by_email(doctors)
+        end
+        doctors
+    end
+
     def delete
         if !current_user.role.eql? 'admin'
             go_to_root("Only Admin can delete doctors")
         end
         @doctor_list = User.where("role='doctor'").pluck(:id)
         @doctors = Profile.where(user_holder_id: UserHolder.where(user_id: @doctor_list).pluck(:id))
-
-        if (!params[:search_first_name].nil? && !params[:search_first_name].empty?)
-            @doctors = @doctors.where('lower(first_name) = ? ', params[:search_first_name].downcase)
-        end
-        if (!params[:search_last_name].nil? && !params[:search_last_name].empty?)
-            @doctors = @doctors.where('lower(last_name) = ? ', params[:search_last_name].downcase)
-        end
-
-        if (!params[:search_id].nil? && !params[:search_id].empty?)
-            @doctors = find_by_email(@doctors)
-        end
-
+        @doctors = filter_by_params(@doctors)
+        
         if (!params[:sort].nil? && !params[:sort].empty?)
             @doctors = sort_users(@doctors)
         end
@@ -65,6 +69,16 @@ class AdminController < ApplicationController
         err
     end
 
+    def try_save(new_doctor, format)
+        if new_doctor.save
+            new_user_holder = UserHolder.create!(first_name: new_doctor.first_name, last_name: new_doctor.last_name, email: new_doctor.email, user_id: new_doctor.id)
+            newprofile = Profile.create!(first_name: new_doctor.first_name, last_name: new_doctor.last_name, email: new_doctor.email, role: new_doctor.role, user_holder_id: new_user_holder.id)
+            format.html { redirect_to admin_path, notice: 'New doctor was successfully added.' }
+        else
+            format.html {  redirect_to create_doctor_path, notice: "The new doctor was not created" }
+        end
+    end
+
 
     # create new doctor and valid the input form
     def create
@@ -79,13 +93,7 @@ class AdminController < ApplicationController
             @new_doctor.is_doctor = true
             @new_doctor.role = 'doctor'
             respond_to do |format|
-                if @new_doctor.save
-                    new_user_holder = UserHolder.create!(first_name: @new_doctor.first_name, last_name: @new_doctor.last_name, email: @new_doctor.email, user_id: @new_doctor.id)
-                    newprofile = Profile.create!(first_name: @new_doctor.first_name, last_name: @new_doctor.last_name, email: @new_doctor.email, role: @new_doctor.role, user_holder_id: new_user_holder.id)
-                    format.html { redirect_to admin_path, notice: 'New doctor was successfully added.' }
-                else
-                    format.html {  redirect_to create_doctor_path, notice: "The new doctor was not created" }
-                end
+                try_save(@new_doctor, format)
             end
         end
     end
