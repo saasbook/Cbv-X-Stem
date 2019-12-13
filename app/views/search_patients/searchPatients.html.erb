@@ -28,7 +28,7 @@
       <th class=<%=@last_name_class%>> <%= link_to "Last Name", searchPatients_path(:sort => "last_name"), id: "last_name_sort" %> </th>
       <th> Email </th>
       <th> WhatsApp </th>
-      <th class=<%=@parent_id_class%>> <%= link_to "Parent Id", searchPatients_path(:sort => "user_holder_id"), id: "parent_id_sort" %></th>
+      <th class=<%=@user_id_class%>> <%= link_to "Parent Id", searchPatients_path(:sort => "user_holder_id"), id: "parent_id_sort" %></th>
 
       <th> Link to Info </th>
     </tr>

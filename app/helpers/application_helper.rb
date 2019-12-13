@@ -103,6 +103,28 @@ module ApplicationHelper
     end
   end
 
+  def find_by_email(users)
+    temp_users = []
+    matched_email_list = UserHolder.pluck(:email).select {|email| hashForEmailInFive(email) == params[:search_id]}
+    matched_email_list.each do |e|
+      user_holder_id = UserHolder.find_by_email(e).id
+      temp_users = temp_users + users.where('user_holder_id = ? ', user_holder_id)
+    end
+    temp_users
+  end
+
+  def sort_users(users)
+    case params[:sort]
+    when 'first_name'
+        @first_name_class = 'bg-warning hilite'
+    when 'last_name'
+        @last_name_class = 'bg-warning hilite'
+    when 'user_holder_id'
+        @user_id_class = 'bg-warning hilite'
+    end
+    users.order(params[:sort] => :asc)
+  end
+
   def redirect_from_cancan_access_denied(link, msg_)
     respond_to do |format|
       format.json { head :forbidden, content_type: 'text/html' }

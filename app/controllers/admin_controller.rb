@@ -24,37 +24,17 @@ class AdminController < ApplicationController
             @doctors = @doctors.where('lower(last_name) = ? ', params[:search_last_name].downcase)
         end
 
-        temp_patient = []
         if (!params[:search_id].nil? && !params[:search_id].empty?)
-            # @doctors = @doctors.where(:user_holder_id => params[:search_id])
-
-            matched_email_list = UserHolder.pluck(:email).select {|email| hashForEmailInFive(email) == params[:search_id]}
-            matched_email_list.each do |e|
-              user_holder_id = UserHolder.find_by_email(e).id
-              temp_doctor = temp_doctor+ @doctors.where('user_holder_id = ? ', user_holder_id)
-            end
-            @doctors = temp_patient
+            @doctors = find_by_email(@doctors)
         end
 
         if (!params[:sort].nil? && !params[:sort].empty?)
-            case params[:sort]
-            when 'first_name'
-                @first_name_class = 'bg-warning hilite'
-            when 'last_name'
-                @last_name_class = 'bg-warning hilite'
-            when 'user_holder_id'
-                @doctor_id_class = 'bg-warning hilite'
-            end
-            @doctors = @doctors.order(params[:sort] => :asc)
+            @doctors = sort_users(@doctors)
         end
     end
 
-    def check_error(new_doctor)
+    def check_empty(new_doctor, i)
         err = ""
-        i = 0
-        if User.where(email: @new_doctor.email).present?
-            err <<  "#{(i += 1).to_s}. The email #{@new_doctor.email} has exsited  "
-        end
         if @new_doctor.first_name.empty?
             err << "#{(i += 1).to_s}. First Name can't be empty  "
         end
@@ -64,10 +44,23 @@ class AdminController < ApplicationController
         if @new_doctor.email.empty?
             err << "#{(i += 1).to_s}. Email can't be empty  "
         end
+        return err, i
+    end 
+
+    def check_error(new_doctor)
+        err = ""
+        i = 0
+        if User.where(email: @new_doctor.email).present?
+            err <<  "#{(i += 1).to_s}. The email #{@new_doctor.email} has exsited  "
+        end
+        empty_err, j = check_error (@new_doctor)
+        err << empty_err
+        i += j
         if !(@new_doctor.password.eql? @new_doctor.password_confirmation)
             err << "#{(i += 1).to_s}. Two passswords are not indetical  "
         end
         if @new_doctor.password.length < 6
+            err << "#{(i += 1).to_s}. Password must be at lest 6 characters  "
         end
         err
     end

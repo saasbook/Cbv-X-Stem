@@ -27,7 +27,7 @@
       <th class=<%=@first_name_class%>> <%= link_to "First Name", delete_doctor_path(:sort => "first_name"), id: "first_name_sort"%></th>
       <th class=<%=@last_name_class%>> <%= link_to "Last Name", delete_doctor_path(:sort => "last_name"), id: "last_name_sort" %> </th>
       <th> Email </th>
-      <th class=<%=@doctor_id_class%>> <%= link_to "Doctor Id", delete_doctor_path(:sort => "user_holder_id"), id: "doctor_id_sort" %></th>
+      <th class=<%=@user_id_class%>> <%= link_to "Doctor Id", delete_doctor_path(:sort => "user_holder_id"), id: "doctor_id_sort" %></th>
 
       <th> Link to Info </th>
     </tr>
