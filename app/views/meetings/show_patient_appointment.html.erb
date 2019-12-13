@@ -6,6 +6,11 @@
 </p>
 
 <p>
+  <strong>Doctor Contact Info:</strong>
+  <%= UserHolder.find(@meeting.user_holder_id).email %>
+</p>
+
+<p>
   <strong>Appointment Requester:</strong>
   <%= UserHolder.find(@meeting.patient_id).first_name + ' '+ UserHolder.find(@meeting.patient_id).last_name %>
 </p>

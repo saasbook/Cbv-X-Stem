@@ -48,7 +48,7 @@ class MedicationsController < ApplicationController
   # DELETE /medications/1
   # DELETE /medications/1.json
   def destroy
-    general_controller_delete_with_log(current_user.user_holder, @user_holder, @medication, "medication", user_holder_medications_path(@user_holder))
+    general_controller_delete_with_log(current_user.user_holder, @user_holder, @medication, user_holder_medications_path(@user_holder))
   end
 
   private

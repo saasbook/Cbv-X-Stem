@@ -9,7 +9,10 @@
             <li><a href="/contact">Contact</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a data-toggle="collapse" href="#doctor_nav" class="btn btn-primary">Doctor</a></li>
+            <li>
+                <a data-toggle="collapse" href="#doctor_nav" class="btn btn-primary">
+                    <%if @current_user.role.eql? 'doctor'%>Doctor<%else%>Admin<%end%>
+                </a></li>
         </ul>
     </div>
 </nav>
@@ -18,21 +21,32 @@
         <div class="col col-6">
             <div class="nav-section">
                 <div><b>Current User:</b> <%= current_user.role != 'guest' && (current_user.first_name + " " + current_user.last_name) %></div>
-                <div><b>Upcoming Appointments:</b></div>
+                <%if @current_user.role.eql? 'doctor'%>
+                <div><b>Upcoming Appointments: </b><%= Meeting.where(status: "confirmed").where(user_holder_id: current_user.id).length %></div>
+                <%end%>
             </div>
         </div>
+        
         <div class="col">
             <div class="nav-section">
-                <div><%= link_to "Search Patient", searchPatients_path %></div>
-                <div><%= link_to "My Schedule", user_holder_meetings_path(current_user) %></div>
-                <div><%= link_to 'Make Appointment', show_doctor_schedule_path(current_user) %></div>
+                <%if @current_user.role.eql? 'doctor'%>
+                    <div><%= link_to "Search Patient", searchPatients_path %></div>
+                    <div><%= link_to "My Schedule", user_holder_meetings_path(current_user) %></div>
+                    <div><%= link_to 'Make Appointment', show_doctor_schedule_path(current_user) %></div>
+                    <div><%= link_to "Add Doctors", create_doctor_path %></div>
+                <%else%>
+                    <div><%= link_to "Adminstration", admin_path %></div>
+                <%end%>
             </div>
-        </div>
+        </div>      
+
         <div class="col">
             <div class="nav-section">
                 <div><%= link_to "Logout", destroy_user_session_path, method: :delete %></div>
-                <div><%= link_to 'Activity Log', user_holder_user_activities_path(@user_holder) %></div>
-                <div><%= link_to "Message Box", user_holder_messages_path(@user_holder) %></div>
+                <%if @current_user.role.eql? 'doctor'%>
+                    <div><%= link_to 'Activity Log', user_holder_user_activities_path(@user_holder) %></div>
+                    <div><%= link_to "Message Box", user_holder_messages_path(@user_holder) %></div>
+                <%end%>
             </div>
         </div>
     </div>
