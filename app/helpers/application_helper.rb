@@ -59,6 +59,15 @@ module ApplicationHelper
     name_formatted.html_safe
   end
 
+  def delete_doctor_format(first_name, last_name)
+    if Guess.gender(first_name)[:gender] != "male" then
+      name_formatted = "Delete  " + "<span class='bond_name_female'>#{first_name + " " + last_name}</span>"
+    else
+      name_formatted = "Delete  " + "<span class='bond_name_male'>#{first_name + " " + last_name}</span>"
+    end
+    name_formatted.html_safe
+  end
+
   def hashForUserHolder(user)
     if user.nil? then
       "unavaliable"
