@@ -18,7 +18,7 @@
         <div class="col col-6">
             <div class="nav-section">
                 <div><b>Current User:</b> <%= current_user.role != 'guest' && (current_user.first_name + " " + current_user.last_name) %></div>
-                <div><b>Upcoming Appointments:</b></div>
+                <div><b>Upcoming Appointments: </b><%= Meeting.where(status: "confirmed").where(user_holder_id: current_user.id).length %></div>
             </div>
         </div>
         <div class="col">
