@@ -36,6 +36,14 @@ Rails.application.routes.draw do
   get 'documentations/download_pdf'
 
 
+  # admin
+  get 'admin', to: 'admin#admin', as: 'admin'
+  get 'admin/new', to: 'admin#new', as: 'create_doctor'
+  get 'admin/delete', to: 'admin#delete', as: 'delete_doctor'
+  post 'admin/create', to: 'admin#create', as: 'save_doctor'
+  post 'admin/delete', to: 'admin#delete', as: 'delete_single'
+  delete 'admin/delete/:id', to: 'admin#delete_single', as: 'delete_single_doctor'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'pages#home'
   get 'about-me', to: 'pages#about'
@@ -44,11 +52,11 @@ Rails.application.routes.draw do
   get 'patient/profile', to: 'patients#profile'
   get 'patient/setting', to: 'patients#setting'
   # searchPatients routes
-  get 'searchPatients', to: 'search_patients#searchPatients', :as => 'searchPatients'
-  post 'searchPatients', to: 'search_patients#searchPatients', :as => 'findReults'
+  get 'searchPatients', to: 'search_patients#searchPatients', as: 'searchPatients'
+  post 'searchPatients', to: 'search_patients#searchPatients', as: 'findReults'
 
   # patient info page routes
-  get 'patient/:id/info', to: 'patient_info#show', :as=>'patient_info' 
+  get 'patient/:id/info', to: 'patient_info#show', as: 'patient_info' 
 
   # Patient Profile routes.
   get 'patient/:id/new', to: 'patients#new', as: 'patient_new_profile'
