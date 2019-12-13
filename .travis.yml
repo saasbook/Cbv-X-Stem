@@ -26,10 +26,9 @@ script:
 
 
   # run Cucumber scenarios, and capture coverage. --strict means undefined steps result in a failure. NOT YET IMPLEMENTED IN TRAVIS
-  - bundle exec cucumber
-  - ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json
+
 
 after_script:
   # combine coverage from all suites, and upload to CodeClimate
-  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage
+  - ./cc-test-reporter upload-coverage
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
