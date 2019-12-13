@@ -1,12 +1,6 @@
-# language: ruby
-	# rvm:
-	#   - 2.4.0
-	# single test suite, non-parallel build.
-
-
 language: ruby
 rvm:
-	- 2.4.0
+  - 2.4.0
 
 env:
   global:
@@ -28,13 +22,14 @@ before_script:
 script:
   # run RSpec tests, and capture coverage
   - bundle exec rspec
-  - ./cc-test-reporter format-coverage --output coverage/codeclimate.json
+  - ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json
 
 
   # run Cucumber scenarios, and capture coverage. --strict means undefined steps result in a failure. NOT YET IMPLEMENTED IN TRAVIS
-
+  - bundle exec cucumber --strict
+  - ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json
 
 after_script:
   # combine coverage from all suites, and upload to CodeClimate
-  - ./cc-test-reporter upload-coverage
+  - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
