@@ -73,7 +73,7 @@ class DocumentationsController < ApplicationController
       end
       send_email_notif("documentation", "updated")
       send_whatsapp_notif("documentation", "updated")
-      
+
       redirect_to user_holder_documentations_path(@user_holder)
     end
   end
