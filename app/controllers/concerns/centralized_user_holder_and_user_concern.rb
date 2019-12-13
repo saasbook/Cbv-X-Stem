@@ -12,6 +12,18 @@ module CentralizedUserHolderAndUserConcern
     user_holder_policy
   end
 
+  def set_user_holder_for_sessional_usage(current_user)
+    # if params specifies its own user holder, use it
+    if !params[:user_holder_id].nil? then
+      @user_holder = UserHolder.find_by_id(params[:user_holder_id])
+    else
+      # if user_holder null, fall back to root user.
+      if @user_holder.nil? then
+        @user_holder = current_user.user_holder
+      end
+    end
+  end
+
   # Resource Orientation Policy for User Holder
   # - Value for Current User Holder is based on the Policy specified for the current Controller
   def centralized_user_related_initializer(current_user)
@@ -24,15 +36,7 @@ module CentralizedUserHolderAndUserConcern
       redirect_to root_path
     # if SSU, overrides the UserHolder by params[:user_holder]
     when 'SSU'
-      # if params specifies its own user holder, use it
-      if !params[:user_holder_id].nil? then
-        @user_holder = UserHolder.find_by_id(params[:user_holder_id])
-      else
-        # if user_holder null, fall back to root user.
-        if @user_holder.nil? then
-          @user_holder = current_user.user_holder
-        end
-      end
+      set_user_holder_for_sessional_usage(current_user)
     # if RTU, sets UserHolder to RootUserHolder
     when 'RTU'
       @user_holder = current_user.user_holder

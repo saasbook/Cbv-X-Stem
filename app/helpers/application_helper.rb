@@ -102,9 +102,10 @@ module ApplicationHelper
     end
   end
 
-  def general_controller_delete_with_log(actor_uh, receiver_uh, delete_object, delete_object_string, redirect_link)
+  def general_controller_delete_with_log(actor_uh, receiver_uh, delete_object, redirect_link)
+      delete_object_string = delete_object.class.to_s
       delete_object.destroy
-      log_create_delete_to_user_activities(delete_object_string, 'delete', actor_uh, receiver_uh)
+      log_create_delete_to_user_activities(delete_object_string.downcase, 'delete', actor_uh, receiver_uh)
       respond_to do |format|
         format.html { redirect_to redirect_link, notice: delete_object_string.capitalize + ' was successfully destroyed.' }
         format.json { head :no_content }
