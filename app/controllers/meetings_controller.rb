@@ -89,6 +89,7 @@ class MeetingsController < ApplicationController
   def show_doctor_schedule
     # regenerate_all_available_time_to_database
 
+    clean
     if current_user.is_doctor
       @meetings = Meeting.where(category: "Doctors").where.not(user_holder_id: current_user.id).where(status: "available").where('start_time >= ?',  Time.now.utc).order :start_time
     else
