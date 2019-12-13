@@ -1,3 +1,7 @@
+<script type="text/javascript">
+  if (gon.whatsapp_action == "updated") {window.open("https://wa.me/1".concat(gon.whatsapp_num,"?text=Your treatment is updated. - CbvXStem"), '_blank');}
+  else if (gon.whatsapp_action == "created") {window.open("https://wa.me/1".concat(gon.whatsapp_num,"?text=A treatment is added for you. - CbvXStem"), '_blank');}
+</script>
 <div class="row">
   <div class="col-sm-3"> <%= render 'shared/user_side_nav' %> </div>
   <div class="col-sm-9">
