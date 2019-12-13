@@ -1,4 +1,5 @@
 <%= form_with(model: [@user_holder, treatment], local: true) do |form| %>
+
   <% if treatment.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(treatment.errors.count, "error") %> prohibited this treatment from being saved:</h2>
@@ -16,6 +17,11 @@
   </div>
 
   <div class="field">
+    <%= form.label "Treatment Name" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
     <%= form.label :location %>
     <%= form.text_field :location %>
   </div>
@@ -28,6 +34,13 @@
   <div class="field">
     <%= form.label :description %>
     <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+            <%= check_box_tag "email_notif", 'yes', id:"email_notif" %> 
+            <%= form.label "Notify the patient by email" %>
+            <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %> 
+            <%= form.label "Notify the patient by WhatsApp" %>
   </div>
 
   <div class="actions">

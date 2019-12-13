@@ -4,10 +4,10 @@ one:
   first_name: MyString
   last_name: MyString
   email: MyString
-  user_holder: one
+  user_holder: 1
 
 two:
   first_name: MyString
   last_name: MyString
   email: MyString
-  user_holder: two
+  user_holder: 2

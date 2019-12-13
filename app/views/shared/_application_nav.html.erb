@@ -1,43 +1,53 @@
-<div class="blog-masthead">
-  <div class="container">
-        <div class="collapse jumbotron jumbotron-fluid" id="nav-pivotal-printboard">
-            <div class="nav-pivotal-interface">
-              <span class="left-pivotal">
-                <div class="left-pivotal-font"> Current User: </div>
-                <div class="left-pivotal-font"> <%= current_user && (current_user.first_name + " " + current_user.last_name) %> </div>
-              </span>
-              <span class="mid-pivotal1" id="mid-p1">
-                <div class="mid-pivotal-font"> Patient Info: </div>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">CbvXStem</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about-me">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <% if current_user.role == 'guest' %>
+            <li><%= (link_to raw("<span class=\"glyphicon glyphicon-user nav-icon\" aria-hidden=\"true\"></span> Register"), new_user_registration_path, class: 'btn btn-primary') %></li>
+            <li><%= (link_to raw("<span class=\"glyphicon glyphicon-log-in nav-icon\" aria-hidden=\"true\"></span> Login"), new_user_session_path, class: 'btn btn-primary') %></li>
+            <% else %>
+                <li><a data-toggle="collapse" href="#patient_nav" class="btn btn-primary">Patient</a></li>
+            <% end %>
+        </ul>
+    </div>
+</nav>
+<% if !(current_user.role == 'guest') %>
+<div id="patient_nav" class="collapse">
+    <div class="row col-container" style="margin-left: auto; margin-right: auto;">
+        <div class="col col-6">
+            <div class="nav-section">
+                <b>Current User:</b> <%= current_user.role != 'guest' && (current_user.first_name + " " + current_user.last_name) %>
                 <ul>
-                  <li class="mid-pivotal-font2"=><b>Health plan:</b> <%=  current_user.nil? ? "None" : @current_profile.health_plan %></li>
-                  <li class="mid-pivotal-font2"=><b>Weight:</b> <%=  current_user.nil? ? "None" : @current_profile.weight %></li>
-                  <li class="mid-pivotal-font2"=><b>Height:</b> <%=  current_user.nil? ? "None" : @current_profile.height %></li>
-                  <li class="mid-pivotal-font2"=><b>You have <span id="notification-font"><%=  0 %> </span> pending message. </b> </li>
-                  <li class="mid-pivotal-font2"=><b>You have <span id="notification-font"><%=  0 %> </span> coming appointment. </b> </li>
+                  <li><b>Health plan:</b> <%=  @current_profile.nil? ? "None" : @current_profile.health_plan %></li>
+                  <li><b>Weight:</b> <%=  @current_profile.nil? ? "None" : @current_profile.weight %></li>
+                  <li><b>Height:</b> <%=  @current_profile.nil? ? "None" : @current_profile.height %></li>
+                  <li><b>You have <span class="notification-font"><%=  0 %> </span> pending message. </b> </li>
+                  <li><b>You have <span class="notification-font"><%=  Meeting.where(status: "confirmed").where(patient_id: current_user.id).length %> </span> upcoming appointments. </b> </li>
                 </ul>
-              </span>
-              <span class="right-function-pivotal">
-                  <div><%= link_to "Profile", patient_profile_path, class: 'right-pivotal-link' %></div>
-                  <div><%= link_to "Documents", documentations_path, class: 'right-pivotal-link' %></div>
-                  <div><%= if !@user_holder.nil? then link_to 'Treatments', user_holder_treatments_path(@user_holder), class: 'right-pivotal-link' end %></div>
-                  <div><%= if !@user_holder.nil? then link_to 'Medications', user_holder_medications_path(@user_holder), class: 'right-pivotal-link' end %></div>
-              </span>
-              <span class="right-setting-pivotal">
-                  <div><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'right-pivotal-link' %></div>
-                  <div><%= link_to "User Setting", patient_setting_path, class: 'right-pivotal-link' %></div>
-                  <div class='need-work'> Notification </div>
-                  <div><%= if !@user_holder.nil? then link_to 'User Activities', user_holder_user_activities_path(@user_holder) end %></div>
-                  <div><%= link_to "Message Box", messages_path, class: 'right-pivotal-link' %></div>
-              </span>
             </div>
         </div>
-        <div class="nav-grid">
-          <div class="nav-left">
-            <%= nav_helper 'nav-link', 'nav-general-link' %>
-          </div>
-          <div class="nav-right">
-              <%= user_login_logout %>
-          </div>
+        <div class="col">
+            <div class="nav-section">
+                <div><%= link_to "Profile", patient_profile_path(@user_holder) %></div>
+                <div><%= link_to 'Medical Record', user_holder_treatments_path(@user_holder) %></div>
+                <div><%= link_to 'Make Appointment', show_doctor_schedule_path(@user_holder) %></div>
+            </div>
         </div>
-  </div>
+        <div class="col">
+            <div class="nav-section">
+                <div><%= link_to "Logout", destroy_user_session_path, method: :delete %></div>
+                <div><%= link_to "User Setting", patient_setting_path, class: 'right-pivotal-link' %></div>
+                <div><%= link_to 'Activity Log', user_holder_user_activities_path(@user_holder) %></div>
+                <div><%= link_to "Message Box", user_holder_messages_path(@user_holder) %></div>
+            </div>
+        </div>
+    </div>
 </div>
+<% end %>

@@ -1,13 +1,16 @@
 // Place all the styles related to the SearchPatients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-.search_box{
-    margin-left: 1em;
-    margin-right: 1em
+.form-control {
+    margin-right: 10px;
+    margin-bottom: 5px;
 }
 
-.search_table {
-    margin-left: 10em;
-    margin-right: 10em
+.col-form-label {
+    margin-right: 5px;
+}
+
+#search_table {
+    max-width: 100%;
+    overflow-x: auto;
 }

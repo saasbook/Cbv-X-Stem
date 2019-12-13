@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
 
 <p>
   <strong>Provider:</strong>
@@ -25,5 +25,5 @@
   <%= @treatment.user_holder %>
 </p>
 
-<%= link_to 'Edit', edit_user_holder_treatment_path(@user_holder, @treatment) %> |
+<% if can? :update, @treatment %> <%= link_to 'Edit', edit_user_holder_treatment_path(@user_holder, @treatment) %> <% end %> |
 <%= link_to 'Back', user_holder_treatments_path(@user_holder) %>

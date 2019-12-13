@@ -20,11 +20,13 @@ class MessageMailer < ApplicationMailer
         subject: "Thank you for contacting Cbv X Stem"
   end
 
-  def document_notification(message)
+  def general_notification(message, activity, action)
     @message = message
+    @action = action
+    @activity = activity
 
     mail to: @message.receiver_email,
-        subject: "A document is uploaded by #{@message.sender_name}"
+        subject: "A #{@activity} was #{@action} by #{@message.sender_name}"
   end
 
   def document_confirmation(message)
@@ -32,6 +34,12 @@ class MessageMailer < ApplicationMailer
 
     mail to: @message.sender_email,
         subject: "Confirmation: a document uploaded"
+  end
+
+  def book_notification(message)
+    @message = message
+    mail to: @message.receiver_email,
+        subject: "A slot was booked by #{message.sender_name}"
   end
         
 

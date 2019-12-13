@@ -3,4 +3,23 @@ Background Information
 
 Link to Archor Post for Information
 - https://app.slack.com/docs/TG6K00C7J/FPKEM4HJ9?origin_team=TG6K00C7J
+- https://intense-beach-00160.herokuapp.com (Main Version)
+- https://salty-headland-17719.herokuapp.com (Backup Version)
+- https://travis-ci.com/KunalBasu20/cbvxstem
+
+<a href="https://codeclimate.com/github/KunalBasu20/cbvxstem/maintainability"><img src="https://api.codeclimate.com/v1/badges/b9b542d73d0de4b2fdd0/maintainability" /></a>
+
+<a href="https://codeclimate.com/github/KunalBasu20/cbvxstem/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b9b542d73d0de4b2fdd0/test_coverage" /></a>
+
+<a href="https://travis-ci.com/KunalBasu20/cbvxstem"><img src="https://travis-ci.com/KunalBasu20/cbvxstem.svg?branch=master" alt="Build Status" />
+
+
+
+- https://travis-ci.org/nathanielng2017/cbvxstem
+
+<!-- <a href="https://codeclimate.com/github/nathanielng2017/cbvxstem/maintainability"><img src="https://api.codeclimate.com/v1/badges/06c38654042d71e88d11/maintainability" /></a> -->
+
+<!-- <a href="https://codeclimate.com/github/nathanielng2017/cbvxstem/test_coverage"><img src="https://api.codeclimate.com/v1/badges/06c38654042d71e88d11/test_coverage" /></a> -->
+
+<!-- <a href="https://travis-ci.org/nathanielng2017/cbvxstem"><img src="https://travis-ci.org/nathanielng2017/cbvxstem.svg?branch=master" alt="Build Status" /> -->
 

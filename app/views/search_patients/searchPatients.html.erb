@@ -5,8 +5,6 @@
 <h1 style="text-align: center">Search For Patient</h1>
 <br>
 
-<div class = "search_table">
-<table class = "table table-striped col-md-12">
   <div class="container">
     <%= form_tag searchPatients_path, :method => 'post' do %>
       <div class="form-group row">
@@ -16,21 +14,23 @@
         <input type="text" name="search_last_name" autocomplete="off" class="search_box form-control col-md-1"/>
         <label for="search_id" class="col-form-label"> Patient ID: </label>
         <input type="text" name="search_id" autocomplete="off" class="search_box form-control col-md-1"/>
-        <input type="submit" id="search_submit" value="Search Patients" class="btn btn-success"/>
+        <input type="submit" id="search_submit" value="Search Patients" class="btn btn-primary"/>
       </div>
 
     <% end %>
   </div>
   <br>
+<div id = "search_table">
+<table class = "table table-striped col-md-12">
   <thead>
     <tr>
       <th class=<%=@first_name_class%>> <%= link_to "First Name", searchPatients_path(:sort => "first_name"), id: "first_name_sort"%></th>
       <th class=<%=@last_name_class%>> <%= link_to "Last Name", searchPatients_path(:sort => "last_name"), id: "last_name_sort" %> </th>
-      <th> email </th>
-      <th> Whatsapp </th>
+      <th> Email </th>
+      <th> WhatsApp </th>
       <th class=<%=@parent_id_class%>> <%= link_to "Parent Id", searchPatients_path(:sort => "user_holder_id"), id: "parent_id_sort" %></th>
 
-      <th> Link to Profile</th>
+      <th> Link to Info </th>
     </tr>
   </thead>
   <tbody>
@@ -40,7 +40,7 @@
           <td><%= p.last_name %></td>
           <td><%= p.email %></td>
           <td><%= if p.whatsapp then link_to '<i class="fab fa-whatsapp"></i>'.html_safe, "https://wa.me/1"+p.whatsapp, target: :_blank else '<i class="fab fa-whatsapp"></i>'.html_safe end%></td>
-          <td><%= p.user_holder_id %></td>
+          <td><%= hashForUserHolder(p) %></td>
           <td> <%= link_to profile_name_format(p.first_name, p.last_name), patient_path(p), id: (p.user_holder_id.to_s + '_profile'), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
         </tr>
       <%end%>

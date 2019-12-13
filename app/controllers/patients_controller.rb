@@ -1,9 +1,11 @@
 class PatientsController < ApplicationController
   include ProfileHelper
   include UserActivitiesHelper
+  include ApplicationHelper
 
+  before_action :getUserHolderWithDefaultCreation
   def profile
-    if current_user.nil?
+    if current_user.role == 'guest'
         flash[:error] = "You must be logged in to view your profile."
         redirect_to root_path
         return
@@ -13,108 +15,122 @@ class PatientsController < ApplicationController
     if (!params[:search_id].nil? && !params[:search_id].empty?)
       @current_profile = Profile.where(:user_holder_id => params[:search_id]).first
     else
-      # TODO Have userholder created when the user sign up. (Waiting for doctor authentication: UID#169251963)
-      # - UserHolder should be created when the user creates its account.
-
-      # Moves default-create helper function to applicationHelper, so it can be shared with all patient and doctor function.
-      # HACK Mock the initial UserHolder until ^TODO finished.
-      @current_profile = @user_holder.profile
       #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
       # - The patient should be urged to fill up their profile when they visit the profile first time.
-      # - It doesn't make sure to have profile that has required field not filled.
-      if not @user_holder.profile
-        # HACK Mock the initial profile until ^TODO finished.
-        @current_profile = getProfileWithDefaultCreation(@user_holder)
-      end
+      # - It doesn't make sure to have profile that has required fieldnot filled.
+      @current_profile = getProfileWithDefaultCreation(@user_holder)
     end
 
     # IMPORTANT: call profile class's calculate_age_from_birthday function
     # and store in variable
+    redirect_with_userid(@current_user.id)
     @age = @current_profile.calculate_age_from_birthday(@current_profile.birthday)
+    @name = @current_profile.first_name + " " + @current_profile.last_name
+    @is_doctor = is_doctor?()
   end
 
   def setting
-
-
-
-    @current_holder = @current_user.user_holder
-    @current_setting = @current_holder.user_setting
-
-
-    if @current_setting.nil?
-     @current_setting = UserSetting.create(:user_holder_id => @current_holder.user_id)
-    end
-
-
-  end
-
-  def edit_setting
     @current_holder = @current_user.user_holder
     @current_setting = @current_holder.user_setting
     if @current_setting.nil?
      @current_setting = UserSetting.create(:user_holder_id => @current_holder.user_id)
     end
-
-    render 'edit_setting'
   end
 
   def update_setting
     @current_user = User.find(params[:id])
     @current_holder = @current_user.user_holder
     @current_setting = @current_holder.user_setting
+    @temp_setting = @current_setting.as_json
+
     @my_setting = params[:user_setting]
+    for action in ["create", "change"]
+      for activity in ["doc", "tre", "med"]
+        for tool in ["email", "whatsapp"]
+          @current_setting[action + "_" + activity + "_" + tool + "_notification"] = @my_setting[action + "_" + activity + "_" + tool + "_notification"]
+        end
+      end
+    end
 
+    #@current_setting.create_doc_email_notification = @my_setting[:create_doc_email_notification]
+    #@current_setting.create_doc_whatsapp_notification = @my_setting[:create_doc_whatsapp_notification]
+    #@current_setting.change_doc_email_notification = @my_setting[:change_doc_email_notification]
+    #@current_setting.change_doc_whatsapp_notification = @my_setting[:change_doc_whatsapp_notification]
+    @current_setting.require_doc_email_notification = @my_setting[:require_doc_email_notification]
+    @current_setting.require_doc_whatsapp_notification = @my_setting[:require_doc_whatsapp_notification]
+    #@current_setting.create_tre_email_notification = @my_setting[:create_tre_email_notification]
+    #@current_setting.create_tre_whatsapp_notification = @my_setting[:create_tre_whatsapp_notification]
+    #@current_setting.change_tre_email_notification = @my_setting[:change_tre_email_notification]
+    #@current_setting.change_tre_whatsapp_notification = @my_setting[:change_tre_whatsapp_notification]
+    #@current_setting.create_med_email_notification = @my_setting[:create_med_email_notification]
+    #@current_setting.create_med_whatsapp_notification = @my_setting[:create_med_whatsapp_notification]
+    #@current_setting.change_med_email_notification = @my_setting[:change_med_email_notification]
+    #@current_setting.change_med_whatsapp_notification = @my_setting[:change_med_whatsapp_notification]
 
-    @current_setting.email_notification = @my_setting[:email_notification].to_s.downcase == "true"
-    @current_setting.whatsapp_notification = @my_setting[:whatsapp_notification].to_s.downcase == "true"
-    @current_setting.save!
+    if @current_setting.save!
+      log_change_to_user_activities('Settings', 'Edit', @current_holder, @current_holder, \
+                                    @temp_setting, @current_setting.as_json)
+    
 
+      flash[:notice] = ["Changes have been successfully saved."]
+      for action in ["create", "change"]
+        for activity in ["doc", "tre", "med"]
+          if @my_setting[action + "_" + activity + "_email_notification"] == "Never notify me"
+            if action == "create" then aaction = "created" else aaction = "changed" end
+            aactivity = rename(activity)
+            flash[:notice] << "You select to never notify you by email when a " + aactivity + " is " + aaction +"." 
+          end
+        end
+      end
+
+    #if @my_setting[:create_doc_email_notification] == "Never notify me"
+    #  flash[:notice] << "You select to never notify you by email when a document is added for you." 
+    #end
+    #if @my_setting[:change_doc_email_notification] == "Never notify me"
+    #  flash[:notice] << "You have selected to never notify you by email when your document is changed."
+    #end
+      if @my_setting[:require_doc_email_notification] == "Never notify me"
+        flash[:notice] << "You have selected to never notify you by email when a change for your document is required."
+      end
+    #if @my_setting[:create_tre_email_notification] == "Never notify me"
+    #  flash[:notice] << "You have selected to never notify you by email when a treatment is added for you."
+    #end
+    #if @my_setting[:change_tre_email_notification] == "Never notify me"
+    #  flash[:notice] << "You have selected to never notify you by email when your treatment is changed."
+    #end
+    #if @my_setting[:create_med_email_notification] == "Never notify me"
+    #  flash[:notice] << "You have selected to never notify you by email when a meditation is added for you."
+    #end
+    #if @my_setting[:change_med_email_notification] == "Never notify me"
+    #  flash[:notice] << "You have selected to never notify you by email when your meditation is changed."
+    #end
+    end
     redirect_to patient_setting_path
 
   end
 
 
-
-
-
   def new
     # must be logged in
-    if not current_user.nil?
-        # get user_holder instance, else create one.
-        @user_holder = getUserHolderWithDefaultCreation
-        # if no profile yet, create one.
-        @new_profile = getProfileWithDefaultCreation(@user_holder)
+    if current_user.role == 'guest'
+      flash[:error] = "You must be logged in to view your profile."
+      redirect_to root_path
     else
-        flash[:error] = "You must be logged in to view your profile."
-        redirect_to root_path
+      # get user_holder instance, else create one.
+      @user_holder = getUserHolderWithDefaultCreation
+      # if no profile yet, create one.
+      @new_profile = getProfileWithDefaultCreation(@user_holder)
     end
   end
 
   def show
     # must be logged in
-    if not is_doctor?
-        flash[:error] = "You are not authorized to view this page."
-        redirect_to root_path
-    else
-        @current_profile = Profile.find(params[:id])
-        render 'profile'
-    end
+    redirect_with_userid(@current_user.id)
+    check_login_as_doctor('profile')
   end
 
   def edit
-    # if the user is logged in
-    # if not current_user.nil?
-    #     holder = current_user.user_holder
-    #     # if there is a user holder for the user
-    #     if not holder.profile.nil?
-    #         @profile_to_edit = current_user.user_holder.profile
-    #     else
-    #         redirect_to patient_new_profile_path(current_user)
-    #     end
-    # else
-    #     redirect_to patient_new_profile_path(current_user)
-    # end
-    if current_user.nil?
+    if current_user.role == 'guest'
         flash[:error] = "You must be logged in to edit a profile."
         redirect_to root_path
     elsif not is_doctor?
@@ -148,6 +164,7 @@ class PatientsController < ApplicationController
       current_profile = Profile.find params[:id] # Profile.where(:id => params[:id])
       temp_profile = current_profile.as_json
       # current_profile.update_attributes!(params[:profile])
+      # current_profile.doctor = "Bill Gates"
       current_profile.first_name = modified[:first_name]
       current_profile.last_name = modified[:last_name]
       current_profile.whatsapp = modified[:whatsapp]
@@ -174,14 +191,30 @@ class PatientsController < ApplicationController
       current_profile.exercise = modified[:exercise]
       current_profile.doctor = modified[:doctor]
       if current_profile.save! then
-        log_change_to_user_activities('profile', 'edit', current_user, temp_profile, current_profile.as_json)
+        log_change_to_user_activities('Profile', 'Edit', current_user.user_holder, current_profile.user_holder, temp_profile, current_profile.as_json)
       end
 
-      flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
-      redirect_to patient_profile_path
-    rescue StandardError
-      flash[:error] = "One of the fields was not filled out correctly."
-      redirect_to patient_edit_profile_path(current_profile)
+
+      if @current_user.user_holder.profile == current_profile
+        flash[:notice] = "Your profile has been successfully updated."
+        redirect_to patient_profile_path
+      else
+        flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
+        redirect_to patient_path(current_profile)
+      end
+    # rescue StandardError
+    #   flash[:error] = "One of the fields was not filled out correctly."
+    #   redirect_to patient_edit_profile_path(current_profile)
+    end
+  end
+
+  def rename(activity)
+    if activity == "tre" 
+      "treatment" 
+    elsif activity == "med"
+      "medication"
+    else
+      "documentation"
     end
   end
 

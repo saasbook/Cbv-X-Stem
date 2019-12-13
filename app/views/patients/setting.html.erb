@@ -1,15 +1,64 @@
-<div class="container">
-  <h1 style="text-align: center">User Setting</h1>
-  <br>
-  <p><b>Email notification:</b> <%= @current_setting.email_notification ? "Yes" : "No" %>
-  </p>
-  <p><b>WhatsApp notification:</b>
-      <%=  @current_setting.whatsapp_notification ? "Yes" : "No" %></p>
-        <p></p>
-  <button class="col-md-1.5 btn btn-success">
-    <%= link_to "Edit Setting", patient_edit_setting_path(@current_user) %>
-  </button>
-  <br>
-  <p></p>
-</div>
+<head>
+  <script src="https://kit.fontawesome.com/963e6d96ae.js" crossorigin="anonymous"></script>
+</head>
 
+<h2 align="center">Notification Settings</h2>
+  <%= form_for(@current_setting, url: patient_update_setting_path(@current_user)) do |f| %>
+  <div class='container' style="max-width: 100%; overflow-x: auto;">
+    <table class = "table table-striped col-md-12">
+        <thead>
+          <tr>
+            <th></th>
+            <th><i class="far fa-envelope" aria-label="Email notification settings"></i></th>
+            <th><i class="fab fa-whatsapp" aria-label="WhatsApp notification settings"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>Document added:</td>
+              <td><%= f.select :create_doc_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+              <td><%= f.select :create_doc_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+            </tr>
+
+            <tr>
+                <td>Document changed:</td>
+                <td><%= f.select :change_doc_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+                <td><%= f.select :change_doc_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+            </tr>
+
+            <tr>
+                <td>Document change required:</td>
+                <td><%= f.select :require_doc_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+                <td><%= f.select :require_doc_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+            </tr>
+
+            <tr>
+                <td>Treatment added:</td>
+                <td> <%= f.select :create_tre_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+                <td><%= f.select :create_tre_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+            </tr>
+
+            <tr>
+                <td>Treatment changed:</td>
+                <td><%= f.select :change_tre_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+                <td><%= f.select :change_tre_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+            </tr>
+
+            <tr>
+                <td>Medication added:</td>
+                <td><%= f.select :create_med_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+                <td><%= f.select :create_med_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+            </tr>
+
+            <tr>
+                <td>Medication changed:</td>
+                <td><%= f.select :change_med_email_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+                <td><%= f.select :change_med_whatsapp_notification, ["Always notify me", "Only notifiy me when specified", "Never notify me"], :required => true %></td>
+            </tr>
+
+        </tbody>
+    </table>
+    </div>
+    <div style="margin: 20px 10px;"><%= f.submit 'Submit change', :class => 'col-md-1.5 btn btn-danger' %></div>
+
+  <% end %>

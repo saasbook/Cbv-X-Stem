@@ -1,0 +1,40 @@
+<div class = "search_table">
+  <!-- <p id="notice"><%= notice %></p> -->
+  <div>
+    <h1 style="text-align: center">Appointments</h1>
+    <br>
+  </div>
+<table class="table table-striped col-md-12">
+  <thead>
+    <tr>
+      <th>Patient</th>
+      <th>Location</th>
+      <th>Start</th>
+      <th>End</th>
+      <th>User holder</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @appointments.each do |appointment| %>
+      <tr>
+        <td><%= appointment.patient %></td>
+        <td><%= appointment.location %></td>
+        <td><%= appointment.start %></td>
+        <td><%= appointment.end %></td>
+        <td><%= appointment.user_holder.first_name %></td>
+        <td><%= appointment.user_holder.last_name %></td>
+        <td><%= link_to 'Show', [@user_holder] %></td>
+        <td><%= link_to 'Edit', edit_user_holder_appointment_path(@user_holder, appointment) %></td>
+        <td><%= link_to 'Destroy', [@user_holder, appointment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<button class="col-md-1.5 btn btn-success">
+  <%= link_to 'New Appointment', new_user_holder_appointment_path(@user_holder) %>
+</button>
+</div>

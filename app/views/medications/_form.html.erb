@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
     <%= form.label :provider %>
     <%= form.text_field :provider %>
   </div>
@@ -29,6 +34,13 @@
   <div class="field">
     <%= form.label :description %>
     <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= check_box_tag "email_notif", 'yes', id:"email_notif" %> 
+    <%= form.label "Notify the patient by email" %>
+    <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %> 
+    <%= form.label "Notify the patient by WhatsApp" %>
   </div>
 
   <div class="actions">

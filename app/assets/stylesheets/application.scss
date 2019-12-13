@@ -2,6 +2,7 @@
 /*
 *= require_tree
 *= require_self
+*= require simple_calendar
 */
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -11,14 +12,35 @@
  * Globals
  */
 
-
-body {
-  font-family: Georgia, "Times New Roman", Times, serif;
+html, body {
+  font-family:'Work Sans', 'Calibri', sans-serif;
   color: #000;
+  background-color: #fff;
+  line-height: 18px;
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Slab', serif;
 }
 
 .container {
   min-height: 1.7rem;
+}
+
+.leftBar{
+  float: left;
+}
+
+.right-container{
+  margin-left:150px;
+}
+p {
+    font-family: 'Work Sans', 'Calibri', sans-serif;
+}
+
+p b, p strong {
+    font-weight: 700;
 }
 
 /*
@@ -41,6 +63,7 @@ body {
 .nav-general-link  a {
   margin-top: 0;
   align-items: center;
+  border-radius: 8px 8px 0px 0px;
 }
 
 .blog-nav {
@@ -67,13 +90,13 @@ body {
   display: grid;
   height: 100%;
   width: 100%;
-  grid-template-areas: "left mid1 mid1 mid1 mid2 mid2 right1 right2"
-                       "left mid1 mid1 mid1 mid2 mid2 right1 right2"
-                       "left mid1 mid1 mid1 mid2 mid2 right1 right2"
-                       "left mid1 mid1 mid1 mid2 mid2 right1 right2"
-                       "left mid1 mid1 mid1 mid2 mid2 right1 right2";
+  grid-template-areas: "left mid1 mid1 mid1 mid2 mid2 right1 right1 right2"
+                       "left mid1 mid1 mid1 mid2 mid2 right1 right1 right2"
+                       "left mid1 mid1 mid1 mid2 mid2 right1 right1 right2"
+                       "left mid1 mid1 mid1 mid2 mid2 right1 right1 right2"
+                       "left mid1 mid1 mid1 mid2 mid2 right1 right1 right2";
 
-  grid-template-columns: repeat(8, 12%);
+  grid-template-columns: 10% 10% 10% 10% 10% auto 4% 10% 10%;
   grid-template-rows: repeat(5,20%);
 }
 
@@ -156,6 +179,31 @@ object-fit: contain;
   grid-template-columns: 7% 7% 7% 7% auto 10% 10%;
 }
 
+.split-20-80 {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-areas: "left right";
+  grid-template-columns: 16% 74%
+}
+
+.right-container2{
+  margin-left:20px;
+}
+
+.left-20 {
+  grid-area: left;
+  height: 100%;
+  width: 100%;
+}
+
+.right-80 {
+  grid-area: right;
+  height: 100%;
+  width: 100%;
+}
+
+
 .nav-left {
   grid-area: left;
   display: grid;
@@ -205,7 +253,7 @@ object-fit: contain;
 }
 
 // Font Element
-#notification-font {
+.notification-font {
   color: #32CD32;
 }
 
@@ -251,4 +299,134 @@ object-fit: contain;
 .bond_name_female {
   font-weight: bold;
   color: #ff7faa;
+}
+
+* {
+  color: #000;
+}
+
+// NAVIGATION BAR
+.navbar-nav {
+    flex-direction: row;
+}
+
+.navbar {
+    margin-bottom: 0px;
+    border-radius: 0px;
+    -mozkit-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    background-color: #2e6da4;
+    border: none;
+    color: #fff;
+}
+
+.navbar-inverse .navbar-brand, .navbar-nav {
+    color: #fff;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+}
+
+.nav_panel, #patient_nav {
+    background-color: #428bca;
+    padding: 20px;
+}
+
+#doctor_nav {
+    background-color: #0b385f;
+    padding: 20px;
+}
+
+#doctor_nav .nav-section {
+    background-color: #adcbe4;
+}
+
+.nav-section {
+    background-color: #95ceff;
+    padding: 5px;
+
+    border-radius: 5px;
+    -mozkit-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 100%;
+}
+
+.nav-section a, .nav-section a:visited {
+    color: #0e508a;
+}
+
+ .nav-section a:hover, .nav-section a:active {
+    color: #123c61;
+    background-color: #fdee2c;
+    text-decoration: none;
+    border-bottom: 1px dashed #0e508a;
+ }
+
+.col-container {
+  display: flex;
+  width: 70%;
+}
+
+.nav-icon {
+    color: #fff;
+}
+
+#main_icon {
+    width: 300px;
+    margin-top: 10px;
+}
+
+a[aria-expanded="true"] {
+    background-color: #2e6da4;
+}
+
+// fixes for links, buttons, etc.
+a.btn,a.btn:visited {
+    color: #fff;
+}
+
+// Footer
+#footer {
+    padding: 30px;
+    text-align: center;
+    background-color: #2e6da4;
+    color: #fff;
+    bottom:0;
+    width: 100%;
+}
+
+// Slides on about page
+#about_slides, #about {
+    max-width: 600px;
+}
+
+a.carousel-control-prev:hover, a.carousel-control-prev:active, a.carousel-control-next:hover,
+a.carousel-control-next:active, a.carousel-control-prev:focus, a.carousel-control-next:focus,
+a.carousel-control-prev:visited, a.carousel-control-next:visited {
+    background-color: rgba(0,0,0,0.0);
+}
+
+// RESPONSIVE FEATURES
+@media only screen and (max-width: 600px) {
+  .col, .col-6 {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    flex-basis: auto;
+
+    margin-bottom: 5px; // for mobile theme
+  }
+
+  #main_icon {
+      width: 100%;
+  }
+
+  #about-slides, #about {
+      width: 100%;
+  }
+
+  .col-container {
+      width: 100%;
+  }
 }

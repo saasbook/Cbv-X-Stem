@@ -1,10 +1,12 @@
 class UserActivitiesController < ApplicationController
   before_action :set_user_activity, only: [:show, :edit, :update, :destroy]
-
+  authorize_resource
   # GET /user_activities
   # GET /user_activities.json
   def index
-    @user_activities = UserActivity.all
+    @user_holder = UserHolder.find params[:user_holder_id]
+    @user_activities = @user_holder.user_activities.all
+    @name = @user_holder.first_name + " " + @user_holder.last_name
   end
 
   # GET /user_activities/1
@@ -12,7 +14,9 @@ class UserActivitiesController < ApplicationController
   def show
   end
 
-
+  def details
+    @user_activity = UserActivity.find(params[:id])
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

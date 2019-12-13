@@ -1,6 +1,5 @@
 <div class="nav-right2-icon">
-  <%= gender_is_female? ? image_tag("woman_info", :alt => "rss feed") : image_tag("man_info", :alt => "rss feed") %>
 </div>
-<button class="btn btn-primary nav-right1" type="button" data-toggle="collapse" data-target="#nav-pivotal-printboard" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-  <%= if current_user.nil? or not current_user.is_doctor then "Patient" else "Doctor" end %>
+<button class="btn btn-primary nav-right1" id = "menu" type="button" data-toggle="collapse" data-target="#nav-pivotal-printboard" aria-controls="nav-pivotal-printboard" aria-expanded="false" aria-label="Toggle navigation">
+  <%= if !current_user.is_doctor then "Patient" else "Doctor" end %>
 </button>

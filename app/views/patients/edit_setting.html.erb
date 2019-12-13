@@ -2,10 +2,17 @@
   <h2>Edit Setting</h2>
 
   <%= form_for(@current_setting, url: patient_update_setting_path(@current_user)) do |f| %>
-        
-    Do you want email notification? <%= f.select :email_notification, [["Yes", true], ["No", false]], :required => true %><br />
-    Do you want WhatsApp notification? <%= f.select :whatsapp_notification, [["Yes", true], ["No", false]], :required => true %><br />
-         
+
+    Do you want email notifications? <%= f.select :email_notification, [["Yes", true], ["No", false]], :required => true %><br />
+    Do you want WhatsApp notifications? <%= f.select :whatsapp_notification, [["Yes", true], ["No", false]], :required => true %><br />
+
     <%= f.submit 'Submit change', :class => 'col-md-1.5 btn btn-danger' %>
+
+    <%= f.collection_check_boxes(:program_ids, @programs, :id, :title) do |b| %>
+    <div> <%= b.check_box %><%= b.label { b.text } %></div>
+    <% end %>
+
   <% end %>
+
+
 </div>

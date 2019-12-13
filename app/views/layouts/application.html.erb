@@ -1,33 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Cbvxstem</title>
+    <title>CbvXStem</title>
+    <%= include_gon %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'%>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Work+Sans:400,700&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <span class="no-show">
-        <%= if not current_user.nil?
-              @profile = getProfileWithDefaultCreation(getUserHolderWithDefaultCreation())
-        end %>
-    </span>
-    <%= if current_user.nil? or not current_user.is_doctor then render 'shared/application_nav' else render 'shared/doctor_nav' end %>
-    <p class="notice"><%= notice %></p>
-    <% if not flash[:notice].nil? %>
-        <div class="alert alert-primary" role="alert"> <%= flash[:notice] %></div>
-    <% end %>
-    <p class="alert"><%= alert %></p>
-    <% if not flash[:error].nil? %>
-        <div class="alert alert-danger" role="alert"> <%= flash[:error] %></div>
-    <% end %>
-    <div class="container">
-      <%= yield %>
+    <%= if !current_user.is_doctor then render 'shared/application_nav' else render 'shared/doctor_nav' end %>
+    <div class="container" style="margin-top: 20px; margin-bottom: 50px;">
+        <% if not flash[:notice].nil? %>
+            <div class="alert alert-primary" role="alert"> <%= if flash[:notice].is_a?(Array) then flash[:notice].join("<br>").html_safe else flash[:notice] end%></div>
+        <% end %>
+        <% if not flash[:alert].nil? %>
+            <div class="alert alert-secondary" role="alert"><%= flash[:alert] %></div>
+        <% end %>
+        <% if not flash[:error].nil? %>
+            <div class="alert alert-danger" role="alert"> <%= flash[:error] %></div>
+        <% end %>
+
+        <%= yield %>
     </div>
   </body>
 </html>
