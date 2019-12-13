@@ -80,7 +80,7 @@ class MedicationsController < ApplicationController
         flash[:notice] = ['Medication was successfully updated.']
         if @user_holder.user_setting.nil?
           @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
-        end        
+        end
         #if @user_holder.user_setting.change_med_email_notification == "Always notify me" || @user_holder.user_setting.change_med_email_notification == "Only notifiy me when specified" && params[:email_notif]
         send_email_notif("med", "updated")
         #elsif @user_holder.user_setting.change_med_email_notification == "Never notify me" && params[:email_notif]
@@ -110,7 +110,7 @@ class MedicationsController < ApplicationController
   # DELETE /medications/1
   # DELETE /medications/1.json
   def destroy
-    general_controller_delete_with_log(current_user.user_holder, @user_holder, @medication, "medication", user_holder_medications_path(@user_holder))
+    general_controller_delete_with_log(current_user.user_holder, @user_holder, @medication, user_holder_medications_path(@user_holder))
   end
 
   private
