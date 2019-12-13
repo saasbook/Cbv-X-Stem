@@ -1,19 +1,40 @@
 # language: ruby
-# rvm:
-#   - 2.4.0
-# single test suite, non-parallel build.
+	# rvm:
+	#   - 2.4.0
+	# single test suite, non-parallel build.
+
+
+language: ruby
+rvm:
+	- 2.4.0
 
 env:
   global:
-    - CC_TEST_REPORTER_ID=c3353dd4f0b28006de8c2b9cba681bc52010aa676bef64663696d9b897cb0797 # IMPORTANT!!!! REPLACE ABC123 WITH THE CODE CLIMATE ID
-language: ruby
-rvm:
-  - 2.4.0
+    # in TravisCI settings, set CCKEY to your CodeClimate Test Reporter ID --> We just hardcode the ID into this file
+    - CC_TEST_REPORTER_ID=bc06e3d44507d8e13dc29375a86b20f585a06230d46b6541ed1a4d82cef1e778 # IMPORTANT!!!! REPLACE ABC123 WITH THE CODE CLIMATE ID
+    
+    # set to whatever timezone your app assumes from this list:
+    # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    - TZ=America/Los_Angeles
+
+
+# steps to run BEFORE the test run
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+
+
 script:
+  # run RSpec tests, and capture coverage
   - bundle exec rspec
+  - ./cc-test-reporter format-coverage --output coverage/codeclimate.json
+
+
+  # run Cucumber scenarios, and capture coverage. --strict means undefined steps result in a failure. NOT YET IMPLEMENTED IN TRAVIS
+
+
 after_script:
+  # combine coverage from all suites, and upload to CodeClimate
+  - ./cc-test-reporter upload-coverage
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
