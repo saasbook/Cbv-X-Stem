@@ -65,15 +65,24 @@ module MeetingsHelper
         aday = (current + d.day).day 
         check = DateTime.new(current.year,current.month,aday, 9, 00, 00)
         if (Meeting.where(start_time: check).length == 0) 
-            for t in 9..16
-                starttime = DateTime.new(current.year,current.month,aday, t, 00, 00)
-                endtime = DateTime.new(current.year,current.month,aday, t+1, 00, 00)
-                generate_slot(starttime, endtime)
-            end
+            # for t in 9..16
+            #     starttime = DateTime.new(current.year,current.month,aday, t, 00, 00)
+            #     endtime = DateTime.new(current.year,current.month,aday, t+1, 00, 00)
+            #     generate_slot(starttime, endtime)
+            # end
+            generate_slots(current, aday)
         end
     end  
    end
-   
+
+   def generate_slots(current, aday)
+    for t in 9..16
+        starttime = DateTime.new(current.year,current.month,aday, t, 00, 00)
+        endtime = DateTime.new(current.year,current.month,aday, t+1, 00, 00)
+        generate_slot(starttime, endtime)
+    end
+end
+
    def generate_slot(starttime, endtime)
       User.all.each { |user|
          if user.is_doctor
@@ -81,4 +90,10 @@ module MeetingsHelper
          end
       }
  end
+
+
+
+
+
+
 end
