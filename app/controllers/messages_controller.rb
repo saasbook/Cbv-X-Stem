@@ -70,13 +70,6 @@ class MessagesController < ApplicationController
     end
   end
 
-  def contact_clinic
-  end
-
-  def contact_general
-
-  end
-
   private
 
     def get_user_holder
