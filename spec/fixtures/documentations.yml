@@ -1,0 +1,20 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  patient: MyString
+  doctype: MyString
+  attachment: MyString
+
+two:
+  patient: MyString
+  doctype: MyString
+  attachment: MyString
+
+three:
+    name: name1
+    documents_info: info1
+    documents_status: status1
+    documents_name: doc_name1
+    documents_explanation: explanation1
+    id: 3
+    user_holder_id: 1

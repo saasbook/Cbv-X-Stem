@@ -1,0 +1,52 @@
+<script type="text/javascript">
+  if (gon.whatsapp_action == "updated") {window.open("https://wa.me/1".concat(gon.whatsapp_num,"?text=Your documentation is updated. - CbvXStem"), '_blank');}
+  else if (gon.whatsapp_action == "created") {window.open("https://wa.me/1".concat(gon.whatsapp_num,"?text=A documentation is added for you. - CbvXStem"), '_blank');}
+</script>
+
+<h1 style="text-align: center">Documents</h1>
+<br>
+
+<%= link_to "New Document", new_user_holder_documentation_path(@user_holder), class: "btn btn-primary" %>
+<br>
+
+<table class = "table table-bordered table-striped">
+   <thead>
+      <tr>
+         <!--<th style="width: 16.66%">Name</th> -->
+         <th style="width: 20%">Name</th>
+         <th style="width: 20%">Document Type</th>
+         <th style="width: 20%">        </th>
+         <th style="width: 20%">Download Link</th>
+         <th style="width: 20%">Uploaded By</th>
+         <th style="width: 20%" align="center">Last Modified By</th>
+         <th style="width: 20%">Status</th>
+         <th style="width: 20%">        </th>
+         <th style="width: 20%">Details </th>
+      </tr>
+   </thead>
+
+   <tbody>
+      <% @documentations.each do |documentation| %>
+
+         <tr>
+            <!--<td style="width: 16.66%"><%= documentation.patient %></td> -->
+            <td style="width: 20%"><%= documentation.documents_name %></td>
+            <td style="width: 20%"><%= documentation.doctype %></td>
+
+            <td style="width: 20%"><button class="col-md-1.5 btn btn-success" style="display: block; margin: 0 auto;"><%= link_to "Update",  edit_user_holder_documentation_path(@user_holder, documentation) %></button></td>
+            <td style="width: 20%"><button class="col-md-1.5 btn btn-success"><%= link_to "Download Document", documentations_download_pdf_path(id: documentation.id) %></button></td>
+            <td style="width: 20%"><%= documentation.uploaded_by %></td>
+            <td style="width: 20%"><%= documentation.updated_by%></td>
+
+
+            <td style="width: 20%"><%= documentation.satisfied ? "Satisfied" : "Not Satisfied" %></td>
+            <%# Might need to be able to add documentation object inside the link_to method call // :id => documentation.id %>
+            <td style="width: 20%"><button class="col-md-1.5 btn btn-danger"><%= link_to "Destroy", [@user_holder, documentation], method: :delete%></button></td>
+            <td style="width: 20%"><button class="col-md-1.5 btn btn-info"><%= link_to "?", documentations_information_path(id: documentation.id) %></button></td>
+
+         </tr>
+
+      <% end %>
+   </tbody>
+
+</table>

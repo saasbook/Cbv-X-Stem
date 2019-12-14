@@ -1,0 +1,50 @@
+<!-- <p id="notice"><%= notice %></p> -->
+
+<p>
+  <strong>Doctor:</strong>
+  <%= UserHolder.find(@meeting.user_holder_id).first_name + ' '+ UserHolder.find(@meeting.user_holder_id).last_name %>
+</p>
+
+<p>
+  <strong>Doctor Contact Info:</strong>
+  <%= UserHolder.find(@meeting.user_holder_id).email %>
+</p>
+
+<p>
+  <strong>Appointment Requester:</strong>
+  <%= UserHolder.find(@meeting.patient_id).first_name + ' '+ UserHolder.find(@meeting.patient_id).last_name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= "Appointment with  #{@meeting.category.downcase} " %>
+</p>
+
+
+
+<p>
+  <strong>Start time:</strong>
+  <%= @meeting.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @meeting.end_time %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @meeting.status %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @meeting.location %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @meeting.description %>
+</p>
+
+<%= link_to 'Back', show_doctor_schedule_path(@meeting.patient_id) %>

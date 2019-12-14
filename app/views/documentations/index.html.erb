@@ -1,0 +1,55 @@
+<script type="text/javascript">
+  if (gon.whatsapp_action == "updated") {window.open("https://wa.me/1".concat(gon.whatsapp_num,"?text=Your documentation is updated. - CbvXStem"), '_blank');}
+  else if (gon.whatsapp_action == "created") {window.open("https://wa.me/1".concat(gon.whatsapp_num,"?text=A documentation is added for you. - CbvXStem"), '_blank');}
+</script>
+<div class="row">
+  <div class="col-sm-3"> <%= render 'shared/user_side_nav' %> </div>
+  <div class="col-sm-9">
+    <h1 style="text-align: center">Documents</h1>
+    <div class = "right-container2" style="overflow-x: auto;">
+
+      <table class = "table table-striped" style = "overflow: auto; width: max-content;">
+       <thead>
+          <tr>
+             <th>Name</th>
+             <th>Doc Type</th>
+             <th>Update</th>
+             <th>Download</th>
+             <th>Uploaded By</th>
+             <th>Last Modified By</th>
+             <th>Status</th>
+             <th>To Remove</th>
+             <th>Details </th>
+          </tr>
+       </thead>
+
+       <tbody>
+          <% @documentations.each do |documentation| %>
+
+             <tr>
+                <td><%= documentation.documents_name %></td>
+                <td><%= documentation.doctype %></td>
+                <td><%= link_to "Update",  edit_user_holder_documentation_path(@user_holder, documentation), class: 'col-md-1.5 btn btn-primary' %></td>
+                <td><%= link_to "Download", documentations_download_pdf_path(id: documentation.id), class: 'col-md-1.5 btn btn-primary' %></td>
+                <td><%= documentation.uploaded_by %></td>
+                <td><%= documentation.updated_by%></td>
+                <td><%= documentation.satisfied ? "Satisfied" : "Not Satisfied" %></td>
+                <%# Might need to be able to add documentation object inside the link_to method call // :id => documentation.id %>
+                <td><%= link_to "Destroy", [@user_holder, documentation], method: :delete, class: 'col-md-1.5 btn btn-danger'%></td>
+                <td><%= link_to "Info", documentations_information_path(id: documentation.id), class: 'col-md-1.5 btn btn-info'%></td>
+
+             </tr>
+
+          <% end %>
+       </tbody>
+
+
+    </div>
+  </div>
+  <!-- For some reason, this button always renders above the table, and inside 'right-container-2'. No I don't know how to fix it. -->
+  <div>
+    <% if current_user.is_doctor? %>
+      <%= link_to "Add Document", new_user_holder_documentation_path(@user_holder), class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

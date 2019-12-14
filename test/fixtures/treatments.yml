@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+t1:
+  id: 1
+  provider: "provider1"
+  location: "location1"
+  status: "status1"
+  name: "name1"
+  description: "description1"
+  user_holder_id: 1
+
+t2:
+  id: 2
+  provider: MyString
+  location: MyString
+  status: MyString
+  name: MyString
+  description: MyString
+  user_holder_id: 2
+
+
+t9:
+  id: 9
+  provider: MyString
+  location: MyString
+  status: MyString
+  name: MyString
+  description: MyString
+  user_holder_id: 9

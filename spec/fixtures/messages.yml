@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+m1:
+  sender_name: kaijing
+  sender_email: kaijing@berkeley.edu
+  receiver_email: cbvxstem@gmail.com
+  subject: hi
+  body: hi
+
+m2:
+  sender_name: MyString
+  sender_email: MyString
+  receiver_email: MyString
+  subject: MyString
+  body: MyText

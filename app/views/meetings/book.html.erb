@@ -1,0 +1,22 @@
+<h1>Book a Meeting</h1>
+
+<%= form_for(@meeting, url: book_meeting_edit_path(current_user.id,@meeting.id)) do |form| %>
+  
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit :confirm %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Back', show_doctor_schedule_path(current_user) %>

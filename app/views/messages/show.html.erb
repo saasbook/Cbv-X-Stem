@@ -1,0 +1,25 @@
+<div class="container">
+  <!-- <p id="notice"><%= notice %></p> -->
+
+  <p>
+    <strong>Sender name:</strong>
+    <%= @message.sender_name %>
+  </p>
+
+  <p>
+    <strong>Sender email:</strong>
+    <%= @message.sender_email %>
+  </p>
+
+  <p>
+    <strong>Subject:</strong>
+    <%= @message.subject %>
+  </p>
+
+  <p>
+    <strong>Body:</strong>
+    <%= @message.body %>
+  </p>
+
+  <%= link_to "Return to Message Box", user_holder_messages_path(@user_holder), class: 'btn btn-primary' %>
+</div>

@@ -1,0 +1,42 @@
+<div class='container'>
+  <h2>Edit Profile</h2>
+
+  <strong>Please note that all fields are required unless otherwise marked.</strong>
+
+
+  <%= form_for(@profile_to_edit, url: patient_update_profile_path(@profile_to_edit)) do |f| %>
+    First name: <%= f.text_field :first_name, :required => true %><br />
+    Last name: <%= f.text_field :last_name, :required => true %><br />
+    Email: <%= f.text_field :email, :required => true %><br />
+    Phone: <%= f.text_field :phone, :required => true %><br />
+    WhatsApp (Optional): <%= f.text_field :whatsapp %><br />
+    Contacts: <%= f.text_field :contacts, :required => true %><br />
+    Current Job (Optional): <%= f.text_field :current_job %><br />
+    Reached Through (Optional): <%= f.text_field :reached_through %><br /><br />
+
+    <strong>Address Information</strong><br /><br />
+
+    Address Line 1: <%= f.text_field :address_line1, :required => true %><br />
+    Address Line 2: (Optional) <%= f.text_field :address_line2 %><br />
+    City: <%= f.text_field :city, :required => true %><br />
+    State: <%= f.text_field :state, :required => true %><br />
+    Country: <%= f.text_field :country, :required => true %><br />
+    Postal Code: <%= f.text_field :postal_code, :required => true %><br /><br />
+
+    <strong>Personal Information</strong><br /><br />
+
+    Date of Birth: <%= f.date_field :birthday, :required => true %><br />
+    Sex: <%= f.select :sex, options_for_select(["Male", "Female", "Intersex", "Other"], f.object.sex || "Not yet selected"), :required => true %><br />
+    Health Plan: <%= f.text_field :health_plan, :required => true %><br />
+    Height: <%= f.text_field :height, :required => true %><br />
+    Weight: <%= f.text_field :weight, :required => true %><br />
+    Do you smoke? <%= f.select :smoke, [["Yes", true], ["No", false]], :required => true %>
+      If so, about how many do you smoke a day? <%= f.select :smoke_a_day, options_for_select(0..80), :required => true %><br />
+    Do you drink alcohol regularly? <%= f.select :alcohol, [["Yes", true], ["No", false]], :required => true %>
+      How would you describe your alcohol consumption?
+      <%= f.select :alcohol_use, options_for_select(["Social", "Regular", "Daily", "Weekends", "Not Applicable"], f.object.alcohol_use || "Not yet selected"), :required => true %><br />
+    What kind of doctor do you have? (Optional) <%= f.select :doctor, options_for_select(["Not Selected", "Family Doctor", "Specialized"], f.object.doctor || "Not yet selected") %><br />
+    Describe your exercise regimen: <%= f.text_area :exercise, :required => true %><br />
+    <%= f.submit 'Submit change', :class => 'col-md-1.5 btn btn-danger' %>
+  <% end %>
+</div>

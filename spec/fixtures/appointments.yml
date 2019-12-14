@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  patient: MyString
+  location: MyString
+  start: 2019-11-19 02:28:09
+  end: 2019-11-19 02:28:09
+  user_holder: one
+
+two:
+  patient: MyString
+  location: MyString
+  start: 2019-11-19 02:28:09
+  end: 2019-11-19 02:28:09
+  user_holder: two
