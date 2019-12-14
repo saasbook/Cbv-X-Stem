@@ -45,5 +45,21 @@ RSpec.describe DocumentationsController, type: :controller do
         expect(response).to be_success
     end
   end
+
+
+  describe "view meetings as patient" do
+    fixtures :users
+
+    it "displays meetings index correctly" do
+      @user = users(:patient_)
+      sign_in @user
+      UserHolder.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, user_id: @user.id)
+      Profile.create!(first_name: @user.first_name, last_name: @user.last_name, email: @user.email, whatsapp: '6198089569', user_holder_id: @user.user_holder.id)
+      get :show_doctor_schedule, params: {"user_holder_id" => @user.user_holder.id}, session: valid_session
+      expect(response).to be_success
+    end
+
+
+  end
 #
 end
