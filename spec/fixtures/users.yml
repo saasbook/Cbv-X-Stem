@@ -26,3 +26,12 @@ guest_:
   encrypted_password: "password"
   is_doctor: false
   role: "guest"
+
+kaijing_:
+  id: 11
+  first_name: Kaijing
+  last_name: Ding
+  email: kaijing@berkeley.edu
+  encrypted_password: "password"
+  is_doctor: false
+  role: "patient"

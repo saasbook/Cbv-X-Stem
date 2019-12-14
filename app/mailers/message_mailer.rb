@@ -10,7 +10,7 @@ class MessageMailer < ApplicationMailer
     @message = message
 
     mail to: @message.receiver_email, 
-         subject: "New Message from Cbv X Stem"
+         subject: "New Message from #{message.sender_name}: #{message.subject}"
   end
 
   def clinic_confirmation(message)

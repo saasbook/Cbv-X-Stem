@@ -15,9 +15,9 @@
             </tr>
         </thead>
         <tbody>
-            <% fields = @user_activity.field.split(";") %>
-            <% originals = @user_activity.original_val.split(";") %>
-            <% changes = @user_activity.new_val.split(";") %>
+            <% fields = @user_activity.field.to_s.split(";") %>
+            <% originals = @user_activity.original_val.to_s.split(";") %>
+            <% changes = @user_activity.new_val.to_s.split(";") %>
             <% for i in 0 .. (fields.length - 1) %>
                 <tr>
                     <td><%= fields[i] %></td>

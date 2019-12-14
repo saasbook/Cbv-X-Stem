@@ -5,13 +5,14 @@ class UserActivitiesController < ApplicationController
   # GET /user_activities.json
   def index
     @user_holder = UserHolder.find params[:user_holder_id]
-    @user_activities = @user_holder.user_activities.all
+    @user_activities = @user_holder.user_activities.all.order(updated_at: :desc)
     @name = @user_holder.first_name + " " + @user_holder.last_name
   end
 
   # GET /user_activities/1
   # GET /user_activities/1.json
   def show
+    set_user_activity
   end
 
   def details
