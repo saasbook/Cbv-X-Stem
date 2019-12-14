@@ -28,7 +28,7 @@
       <th>End time</th>
       <th>Doctor</th>
       <th>Contact info</th>
-      <th>Status</th>
+     
       
     </tr>
   </thead>
@@ -40,17 +40,18 @@
         <td><%= meeting.end_time.strftime("%m-%d-%Y %l:%M %P") %></td>
         <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
         <td><%= UserHolder.find(meeting.user_holder_id).email %></td>
-        <td><%= meeting.status %></td>
+       
                      </tr>
     <% end %>
   </tbody>
 </table>
-  <% else %>
-    <div align="center">
+<% else %>
+<div align="center">
         <%= image_tag "logo.png", alt: "CBV X Stem", id: "main_icon" %>
         <h3><%= "Welcome back, " + current_user.first_name %></h3>
     </div>
-    <br>
+   <div>
+  <br>
 <br>
 <br>
 <br>
@@ -66,7 +67,7 @@
       <th>End time</th>
       <th>Patient</th>
       <th>Contact info</th>
-      <th>Status</th>
+      
       
     </tr>
   </thead>
@@ -78,13 +79,9 @@
         <td><%= meeting.end_time.strftime("%m-%d-%Y %l:%M %P") %></td>
         <td><%= UserHolder.find(meeting.patient_id).first_name + ' ' + UserHolder.find(meeting.patient_id).last_name %> </td>
         <td><%= UserHolder.find(meeting.patient_id).email %></td>
-        <td><%= meeting.status %></td>
-        </tr>
+                             </tr>
     <% end %>
   </tbody>
 </table>
-
-
-
-  <% end %>
+<% end %>
 <% end %>
