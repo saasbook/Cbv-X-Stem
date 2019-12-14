@@ -28,8 +28,8 @@
       <th>End time</th>
       <th>Doctor</th>
       <th>Contact info</th>
-     
-      
+
+
     </tr>
   </thead>
 
@@ -40,7 +40,7 @@
         <td><%= meeting.end_time.strftime("%m-%d-%Y %l:%M %P") %></td>
         <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
         <td><%= UserHolder.find(meeting.user_holder_id).email %></td>
-       
+
                      </tr>
     <% end %>
   </tbody>
@@ -67,19 +67,21 @@
       <th>End time</th>
       <th>Patient</th>
       <th>Contact info</th>
-      
-      
+
+
     </tr>
   </thead>
 
   <tbody>
-    <% @booked.each do |meeting| %>
-      <tr>
-        <td><%= meeting.start_time.strftime("%m-%d-%Y %l:%M %P") %></td>
-        <td><%= meeting.end_time.strftime("%m-%d-%Y %l:%M %P") %></td>
-        <td><%= UserHolder.find(meeting.patient_id).first_name + ' ' + UserHolder.find(meeting.patient_id).last_name %> </td>
-        <td><%= UserHolder.find(meeting.patient_id).email %></td>
-                             </tr>
+    <% if !(@booked.nil?) %>
+        <% @booked.each do |meeting| %>
+          <tr>
+            <td><%= meeting.start_time.strftime("%m-%d-%Y %l:%M %P") %></td>
+            <td><%= meeting.end_time.strftime("%m-%d-%Y %l:%M %P") %></td>
+            <td><%= UserHolder.find(meeting.patient_id).first_name + ' ' + UserHolder.find(meeting.patient_id).last_name %> </td>
+            <td><%= UserHolder.find(meeting.patient_id).email %></td>
+                                 </tr>
+        <% end %>
     <% end %>
   </tbody>
 </table>

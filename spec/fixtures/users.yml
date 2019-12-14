@@ -35,3 +35,12 @@ kaijing_:
   encrypted_password: "password"
   is_doctor: false
   role: "patient"
+
+admin_:
+  id: 13
+  first_name: Admin
+  last_name: Strater
+  email: admin@a.com
+  encrypted_password: "password"
+  is_doctor: true
+  role: "admin"
