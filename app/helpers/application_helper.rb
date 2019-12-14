@@ -68,6 +68,20 @@ module ApplicationHelper
     name_formatted.html_safe
   end
 
+  def filter_by_params(users)
+    if (!params[:search_first_name].nil? && !params[:search_first_name].empty?)
+      users = users.where('lower(first_name) = ? ', params[:search_first_name].downcase)
+    end
+    if (!params[:search_last_name].nil? && !params[:search_last_name].empty?)
+      users = users.where('lower(last_name) = ? ', params[:search_last_name].downcase)
+    end
+
+    if (!params[:search_id].nil? && !params[:search_id].empty?)
+      users = find_by_email(users)
+    end
+    users
+end
+
   def hashForUserHolder(user)
     if user.nil? then
       "unavaliable"
