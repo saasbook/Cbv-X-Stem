@@ -25,12 +25,12 @@ class MeetingsController < ApplicationController
   end
 
   # GET /meetings/new
-  def new
-    @cur_user_holder =  current_user.user_holder
-    # @meetings = @cur_user_holder.meetings
-    # @meeting = Meeting.new
-    @new_meeting = @cur_user_holder.meetings.new
-  end
+  # def new
+  #   @cur_user_holder =  current_user.user_holder
+  #   # @meetings = @cur_user_holder.meetings
+  #   # @meeting = Meeting.new
+  #   @new_meeting = @cur_user_holder.meetings.new
+  # end
 
   # GET /meetings/1/edit
   def edit
@@ -43,23 +43,23 @@ class MeetingsController < ApplicationController
 
   # POST /meetings
   # POST /meetings.json
-  def create
-    @cur_user_holder = current_user.user_holder
-    @meeting = @cur_user_holder.meetings.create(meeting_params)
-    @meeting.status = "available"
-    # @meeting.user_holder_id = @cur_user_holder.user_id
+  # def create
+  #   @cur_user_holder = current_user.user_holder
+  #   @meeting = @cur_user_holder.meetings.create(meeting_params)
+  #   @meeting.status = "available"
+  #   # @meeting.user_holder_id = @cur_user_holder.user_id
 
-    respond_to do |format|
-      if @meeting.save
-         format.html { redirect_to user_holder_meetings_path, notice: 'Meeting was successfully created.' }
-         format.json { render :show, status: :created, location: @meeting }
-        # redirect_to
-      else
-        format.html { render :new }
-        format.json { render json: @meeting.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @meeting.save
+  #        format.html { redirect_to user_holder_meetings_path, notice: 'Meeting was successfully created.' }
+  #        format.json { render :show, status: :created, location: @meeting }
+  #       # redirect_to
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @meeting.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /meetings/1
   # PATCH/PUT /meetings/1.json
