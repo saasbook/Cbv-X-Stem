@@ -13,7 +13,7 @@
             <li><%= (link_to raw("<span class=\"glyphicon glyphicon-user nav-icon\" aria-hidden=\"true\"></span> Register"), new_user_registration_path, class: 'btn btn-primary') %></li>
             <li><%= (link_to raw("<span class=\"glyphicon glyphicon-log-in nav-icon\" aria-hidden=\"true\"></span> Login"), new_user_session_path, class: 'btn btn-primary') %></li>
             <% else %>
-                <li><a data-toggle="collapse" href="#patient_nav" class="btn btn-primary">Patient</a></li>
+                <li><a data-toggle="collapse" id = "menu" href="#patient_nav" class="btn btn-primary">Patient</a></li>
             <% end %>
         </ul>
     </div>
