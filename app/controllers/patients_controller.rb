@@ -10,19 +10,20 @@ class PatientsController < ApplicationController
         redirect_to root_path
         return
     end
-    #redirect from search Patients and the current user is a doctor
-    #TO DO verify request from doctor
-    if (!params[:search_id].nil? && !params[:search_id].empty?)
-      @current_profile = Profile.where(:user_holder_id => params[:search_id]).first
-    else
-      #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
-      # - The patient should be urged to fill up their profile when they visit the profile first time.
-      # - It doesn't make sure to have profile that has required fieldnot filled.
-      @current_profile = getProfileWithDefaultCreation(@user_holder)
-    end
+    # #redirect from search Patients and the current user is a doctor
+    # #TO DO verify request from doctor
+    # if (!params[:search_id].nil? && !params[:search_id].empty?)
+    #   @current_profile = Profile.where(:user_holder_id => params[:search_id]).first
+    # else
+    #   #TODO redirect user to new (creation) page if profile not exist. (with name and email auto-filled)
+    #   # - The patient should be urged to fill up their profile when they visit the profile first time.
+    #   # - It doesn't make sure to have profile that has required fieldnot filled.
+    #   @current_profile = getProfileWithDefaultCreation(@user_holder)
+    # end
 
     # IMPORTANT: call profile class's calculate_age_from_birthday function
     # and store in variable
+    @current_profile = getProfileWithDefaultCreation(@user_holder)
     redirect_with_userid(@current_user.id)
     @age = @current_profile.calculate_age_from_birthday(@current_profile.birthday)
     @name = @current_profile.first_name + " " + @current_profile.last_name
@@ -70,7 +71,7 @@ class PatientsController < ApplicationController
     if @current_setting.save!
       log_change_to_user_activities('Settings', 'Edit', @current_holder, @current_holder, \
                                     @temp_setting, @current_setting.as_json)
-    
+
 
       flash[:notice] = ["Changes have been successfully saved."]
       for action in ["create", "change"]
@@ -78,13 +79,13 @@ class PatientsController < ApplicationController
           if @my_setting[action + "_" + activity + "_email_notification"] == "Never notify me"
             if action == "create" then aaction = "created" else aaction = "changed" end
             aactivity = rename(activity)
-            flash[:notice] << "You select to never notify you by email when a " + aactivity + " is " + aaction +"." 
+            flash[:notice] << "You select to never notify you by email when a " + aactivity + " is " + aaction +"."
           end
         end
       end
 
     #if @my_setting[:create_doc_email_notification] == "Never notify me"
-    #  flash[:notice] << "You select to never notify you by email when a document is added for you." 
+    #  flash[:notice] << "You select to never notify you by email when a document is added for you."
     #end
     #if @my_setting[:change_doc_email_notification] == "Never notify me"
     #  flash[:notice] << "You have selected to never notify you by email when your document is changed."
@@ -159,41 +160,14 @@ class PatientsController < ApplicationController
 
   def update
     begin
-
       modified = params[:profile]
-      current_profile = Profile.find params[:id] # Profile.where(:id => params[:id])
-      temp_profile = current_profile.as_json
-      # current_profile.update_attributes!(params[:profile])
-      # current_profile.doctor = "Bill Gates"
-      current_profile.first_name = modified[:first_name]
-      current_profile.last_name = modified[:last_name]
-      current_profile.whatsapp = modified[:whatsapp]
-      current_profile.email = modified[:email]
-      current_profile.address_line1 = modified[:address_line1]
-      current_profile.address_line2= modified[:address_line2]
-      current_profile.city = modified[:city]
-      current_profile.state = modified[:state]
-      current_profile.country= modified[:country]
-      current_profile.postal_code = modified[:postal_code]
-      current_profile.phone = modified[:phone]
-      current_profile.reached_through = modified[:reached_through]
-      current_profile.birthday = modified[:birthday]
-      current_profile.sex = modified[:sex]
-      current_profile.health_plan = modified[:health_plan]
-      current_profile.contacts = modified[:contacts]
-      current_profile.weight = modified[:weight]
-      current_profile.height = modified[:height]
-      current_profile.smoke = modified[:smoke].to_s.downcase == "true"
-      current_profile.smoke_a_day = modified[:smoke_a_day]
-      current_profile.alcohol = modified[:alcohol].to_s.downcase == "true"
-      current_profile.alcohol_use = modified[:alcohol_use]
-      current_profile.current_job = modified[:current_job]
-      current_profile.exercise = modified[:exercise]
-      current_profile.doctor = modified[:doctor]
+      current_profile = Profile.find params[:id]
+      temp_profile = current_profile.as_json # current_profile.update_attributes!(params[:profile])
+      update_profile_values(current_profile, modified)
+
       if current_profile.save! then
         log_change_to_user_activities('Profile', 'Edit', current_user.user_holder, current_profile.user_holder, temp_profile, current_profile.as_json)
       end
-
 
       if @current_user.user_holder.profile == current_profile
         flash[:notice] = "Your profile has been successfully updated."
@@ -202,15 +176,15 @@ class PatientsController < ApplicationController
         flash[:notice] = "#{current_profile.first_name} #{current_profile.last_name}'s profile has been successfully updated."
         redirect_to patient_path(current_profile)
       end
-    # rescue StandardError
-    #   flash[:error] = "One of the fields was not filled out correctly."
-    #   redirect_to patient_edit_profile_path(current_profile)
+    rescue StandardError
+      flash[:error] = "An error occurred. Please check all fields were filled out correctly and try again."
+      redirect_to patient_edit_profile_path(current_profile)
     end
   end
 
   def rename(activity)
-    if activity == "tre" 
-      "treatment" 
+    if activity == "tre"
+      "treatment"
     elsif activity == "med"
       "medication"
     else

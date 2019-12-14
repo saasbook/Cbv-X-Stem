@@ -20,7 +20,7 @@ Background: patients have been added to database
   Then I should see "Search For Patient"
 
 Scenario: search Patients by first name:
-  
+
   When I fill in "search_first_name" with "Tom"
   And I press "search_submit"
   Then I should see "Tom"
@@ -40,13 +40,13 @@ Scenario: We can go to patients' profiles
   Then I should see "Tom Brady"
   And I should see "Documents"
 
-Scenario: We want to search parients by first name
+Scenario: We want to search patients by first name
   When I am on the searchPatients home page
   And I follow "first_name_sort"
   Then I should see "Steven" before "Tom"
 
 Scenario: Only Doctor can access the searchPatient Page
-  Given I log out
+  Given I log out as doctor
   Then I should see "Please log"
   When I am on the searchPatients home page
   Then I should see "Only Doctor can access this page"

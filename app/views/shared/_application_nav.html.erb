@@ -28,7 +28,7 @@
                   <li><b>Health plan:</b> <%=  @current_profile.nil? ? "None" : @current_profile.health_plan %></li>
                   <li><b>Weight:</b> <%=  @current_profile.nil? ? "None" : @current_profile.weight %></li>
                   <li><b>Height:</b> <%=  @current_profile.nil? ? "None" : @current_profile.height %></li>
-                  <li><b>You have <span class="notification-font"><%=  0 %> </span> pending message. </b> </li>
+                  <li><b>You have <span class="notification-font"><%=  0 %> </span> pending messages. </b> </li>
                   <li><b>You have <span class="notification-font"><%=  Meeting.where(status: "confirmed").where(patient_id: current_user.id).length %> </span> upcoming appointments. </b> </li>
                 </ul>
             </div>

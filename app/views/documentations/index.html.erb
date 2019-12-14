@@ -29,14 +29,14 @@
              <tr>
                 <td><%= documentation.documents_name %></td>
                 <td><%= documentation.doctype %></td>
-                <td><button class="col-md-1.5 btn btn-primary"><%= link_to "Update",  edit_user_holder_documentation_path(@user_holder, documentation), style: 'color: #fff' %></button></td>
-                <td><button class="col-md-1.5 btn btn-primary"><%= link_to "Download", documentations_download_pdf_path(id: documentation.id), style: 'color: #fff' %></button></td>
+                <td><%= link_to "Update",  edit_user_holder_documentation_path(@user_holder, documentation), class: 'col-md-1.5 btn btn-primary' %></td>
+                <td><%= link_to "Download", documentations_download_pdf_path(id: documentation.id), class: 'col-md-1.5 btn btn-primary' %></td>
                 <td><%= documentation.uploaded_by %></td>
                 <td><%= documentation.updated_by%></td>
                 <td><%= documentation.satisfied ? "Satisfied" : "Not Satisfied" %></td>
                 <%# Might need to be able to add documentation object inside the link_to method call // :id => documentation.id %>
-                <td><button class="col-md-1.5 btn btn-danger"><%= link_to "Destroy", [@user_holder, documentation], method: :delete, style: 'color: #fff'%></button></td>
-                <td><button class="col-md-1.5 btn btn-info"><%= link_to "Info", documentations_information_path(id: documentation.id), style: 'color: #fff'%></button></td>
+                <td><%= link_to "Destroy", [@user_holder, documentation], method: :delete, class: 'col-md-1.5 btn btn-danger'%></td>
+                <td><%= link_to "Info", documentations_information_path(id: documentation.id), class: 'col-md-1.5 btn btn-info'%></td>
 
              </tr>
 

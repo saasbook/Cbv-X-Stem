@@ -80,7 +80,7 @@ module ApplicationHelper
       users = find_by_email(users)
     end
     users
-end
+  end
 
   def hashForUserHolder(user)
     if user.nil? then
@@ -96,6 +96,7 @@ end
 
   def redirect_with_userid(user_holder_id)
     @current_profile = Profile.find_by_user_holder_id(user_holder_id)
+
     params[:patient_name] = @current_profile.first_name + " " + @current_profile.last_name
     params[:patient_id] = @current_profile.user_holder_id
   end
@@ -190,7 +191,7 @@ end
         flash[:notice] = [activity.capitalize + ' was successfully updated.']
         if @user_holder.user_setting.nil?
           @user_holder.user_setting = UserSetting.create(:user_holder_id => @user_holder.user_id)
-        end        
+        end
         send_email_notif(activity, "updated")
         send_whatsapp_notif(activity, "updated")
         format.html { redirect_to redirect_link}
