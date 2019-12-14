@@ -38,7 +38,7 @@ Scenario: We can go to patients' profiles
   Then I should see "Tom Brady Info"
   And I follow "2_profile"
   Then I should see "Tom Brady"
-  And I should see "Patient's Info"
+  And I should see "Documents"
 
 Scenario: We want to search parients by first name
   When I am on the searchPatients home page
