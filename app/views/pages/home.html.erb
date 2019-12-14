@@ -5,8 +5,86 @@
         <h3>Please log in as a patient or doctor.</h3>
     </div>
 <% else %>
+
+    <% if current_user.role == 'patient' %>
     <div align="center">
         <%= image_tag "logo.png", alt: "CBV X Stem", id: "main_icon" %>
         <h3><%= "Welcome back, " + current_user.first_name %></h3>
     </div>
+   <div>
+  <br>
+<br>
+<br>
+<br>
+  <h1 style="text-align: center">Upcoming Appointments</h1>
+
+  </div>
+
+
+   <table class = "table table-striped col-md-12">
+   <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Doctor</th>
+      <th>Contact info</th>
+      <th>Status</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @booked.each do |meeting| %>
+      <tr>
+        <td><%= meeting.start_time.strftime("%m-%d-%Y %l:%M %P") %></td>
+        <td><%= meeting.end_time.strftime("%m-%d-%Y %l:%M %P") %></td>
+        <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
+        <td><%= UserHolder.find(meeting.user_holder_id).email %></td>
+        <td><%= meeting.status %></td>
+                     </tr>
+    <% end %>
+  </tbody>
+</table>
+  <% else %>
+    <div align="center">
+        <%= image_tag "logo.png", alt: "CBV X Stem", id: "main_icon" %>
+        <h3><%= "Welcome back, " + current_user.first_name %></h3>
+    </div>
+    <br>
+<br>
+<br>
+<br>
+  <h1 style="text-align: center">Upcoming Appointments</h1>
+
+  </div>
+
+
+   <table class = "table table-striped col-md-12">
+   <thead>
+    <tr>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Patient</th>
+      <th>Contact info</th>
+      <th>Status</th>
+      
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @booked.each do |meeting| %>
+      <tr>
+        <td><%= meeting.start_time.strftime("%m-%d-%Y %l:%M %P") %></td>
+        <td><%= meeting.end_time.strftime("%m-%d-%Y %l:%M %P") %></td>
+        <td><%= UserHolder.find(meeting.patient_id).first_name + ' ' + UserHolder.find(meeting.patient_id).last_name %> </td>
+        <td><%= UserHolder.find(meeting.patient_id).email %></td>
+        <td><%= meeting.status %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+  <% end %>
 <% end %>
