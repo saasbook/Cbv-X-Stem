@@ -267,7 +267,12 @@ When /I log in as "(.*)"/ do |user|
     step %{I should see "Welcome back"}
 end
 
-Given /I log out/ do 
-    step %{I press "menu"}
-    step %{I follow "user_logout"}
+Given /I log out as doctor/ do
+    step %{I follow "Doctor"}
+    step %{I follow "Logout"}
+end
+
+Given /I log out as patient/ do
+    step %{I follow "Patient"}
+    step %{I follow "Logout"}
 end

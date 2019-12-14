@@ -2,12 +2,12 @@
   <!-- <p id="notice"><%= notice %></p> -->
 
   <p>
-    <strong>Your name:</strong>
+    <strong>Sender name:</strong>
     <%= @message.sender_name %>
   </p>
 
   <p>
-    <strong>Your email:</strong>
+    <strong>Sender email:</strong>
     <%= @message.sender_email %>
   </p>
 
@@ -21,4 +21,5 @@
     <%= @message.body %>
   </p>
 
+  <%= link_to "Return to Message Box", user_holder_messages_path(@user_holder), class: 'btn btn-primary' %>
 </div>
