@@ -23,12 +23,12 @@ script:
   # run RSpec tests, and capture coverage
   - bundle exec rspec
   - ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json
-
+  
 
   # run Cucumber scenarios, and capture coverage. --strict means undefined steps result in a failure. NOT YET IMPLEMENTED IN TRAVIS
   - bundle exec cucumber --strict
   - ./cc-test-reporter format-coverage --output coverage/codeclimate.$SUITE.json
-  
+
 after_script:
   # combine coverage from all suites, and upload to CodeClimate
   - ./cc-test-reporter sum-coverage coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage
