@@ -23,3 +23,6 @@ Link to Archor Post for Information
 
 <!-- <a href="https://travis-ci.org/nathanielng2017/cbvxstem"><img src="https://travis-ci.org/nathanielng2017/cbvxstem.svg?branch=master" alt="Build Status" /> -->
 
+Notice
+- To enable email notifications, you may need to change the security setting of the admin email to avoid the `Net::SMTPAuthenticationError`. First, go to https://myaccount.google.com/lesssecureapps to allow less secure apps. If that doesn't work, go to http://www.google.com/accounts/DisplayUnlockCaptcha and click continue. This will grant access for 10 minutes for registering new apps.
+- The admin email address and password can be found in `db/seeds.rb`, `config/environments/production.rb`, and `config/environments/development.rb` (below `config.action_mailer.smtp_settings`). If you want to change the admin email, then you need to change all these fields correspondingly, as well as the email address shown on the Contact page (`app\views\pages\contact.html.erb`), and the email address receiving contacts (`app\controllers\users\messages_controller.rb`-> `create`-> `@message.receiver_email`).
