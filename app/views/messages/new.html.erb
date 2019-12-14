@@ -1,0 +1,7 @@
+<div class="container">
+  <h1>New Message</h1>
+
+  <%= render 'form', message: @message %>
+
+  <%= link_to 'Message Box', user_holder_messages_path(@user_holder) %>
+</div>

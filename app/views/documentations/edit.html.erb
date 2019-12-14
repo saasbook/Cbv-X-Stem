@@ -1,0 +1,89 @@
+<% if !@documentation.errors.empty? %>
+   <div class = "alert alert-error">
+
+      <ul>
+         <% @documentation.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+         <% end %>
+      </ul>
+
+   </div>
+<% end %>
+<%= link_to 'Back', 'javascript:history.go(-1);', class: "btn btn-primary" %>
+<div class = "well">
+   <%# <%= form_for @documentation, html: { multipart: true } do |f| %>
+      <%# <%= f.label :patient %>
+      <%# <<%= f.text_field :patient %>
+      <%# <%= f.label :doctype %>
+      <%# <%= f.text_field :doctype %>
+      <%# <%= f.label :documents_status %>
+      <%# <%= f.select :documents_status, [["Not Satisfied", false], ["Satisfied", true]], :required => true %>
+      <%# <%= f.label "Document Name" %>
+      <%# <%= f.text_field :documents_name %>
+      <%# <%= f.label :attachment %>
+      <%# <%= f.file_field :attachment %>
+      <%# <%= f.submit "Save", class: "btn btn-primary" %>
+   <%# <% end %>
+
+   <%= form_with(model: [@user_holder, @documentation], local: true) do |form| %>
+      <% if @documentation.errors.any? %>
+         <div id="error_explanation">
+            <h2><%= pluralize(documentation.errors.count, "error") %> prohibited this document from being saved:</h2>
+            <ul>
+            <% documentation.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+            </ul>
+         </div>
+      <% end %>
+      <%= form.hidden_field :updated_by, value: current_user.first_name %> 
+      <div class="field">
+         <%= form.label :patient %>
+         <%= form.text_field :patient %>
+      </div>
+
+      <div class="field">
+         <%= form.label :doctype %>
+         <%= form.text_field :doctype %>
+      </div>
+
+      <div class="field">
+         <%= form.label :satisfied %>
+         <%= form.select :satisfied, [["Not Satisfied", false], ["Satisfied", true]], :required => true %>
+      </div>
+
+      <div class="field">
+         <%= form.label :reasoning %>
+         <%= form.text_field :reasoning %>
+      </div>
+
+      <div class="field">
+         <%= form.label "Document Name" %>
+         <%= form.text_field :documents_name %>
+      </div>
+
+      <div class="field">
+         <%= form.label :attachment %>
+         <%= form.file_field :attachment %>
+      </div>
+
+      <div class="field">
+         <% if current_user.is_doctor %>
+            <%= check_box_tag "email_notif", 'yes', id:"email_notif" %>
+            <%= form.label "Notify the patient by email" %>
+            <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %>
+            <%= form.label "Notify the patient by WhatsApp" %>
+         <% else %>
+            <%= check_box_tag "email_notif", 'yes', id:"email_notif" %>
+            <%= form.label "Notify me by email" %>
+            <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %>
+            <%= form.label "Notify me by WhatsApp" %>
+         <% end %>
+      </div>
+
+      <div class="actions">
+         <%= form.submit %>
+      </div>
+   <% end %>
+
+</div>

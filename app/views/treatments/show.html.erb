@@ -1,0 +1,29 @@
+<!-- <p id="notice"><%= notice %></p> -->
+
+<p>
+  <strong>Provider:</strong>
+  <%= @treatment.provider %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @treatment.location %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @treatment.status %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @treatment.description %>
+</p>
+
+<p>
+  <strong>User holder:</strong>
+  <%= @treatment.user_holder %>
+</p>
+
+<% if can? :update, @treatment %> <%= link_to 'Edit', edit_user_holder_treatment_path(@user_holder, @treatment) %> <% end %> |
+<%= link_to 'Back', user_holder_treatments_path(@user_holder) %>

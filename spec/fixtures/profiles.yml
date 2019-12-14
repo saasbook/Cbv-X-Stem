@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  user_holder: 1
+
+two:
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  user_holder: 2
+
+three:
+  first_name: Washington
+  last_name: Irving
+  email: wirving@gmail.com
+  phone:

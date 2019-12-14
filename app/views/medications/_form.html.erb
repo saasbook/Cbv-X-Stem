@@ -1,0 +1,49 @@
+<%= form_with(model: [@user_holder, medication], local: true) do |form| %>
+  <% if medication.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(medication.errors.count, "error") %> prohibited this medication from being saved:</h2>
+
+      <ul>
+      <% medication.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :provider %>
+    <%= form.text_field :provider %>
+  </div>
+
+  <div class="field">
+    <%= form.label :directions %>
+    <%= form.text_field :directions %>
+  </div>
+
+  <div class="field">
+    <%= form.label :days %>
+    <%= form.text_field :days %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= check_box_tag "email_notif", 'yes', id:"email_notif" %> 
+    <%= form.label "Notify the patient by email" %>
+    <%= check_box_tag "whatsapp_notif", 'yes', id:"whatsapp_notif" %> 
+    <%= form.label "Notify the patient by WhatsApp" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

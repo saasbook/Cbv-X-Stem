@@ -1,0 +1,28 @@
+
+<% if !flash[:notice].blank? %>
+   <div class = "alert alert-info">
+      <%= flash[:notice] %>
+   </div>
+<% end %>
+
+<h1 style="text-align: center"><%=params[:patient_name]%>'s Info</h1>
+
+<!-- Sidebar -->
+<br>
+<div class = "leftBar">
+   <nav id="sidebar">
+      <div class="sidebar-header">
+         <h4><%= params[:patient_name]%> </h4>
+      </div>
+
+      <ul class="list-unstyled components">
+         <p>Patient's Info</p>
+         <li><%= link_to "Profile", patient_path(params[:patient_id])%></a></li>
+         <li><%= link_to "Documents", user_holder_documentations_path(params[:patient_id])%></a></li>
+         <li><%= link_to "Medications", user_holder_medications_path(params[:patient_id])%></a></li>
+         <li><%= link_to "Treatments", user_holder_treatments_path(params[:patient_id])%></a></li>
+      </ul>
+   </nav>
+ </div>  
+ <div class = "right-container">
+</div>

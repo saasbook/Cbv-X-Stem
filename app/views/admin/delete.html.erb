@@ -1,0 +1,47 @@
+<head>
+  <script src="https://kit.fontawesome.com/963e6d96ae.js" crossorigin="anonymous"></script>
+</head>
+
+<h1 style="text-align: center">Delete Doctor</h1>
+<br>
+
+  <div class="container">
+    <%= form_tag delete_doctor_path, :method => 'post' do %>
+      <div class="form-group row">
+        <label for="search_first_name" class="col-form-label">First Name: </label>
+        <input type="text" name="search_first_name" autocomplete="off" class="search_box form-control col-md-1"/>
+        <label for="search_last_name" class="col-form-label"> Last Name: </label>
+        <input type="text" name="search_last_name" autocomplete="off" class="search_box form-control col-md-1"/>
+        <label for="search_id" class="col-form-label"> Doctor ID: </label>
+        <input type="text" name="search_id" autocomplete="off" class="search_box form-control col-md-1"/>
+        <input type="submit" id="search_submit" value="Search Patients" class="btn btn-primary"/>
+      </div>
+
+    <% end %>
+  </div>
+  <br>
+<div id = "search_table">
+<table class = "table table-striped col-md-12">
+  <thead>
+    <tr>
+      <th class=<%=@first_name_class%>> <%= link_to "First Name", delete_doctor_path(:sort => "first_name"), id: "first_name_sort"%></th>
+      <th class=<%=@last_name_class%>> <%= link_to "Last Name", delete_doctor_path(:sort => "last_name"), id: "last_name_sort" %> </th>
+      <th> Email </th>
+      <th class=<%=@user_id_class%>> <%= link_to "Doctor Id", delete_doctor_path(:sort => "user_holder_id"), id: "doctor_id_sort" %></th>
+
+      <th> Link to Info </th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @doctors.each do |p| %>
+        <tr>
+          <td><%= p.first_name %></td>
+          <td><%= p.last_name %></td>
+          <td><%= p.email %></td>
+          <td><%= hashForUserHolder(p) %></td>
+          <td> <%= link_to delete_doctor_format(p.first_name, p.last_name), delete_single_doctor_path(p), method: :delete, data: {confirm: "Are you sure to delete #{p.first_name} #{p.last_name}?"}, id: (p.user_holder_id.to_s + '_profile'), class: 'btn btn-primary col-md-12', style: "color: white"%></td>
+        </tr>
+      <%end%>
+    </tbody>
+</table>
+</div>

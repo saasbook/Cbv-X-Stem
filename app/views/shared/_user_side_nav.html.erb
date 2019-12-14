@@ -1,0 +1,33 @@
+<% if current_user.is_doctor %>
+<div class = "leftBar">
+   <nav id="sidebar">
+      <div class="sidebar-header">
+         <h4><%= params[:patient_name]%> </h4>
+      </div>
+
+      <ul class="list-unstyled components">
+         <li><%= link_to "Profile", patient_path(params[:patient_id])%></li>
+         <li><%= link_to "Documents", user_holder_documentations_path(params[:patient_id]) , style: 'color: #000;' %></li>
+         <li><%= link_to "Medications", user_holder_medications_path(params[:patient_id]) , style: 'color: #000;' %></li>
+         <li><%= link_to "Treatments", user_holder_treatments_path(params[:patient_id]) , style: 'color: #000;' %></li>
+         <!-- <li><%= link_to "User Activity", user_holder_user_activities_path(params[:patient_id]) , style: 'color: #000;' %></li> -->
+      </ul>
+   </nav>
+ </div>
+<% else %>
+
+<div class = "leftBar">
+   <nav id="sidebar">
+      <div class="sidebar-header">
+         <h4><%= @user_holder.first_name + " " + @user_holder.last_name %> </h4>
+      </div>
+
+      <ul class="list-unstyled components">
+         <li><%= link_to "Profile", patient_profile_path, style: 'color: #000;' %></li>
+         <li><%= link_to "Documents", user_holder_documentations_path(@user_holder), style: 'color: #000;' %></li>
+         <li><%= link_to "Medications", user_holder_medications_path(@user_holder) , style: 'color: #000;' %></li>
+         <li><%= link_to "Treatments", user_holder_treatments_path(@user_holder) , style: 'color: #000;' %></li>
+      </ul>
+   </nav>
+ </div>
+ <% end %>

@@ -1,0 +1,20 @@
+<% if !flash[:notice].blank? %>
+   <div class = "alert alert-info">
+      <%= flash[:notice] %>
+   </div>
+<% end %>
+<%= link_to 'Back', 'javascript:history.go(-1);', class: "btn btn-primary" %>
+<h1 style="text-align: center">Not Satisfied</h1>
+<br>
+
+<%= link_to "New Document", new_user_holder_documentation_path(@user_holder), class: "btn btn-primary" %>
+<br>
+
+<center><b><h2><%= @documentation.documents_name %></h2></b><br>
+<h3>Current Status: Not Satisfied</h3> <br>
+<h3>Reasoning: <%= @documentation.reasoning %></h3><br></center>
+<%# 
+
+Immunization Record
+Required by Active Students
+Current Status: Non-Compliant - No Data %>
