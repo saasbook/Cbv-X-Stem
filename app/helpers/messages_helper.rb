@@ -1,7 +1,7 @@
 module MessagesHelper
-  def send_email_notif(activity, action)
+  def send_email_notif(aactivity, action)
     if action == "created" then aaction = "create" else aaction = "change" end
-    aactivity = rename(activity)
+    activity = rename(aactivity)
     notif_setting = @user_holder.user_setting.public_send(aaction + "_" + activity + "_email_notification")
     if notif_setting == "Always notify me" || notif_setting == "Only notifiy me when specified" && params[:email_notif]        
         @message = @user_holder.messages.new(:sender_name => current_user.first_name + " " + current_user.last_name,
@@ -17,9 +17,9 @@ module MessagesHelper
     end
   end
 
-  def send_whatsapp_notif(activity, action)
+  def send_whatsapp_notif(aactivity, action)
     if action == "created" then aaction = "create" else aaction = "change" end
-    aactivity = rename(activity)
+    activity = rename(aactivity)
     notif_setting = @user_holder.user_setting.public_send(aaction +  "_" + activity + "_whatsapp_notification")
     flash[:a] = ''
     if !@user_holder.profile || !@user_holder.profile.whatsapp
@@ -31,13 +31,13 @@ module MessagesHelper
     end
   end
 
-  def rename(activity)
-  	if activity == "tre" 
-    	"treatment" 
-    elsif activity == "med"
-    	"medication"
+  def rename(aactivity)
+  	if aactivity == "treatment" 
+    	"tre" 
+    elsif aactivity == "medication"
+    	"med"
     else
-    	"documentation"
+    	"doc"
     end
   end
 end

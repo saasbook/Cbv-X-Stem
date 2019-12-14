@@ -7,21 +7,10 @@ class AdminController < ApplicationController
     end
 
     def new
+        if !current_user.role.eql? 'admin'
+            go_to_root("Only Admin can create a doctor")
+        end
         @new_doctor = User.new
-    end
-
-    def filter_by_params(doctors)
-        if (!params[:search_first_name].nil? && !params[:search_first_name].empty?)
-            doctors = doctors.where('lower(first_name) = ? ', params[:search_first_name].downcase)
-        end
-        if (!params[:search_last_name].nil? && !params[:search_last_name].empty?)
-            doctors = doctors.where('lower(last_name) = ? ', params[:search_last_name].downcase)
-        end
-
-        if (!params[:search_id].nil? && !params[:search_id].empty?)
-            doctors = find_by_email(doctors)
-        end
-        doctors
     end
 
     def delete
@@ -48,7 +37,7 @@ class AdminController < ApplicationController
         if @new_doctor.email.empty?
             err << "#{(i += 1).to_s}. Email can't be empty  "
         end
-        return err, i
+        err
     end 
 
     def check_error(new_doctor)
@@ -57,15 +46,14 @@ class AdminController < ApplicationController
         if User.where(email: @new_doctor.email).present?
             err <<  "#{(i += 1).to_s}. The email #{@new_doctor.email} has exsited  "
         end
-        empty_err, j = check_error (@new_doctor)
-        err << empty_err
-        i += j
         if !(@new_doctor.password.eql? @new_doctor.password_confirmation)
             err << "#{(i += 1).to_s}. Two passswords are not indetical  "
         end
         if @new_doctor.password.length < 6
             err << "#{(i += 1).to_s}. Password must be at lest 6 characters  "
         end
+        empty_err = check_empty(@new_doctor, i)
+        err << empty_err
         err
     end
 
@@ -82,8 +70,8 @@ class AdminController < ApplicationController
 
     # create new doctor and valid the input form
     def create
-        if !current_user.is_doctor?
-            go_to_root("Only Admin or Doctor can create doctors")
+        if !current_user.role.eql? 'admin'
+            go_to_root("Only Admin can create doctors")
         end
         @new_doctor = User.new(doctor_params)
         err = check_error(@new_doctor)

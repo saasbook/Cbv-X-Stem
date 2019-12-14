@@ -16,13 +16,15 @@
     </thead>
     <tbody>
       <% @user_activities.each do |user_activity| %>
-        <% is_single_change = user_activity.field.split(";").length == 1 %>
+        <% activity_fields = user_activity.field.to_s.split(";") %>
+        <% is_single_change = activity_fields.length == 1 %>
+        <% suffix = activity_fields.length > 3 ? ", etc." : "" %>
         <tr>
           <td><%= user_activity.category %></td>
           <td><%= user_activity.action %></td>
-          <td><%= is_single_change ? user_activity.field.chomp(";") : "Multiple details have been changed." %></td>
-          <td><%= is_single_change ? user_activity.original_val.chomp(";") : "See details page for more info." %></td>
-          <td><%= is_single_change && user_activity.new_val ? user_activity.new_val.chomp(";") : user_activity.new_val ? "See details page for more info." : "" %></td>
+          <td><%= is_single_change ? activity_fields[0] : "Multiple details (#{activity_fields.take(3).join(", ")}#{suffix}) have been changed." %></td>
+          <td><%= is_single_change ? user_activity.original_val.to_s.chomp(";") : "See details page for more info." %></td>
+          <td><%= is_single_change ? user_activity.new_val.to_s.chomp(";") : "See details page for more info." %></td>
           <td><%= user_activity.actor %></td>
           <td><%= user_activity.created_at %></td>
           <td><%= link_to 'Details', user_holder_user_activity_path(@user_holder, user_activity) %></td>

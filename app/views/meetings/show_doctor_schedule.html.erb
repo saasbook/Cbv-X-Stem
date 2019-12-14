@@ -22,8 +22,8 @@
   <tbody>
     <% @booked.each do |meeting| %>
       <tr>
-        <td><%= meeting.start_time.in_time_zone("Pacific Time (US & Canada)") %></td>
-        <td><%= meeting.end_time %></td>
+        <td><%= meeting.start_time.strftime("%m-%d-%Y %l:%M %P") %></td>
+        <td><%= meeting.end_time.strftime("%m-%d-%Y %l:%M %P") %></td>
         <td><%= UserHolder.find(meeting.user_holder_id).first_name + ' ' + UserHolder.find(meeting.user_holder_id).last_name %> </td>
         <td><%= UserHolder.find(meeting.user_holder_id).email %></td>
         <td><%= meeting.status %></td>
