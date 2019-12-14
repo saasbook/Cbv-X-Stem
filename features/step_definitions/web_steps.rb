@@ -268,6 +268,6 @@ When /I log in as "(.*)"/ do |user|
 end
 
 Given /I log out/ do 
-    step %{I press "menu"}
+    step %{I follow "menu"}
     step %{I follow "user_logout"}
 end

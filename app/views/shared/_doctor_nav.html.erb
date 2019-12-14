@@ -10,7 +10,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a data-toggle="collapse" href="#doctor_nav" class="btn btn-primary">
+                <a data-toggle="collapse" href="#doctor_nav" id = "menu" class="btn btn-primary">
                     <%if @current_user.role.eql? 'doctor'%>Doctor<%else%>Admin<%end%>
                 </a></li>
         </ul>
@@ -41,7 +41,7 @@
 
         <div class="col">
             <div class="nav-section">
-                <div><%= link_to "Logout", destroy_user_session_path, method: :delete %></div>
+                <div><%= link_to "Logout", destroy_user_session_path, method: :delete, id: "user_logout" %></div>
                 <%if @current_user.role.eql? 'doctor'%>
                     <div><%= link_to 'Activity Log', user_holder_user_activities_path(@user_holder) %></div>
                     <div><%= link_to "Message Box", user_holder_messages_path(@user_holder) %></div>
